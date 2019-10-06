@@ -2,23 +2,23 @@
 
 namespace Omatech\Mage\Core\Repositories;
 
-use Omatech\Lars\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Omatech\Lars\BaseRepository;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\DeleteRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\ExistsRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\UniqueRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\UpdateRoleInterface;
+use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 use Omatech\Mage\Core\Events\Roles\RoleCreated;
 use Omatech\Mage\Core\Events\Roles\RoleDeleted;
 use Omatech\Mage\Core\Events\Roles\RoleUpdated;
 use Omatech\Mage\Core\Models\Role;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\DeleteRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\ExistsRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\UniqueRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\UpdateRoleInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 
 class RoleRepository extends BaseRepository implements
     AllRoleInterface,
