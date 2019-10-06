@@ -3,20 +3,20 @@
 namespace Omatech\Mage\Core\Repositories;
 
 use Omatech\Lars\BaseRepository;
-use Omatech\Mage\Core\Models\Permission;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\AttachedPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\CreatePermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\DeletePermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\ExistsPermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\AttachedPermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\UniquePermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\UpdatePermissionInterface;
+use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 use Omatech\Mage\Core\Events\Permissions\PermissionCreated;
 use Omatech\Mage\Core\Events\Permissions\PermissionDeleted;
 use Omatech\Mage\Core\Events\Permissions\PermissionUpdated;
+use Omatech\Mage\Core\Models\Permission;
 
 class PermissionRepository extends BaseRepository implements
     AllPermissionInterface,
