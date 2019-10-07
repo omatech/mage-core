@@ -2,6 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/omatech/mage-core.svg?style=flat-square)](https://packagist.org/packages/omatech/mage-core)
 [![Build Status](https://img.shields.io/travis/omatech/mage-core/master.svg?style=flat-square)](https://travis-ci.org/omatech/mage-core)
+[![Code Coverage](https://scrutinizer-ci.com/g/omatech/mage-core/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/omatech/mage-core/?branch=master)
 [![Quality Score](https://img.shields.io/scrutinizer/g/omatech/mage-core.svg?style=flat-square)](https://scrutinizer-ci.com/g/omatech/mage-core)
 [![Total Downloads](https://img.shields.io/packagist/dt/omatech/mage-core.svg?style=flat-square)](https://packagist.org/packages/omatech/mage-core)
 
