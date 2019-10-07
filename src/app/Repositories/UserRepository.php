@@ -2,23 +2,23 @@
 
 namespace Omatech\Mage\Core\Repositories;
 
-use Omatech\Lars\BaseRepository;
 use Illuminate\Support\Facades\DB;
+use Omatech\Lars\BaseRepository;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\DeleteUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UniqueUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Events\Users\UserCreated;
 use Omatech\Mage\Core\Events\Users\UserDeleted;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
 use Omatech\Mage\Core\Models\User;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\DeleteUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UniqueUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 
 class UserRepository extends BaseRepository implements
     AllUserInterface,
