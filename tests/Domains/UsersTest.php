@@ -238,6 +238,26 @@ class UsersTest extends BaseTestCase
     public function testRemovePermissionFromUser(): void
     {
         $user = $this->createUser();
+        $user->assignPermission($this->createPermission('permission1'));
+        $user->save();
+
+        $user2 = clone $user;
+
+        $user->removePermission($user2->getPermissions()[0]);
+        $user->save();
+
+        foreach ($user2->getPermissions() as $permission) {
+            $this->assertDatabaseMissing(config('permission.table_names')['model_has_permissions'], [
+                'permission_id' => $permission->getId(),
+                'model_type' => UserModel::class,
+                'model_id' => $user->getId()
+            ]);
+        }
+    }
+
+    public function testRemovePermissionsFromUser(): void
+    {
+        $user = $this->createUser();
         $user->assignPermissions([
             $this->createPermission('permission1'),
             $this->createPermission('permission2')
