@@ -13,6 +13,7 @@ use Omatech\Mage\Core\Domains\Users\Features\ExistsAndDeleteUser;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
+use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
 
 class User implements UserInterface
 {
@@ -283,13 +284,8 @@ class User implements UserInterface
      */
     public function assignPermission(PermissionInterface $permission): self
     {
-        if ($permission->getId() === null) {
-            throw new PermissionIsNotSavedException;
-        }
-
-        if (!in_array($permission, $this->getPermissions(), true)) {
-            $this->permissions[] = $permission;
-        }
+        $this->permissions = app()->make(PermissionModel::class)
+            ->assignPermission($this->getPermissions(), $permission);
 
         return $this;
     }
@@ -301,11 +297,8 @@ class User implements UserInterface
      */
     public function assignPermissions(array $permissions): self
     {
-        foreach ($permissions as $permission) {
-            if ($permission instanceof PermissionInterface) {
-                $this->assignPermission($permission);
-            }
-        }
+        $this->permissions = app()->make(PermissionModel::class)
+            ->assignPermissions($this->getPermissions(), $permissions);
 
         return $this;
     }
@@ -317,16 +310,8 @@ class User implements UserInterface
      */
     public function removePermission(PermissionInterface $permission): self
     {
-        if ($permission->getId() === null) {
-            throw new PermissionIsNotSavedException;
-        }
-
-        $this->permissions = array_values(array_filter(
-            $this->getPermissions(),
-            static function ($currentPermission) use ($permission) {
-                return $currentPermission !== $permission;
-            }
-        ));
+        $this->permissions = app()->make(PermissionModel::class)
+            ->removePermission($this->getPermissions(), $permission);
 
         return $this;
     }
@@ -338,11 +323,8 @@ class User implements UserInterface
      */
     public function removePermissions(array $permissions): self
     {
-        foreach ($permissions as $permission) {
-            if ($permission instanceof PermissionInterface) {
-                $this->removePermission($permission);
-            }
-        }
+        $this->permissions = app()->make(PermissionModel::class)
+            ->removePermissions($this->getPermissions(), $permissions);
 
         return $this;
     }
