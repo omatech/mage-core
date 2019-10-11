@@ -281,6 +281,26 @@ class UsersTest extends BaseTestCase
     public function testRemoveRoleFromUser(): void
     {
         $user = $this->createUser();
+        $user->assignRole($this->createRole('role1'));
+        $user->save();
+
+        $user2 = clone $user;
+
+        $user->removeRole($user2->getRoles()[0]);
+        $user->save();
+
+        foreach ($user2->getRoles() as $role) {
+            $this->assertDatabaseMissing(config('permission.table_names')['model_has_roles'], [
+                'role_id' => $role->getId(),
+                'model_type' => UserModel::class,
+                'model_id' => $user->getId()
+            ]);
+        }
+    }
+
+    public function testRemoveRolesFromUser(): void
+    {
+        $user = $this->createUser();
         $user->assignRoles([
             $this->createRole('role1'),
             $this->createRole('role2')

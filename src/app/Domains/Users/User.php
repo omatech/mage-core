@@ -14,6 +14,7 @@ use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
+use Omatech\Mage\Core\Domains\Roles\RoleModel;
 
 class User implements UserInterface
 {
@@ -336,13 +337,8 @@ class User implements UserInterface
      */
     public function assignRole(RoleInterface $role): self
     {
-        if ($role->getId() === null) {
-            throw new RoleIsNotSavedException;
-        }
-
-        if (!in_array($role, $this->getRoles(), true)) {
-            $this->roles[] = $role;
-        }
+        $this->roles = app()->make(RoleModel::class)
+            ->assignRole($this->getRoles(), $role);
 
         return $this;
     }
@@ -354,11 +350,8 @@ class User implements UserInterface
      */
     public function assignRoles(array $roles): self
     {
-        foreach ($roles as $role) {
-            if ($role instanceof RoleInterface) {
-                $this->assignRole($role);
-            }
-        }
+        $this->roles = app()->make(RoleModel::class)
+            ->assignRoles($this->getRoles(), $roles);
 
         return $this;
     }
@@ -370,16 +363,8 @@ class User implements UserInterface
      */
     public function removeRole(RoleInterface $role): self
     {
-        if ($role->getId() === null) {
-            throw new RoleIsNotSavedException;
-        }
-
-        $this->roles = array_values(array_filter(
-            $this->getRoles(),
-            static function ($currentRole) use ($role) {
-                return $currentRole !== $role;
-            }
-        ));
+        $this->roles = app()->make(RoleModel::class)
+            ->removeRole($this->getRoles(), $role);
 
         return $this;
     }
@@ -391,11 +376,8 @@ class User implements UserInterface
      */
     public function removeRoles(array $roles): self
     {
-        foreach ($roles as $role) {
-            if ($role instanceof RoleInterface) {
-                $this->removeRole($role);
-            }
-        }
+        $this->roles = app()->make(RoleModel::class)
+            ->removeRoles($this->getRoles(), $roles);
 
         return $this;
     }
