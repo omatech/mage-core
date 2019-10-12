@@ -4,6 +4,7 @@ namespace Omatech\Mage\Core\Domains\Roles;
 
 use Omatech\Mage\Core\Domains\Roles\Jobs\AllRole;
 use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
+use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Features\FindOrFailRole;
 use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
@@ -181,13 +182,8 @@ class Role implements RoleInterface
      */
     public function assignPermission(PermissionInterface $permission): self
     {
-        if ($permission->getId() === null) {
-            throw new PermissionIsNotSavedException;
-        }
-
-        if (!in_array($permission, $this->getPermissions(), true)) {
-            $this->permissions[] = $permission;
-        }
+        $this->permissions = app()->make(PermissionModel::class)
+            ->assignPermission($this->getPermissions(), $permission);
 
         return $this;
     }
@@ -199,11 +195,8 @@ class Role implements RoleInterface
      */
     public function assignPermissions(array $permissions): self
     {
-        foreach ($permissions as $permission) {
-            if ($permission instanceof PermissionInterface) {
-                $this->assignPermission($permission);
-            }
-        }
+        $this->permissions = app()->make(PermissionModel::class)
+            ->assignPermissions($this->getPermissions(), $permissions);
 
         return $this;
     }
@@ -215,16 +208,8 @@ class Role implements RoleInterface
      */
     public function removePermission(PermissionInterface $permission): self
     {
-        if ($permission->getId() === null) {
-            throw new PermissionIsNotSavedException;
-        }
-
-        $this->permissions = array_values(array_filter(
-            $this->getPermissions(),
-            static function ($currentPermission) use ($permission) {
-                return $currentPermission !== $permission;
-            }
-        ));
+        $this->permissions = app()->make(PermissionModel::class)
+            ->removePermission($this->getPermissions(), $permission);
 
         return $this;
     }
@@ -236,11 +221,8 @@ class Role implements RoleInterface
      */
     public function removePermissions(array $permissions): self
     {
-        foreach ($permissions as $permission) {
-            if ($permission instanceof PermissionInterface) {
-                $this->removePermission($permission);
-            }
-        }
+        $this->permissions = app()->make(PermissionModel::class)
+            ->removePermissions($this->getPermissions(), $permissions);
 
         return $this;
     }

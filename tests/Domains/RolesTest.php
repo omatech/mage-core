@@ -79,6 +79,27 @@ class RolesTest extends BaseTestCase
         $this->createRole('role');
     }
 
+    public function testCreateRoleWithPermission(): void
+    {
+        $role = $this->getRoleInstance();
+        $role->assignPermission($this->createPermission('permission1'));
+        $role->save();
+
+        $this->assertDatabaseHas(config('permission.table_names')['roles'], [
+            'name'       => $role->getName(),
+            'guard_name' => $role->getGuardName(),
+            'created_at' => $role->getCreatedAt(),
+            'updated_at' => $role->getUpdatedAt()
+        ]);
+
+        $permission = $role->getPermissions()[0];
+
+        $this->assertDatabaseHas(config('permission.table_names')['role_has_permissions'], [
+            'permission_id' => $permission->getId(),
+            'role_id' => $role->getId()
+        ]);
+    }
+
     public function testCreateRoleWithPermissions(): void
     {
         $role = $this->getRoleInstance();
@@ -148,6 +169,24 @@ class RolesTest extends BaseTestCase
     }
 
     public function testRemovePermissionFromRole(): void
+    {
+        $role = $this->createRole();
+        $role->assignPermission($this->createPermission('permission1'));
+        $role->save();
+
+        $role2 = clone $role;
+
+        $role->removePermission($role2->getPermissions()[0]);
+        $role->save();
+
+        $permission = $role2->getPermissions()[0];
+        $this->assertDatabaseMissing(config('permission.table_names')['role_has_permissions'], [
+            'permission_id' => $permission->getId(),
+            'role_id' => $role->getId()
+        ]);
+    }
+
+    public function testRemovePermissionsFromRole(): void
     {
         $role = $this->createRole();
         $role->assignPermissions([
