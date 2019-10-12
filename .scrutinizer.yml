@@ -1,5 +1,5 @@
 filter:
-    excluded_paths: [tests/*, app/database/migrations/*]
+    excluded_paths: [tests/*, src/database/migrations/*]
 checks:
     php:
         remove_extra_empty_lines: true
