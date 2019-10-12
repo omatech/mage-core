@@ -163,6 +163,8 @@ class RoleRepository extends BaseRepository implements
             ->where('id', $role->getId())
             ->delete();
 
+        $isDeleted = $isDeleted > 0;
+
         event(new RoleDeleted($role, $isDeleted));
 
         return $isDeleted;

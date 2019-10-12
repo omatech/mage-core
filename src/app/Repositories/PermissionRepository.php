@@ -139,13 +139,15 @@ class PermissionRepository extends BaseRepository implements
      */
     public function delete(PermissionInterface $permission): bool
     {
-        $isDelete = $this->query()
+        $isDeleted = $this->query()
             ->where('id', $permission->getId())
             ->delete();
 
-        event(new PermissionDeleted($permission, $isDelete));
+        $isDeleted = $isDeleted > 0;
 
-        return $isDelete;
+        event(new PermissionDeleted($permission, $isDeleted));
+
+        return $isDeleted;
     }
 
     /**

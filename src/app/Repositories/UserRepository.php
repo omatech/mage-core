@@ -183,6 +183,8 @@ class UserRepository extends BaseRepository implements
             ->where('id', $user->getId())
             ->delete();
 
+        $isDeleted = $isDeleted > 0;
+
         event(new UserDeleted($user, $isDeleted));
 
         return $isDeleted;
