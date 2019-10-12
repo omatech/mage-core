@@ -12,6 +12,8 @@ class PaginateToArray implements GetAllInterface
      */
     public function get($query)
     {
-        return $query->paginate()->toArray();
+        return $query->
+            /** @scrutinizer ignore-type */
+            paginate()->toArray();
     }
 }

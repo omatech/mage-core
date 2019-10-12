@@ -10,6 +10,10 @@ class User extends Authenticatable
     use HasRoles;
 
     protected $guard_name = 'web';
+    protected $name;
+    protected $map;
+    protected $permissions;
+    protected $roles;
 
     /**
      * The attributes that are mass assignable.

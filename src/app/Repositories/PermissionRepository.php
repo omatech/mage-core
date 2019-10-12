@@ -42,7 +42,10 @@ class PermissionRepository extends BaseRepository implements
      */
     public function get(GetAllInterface $all)
     {
-        return $all->get($this->query());
+        return $all->get(
+            /** @scrutinizer ignore-type */
+            $this->query()
+        );
     }
 
     /**
