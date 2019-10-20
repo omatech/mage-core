@@ -2,11 +2,11 @@
 
 namespace Omatech\Mage\Core\Domains\Roles\Features;
 
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsAttachedException;
-use Omatech\Mage\Core\Domains\Roles\Jobs\AttachedRole;
 use Omatech\Mage\Core\Domains\Roles\Role;
 use Omatech\Mage\Core\Domains\Roles\Jobs\DeleteRole;
 use Omatech\Mage\Core\Domains\Roles\Jobs\ExistsRole;
+use Omatech\Mage\Core\Domains\Roles\Jobs\AttachedRole;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsAttachedException;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
 
 class ExistsAndDeleteRole

@@ -2,8 +2,8 @@
 
 namespace Omatech\Mage\Core\Domains\Roles\Jobs;
 
-use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Role;
+use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
 
 class CreateRole
 {

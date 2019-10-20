@@ -13,7 +13,7 @@ class PaginateToArray implements GetAllInterface
     public function get($query)
     {
         return $query->
-            /** @scrutinizer ignore-call */
+            /* @scrutinizer ignore-call */
             paginate()->toArray();
     }
 }

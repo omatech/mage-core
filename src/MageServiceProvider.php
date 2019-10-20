@@ -3,7 +3,6 @@
 namespace Omatech\Mage\Core;
 
 use Illuminate\Support\ServiceProvider;
-use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Role;
 use Omatech\Mage\Core\Domains\Users\User;
 use Omatech\Mage\Core\Repositories\RoleRepository;
@@ -26,6 +25,7 @@ use Omatech\Mage\Core\Domains\Users\Contracts\DeleteUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UniqueUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
@@ -92,17 +92,17 @@ class MageServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/permission.php',
+            __DIR__.'/../config/permission.php',
             'permission'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/auth.providers.php',
+            __DIR__.'/../config/auth.providers.php',
             'auth.providers'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/auth.guards.php',
+            __DIR__.'/../config/auth.guards.php',
             'auth.guards'
         );
     }

@@ -2,8 +2,8 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Jobs;
 
-use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
 use Omatech\Mage\Core\Domains\Users\User;
+use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
 
 class CreateUser
 {

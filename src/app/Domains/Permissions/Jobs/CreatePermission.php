@@ -2,8 +2,8 @@
 
 namespace Omatech\Mage\Core\Domains\Permissions\Jobs;
 
-use Omatech\Mage\Core\Domains\Permissions\Contracts\CreatePermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Permission;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\CreatePermissionInterface;
 
 class CreatePermission
 {

@@ -2,8 +2,8 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Jobs;
 
-use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
 use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
 
 class AllUser
 {
