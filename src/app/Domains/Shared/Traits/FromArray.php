@@ -20,9 +20,9 @@ trait FromArray
 
     private function setMethod($property)
     {
-        $method = $this->snakeCaseToCamelCase('set' . $property);
+        $method = $this->snakeCaseToCamelCase('set'.$property);
 
-        if (!method_exists($this, $method)) {
+        if (! method_exists($this, $method)) {
             throw new MethodDoesNotExistsException("Method {$method} does not exists.");
         }
 

@@ -3,19 +3,19 @@
 namespace Omatech\Mage\Core\Repositories;
 
 use Omatech\Lars\BaseRepository;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\AttachedPermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\CreatePermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\DeletePermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\ExistsPermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\UniquePermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\UpdatePermissionInterface;
+use Omatech\Mage\Core\Models\Permission;
 use Omatech\Mage\Core\Events\Permissions\PermissionCreated;
 use Omatech\Mage\Core\Events\Permissions\PermissionDeleted;
 use Omatech\Mage\Core\Events\Permissions\PermissionUpdated;
-use Omatech\Mage\Core\Models\Permission;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\CreatePermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\DeletePermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\ExistsPermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\UniquePermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\UpdatePermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\AttachedPermissionInterface;
 
 class PermissionRepository extends BaseRepository implements
     AllPermissionInterface,
@@ -58,7 +58,7 @@ class PermissionRepository extends BaseRepository implements
             'name'       => $permission->name,
             'guard_name' => $permission->guard_name,
             'created_at' => $permission->created_at,
-            'updated_at' => $permission->updated_at
+            'updated_at' => $permission->updated_at,
         ]);
 
         return $permission;
@@ -72,7 +72,7 @@ class PermissionRepository extends BaseRepository implements
     {
         $created = $this->query()->create([
             'name'       => $permission->getName(),
-            'guard_name' => $permission->getGuardName()
+            'guard_name' => $permission->getGuardName(),
         ]);
 
         $permission->setId($created->id);
@@ -118,7 +118,7 @@ class PermissionRepository extends BaseRepository implements
 
         $updated->fill([
             'name'       => $permission->getName(),
-            'guard_name' => $permission->getGuardName()
+            'guard_name' => $permission->getGuardName(),
         ])->save();
 
         $permission->setCreatedAt($updated->created_at);

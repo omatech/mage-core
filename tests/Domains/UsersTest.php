@@ -3,10 +3,10 @@
 namespace Omatech\Mage\Core\Tests\Domains;
 
 use Omatech\Mage\Core\Domains\Users\User;
+use Omatech\Mage\Core\Tests\BaseTestCase;
 use Omatech\Mage\Core\Events\Users\UserCreated;
 use Omatech\Mage\Core\Events\Users\UserDeleted;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
-use Omatech\Mage\Core\Tests\BaseTestCase;
 use Omatech\Mage\Core\Models\User as UserModel;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
@@ -41,12 +41,12 @@ class UsersTest extends BaseTestCase
         $user = $this->getUserInstance();
         $user->assignPermissions([
             $this->createPermission('permission1'),
-            $this->createPermission('permission2')
+            $this->createPermission('permission2'),
         ]);
 
         $user->assignRoles([
             $this->createRole('role1'),
-            $this->createRole('role2')
+            $this->createRole('role2'),
         ]);
 
         $user->save();
@@ -77,7 +77,7 @@ class UsersTest extends BaseTestCase
             'email'      => $user->getEmail(),
             'password'   => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
-            'updated_at' => $user->getUpdatedAt()
+            'updated_at' => $user->getUpdatedAt(),
         ]);
     }
 
@@ -94,7 +94,7 @@ class UsersTest extends BaseTestCase
         $user = $this->getUserInstance();
         $user->assignPermissions([
             $this->createPermission('permission1'),
-            $this->createPermission('permission2')
+            $this->createPermission('permission2'),
         ]);
         $user->save();
 
@@ -104,14 +104,14 @@ class UsersTest extends BaseTestCase
             'email'    => $user->getEmail(),
             'password' => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
-            'updated_at' => $user->getUpdatedAt()
+            'updated_at' => $user->getUpdatedAt(),
         ]);
 
         foreach ($user->getPermissions() as $permission) {
             $this->assertDatabaseHas(config('permission.table_names')['model_has_permissions'], [
                 'permission_id' => $permission->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId()
+                'model_id' => $user->getId(),
             ]);
         }
     }
@@ -122,7 +122,7 @@ class UsersTest extends BaseTestCase
 
         $user = $this->getUserInstance();
         $user->assignPermissions([
-            $this->getPermissionInstance()
+            $this->getPermissionInstance(),
         ]);
     }
 
@@ -131,7 +131,7 @@ class UsersTest extends BaseTestCase
         $user = $this->getUserInstance();
         $user->assignRoles([
             $this->createRole('role1'),
-            $this->createRole('role2')
+            $this->createRole('role2'),
         ]);
         $user->save();
 
@@ -141,14 +141,14 @@ class UsersTest extends BaseTestCase
             'email'    => $user->getEmail(),
             'password' => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
-            'updated_at' => $user->getUpdatedAt()
+            'updated_at' => $user->getUpdatedAt(),
         ]);
 
         foreach ($user->getRoles() as $role) {
             $this->assertDatabaseHas(config('permission.table_names')['model_has_roles'], [
                 'role_id' => $role->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId()
+                'model_id' => $user->getId(),
             ]);
         }
     }
@@ -159,7 +159,7 @@ class UsersTest extends BaseTestCase
 
         $user = $this->getUserInstance();
         $user->assignRoles([
-            $this->getRoleInstance()
+            $this->getRoleInstance(),
         ]);
     }
 
@@ -181,7 +181,7 @@ class UsersTest extends BaseTestCase
             'email'    => $user->getEmail(),
             'password' => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
-            'updated_at' => $user->getUpdatedAt()
+            'updated_at' => $user->getUpdatedAt(),
         ]);
     }
 
@@ -216,12 +216,12 @@ class UsersTest extends BaseTestCase
             'email'    => $user->getEmail(),
             'password' => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
-            'updated_at' => $user->getUpdatedAt()
+            'updated_at' => $user->getUpdatedAt(),
         ]);
 
         $user->assignPermissions([
             $this->createPermission('permission1'),
-            $this->createPermission('permission2')
+            $this->createPermission('permission2'),
         ]);
 
         $user->save();
@@ -230,7 +230,7 @@ class UsersTest extends BaseTestCase
             $this->assertDatabaseHas(config('permission.table_names')['model_has_permissions'], [
                 'permission_id' => $permission->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId()
+                'model_id' => $user->getId(),
             ]);
         }
     }
@@ -250,7 +250,7 @@ class UsersTest extends BaseTestCase
             $this->assertDatabaseMissing(config('permission.table_names')['model_has_permissions'], [
                 'permission_id' => $permission->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId()
+                'model_id' => $user->getId(),
             ]);
         }
     }
@@ -260,7 +260,7 @@ class UsersTest extends BaseTestCase
         $user = $this->createUser();
         $user->assignPermissions([
             $this->createPermission('permission1'),
-            $this->createPermission('permission2')
+            $this->createPermission('permission2'),
         ]);
         $user->save();
 
@@ -273,7 +273,7 @@ class UsersTest extends BaseTestCase
             $this->assertDatabaseMissing(config('permission.table_names')['model_has_permissions'], [
                 'permission_id' => $permission->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId()
+                'model_id' => $user->getId(),
             ]);
         }
     }
@@ -293,7 +293,7 @@ class UsersTest extends BaseTestCase
             $this->assertDatabaseMissing(config('permission.table_names')['model_has_roles'], [
                 'role_id' => $role->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId()
+                'model_id' => $user->getId(),
             ]);
         }
     }
@@ -303,7 +303,7 @@ class UsersTest extends BaseTestCase
         $user = $this->createUser();
         $user->assignRoles([
             $this->createRole('role1'),
-            $this->createRole('role2')
+            $this->createRole('role2'),
         ]);
         $user->save();
 
@@ -316,7 +316,7 @@ class UsersTest extends BaseTestCase
             $this->assertDatabaseMissing(config('permission.table_names')['model_has_roles'], [
                 'role_id' => $role->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId()
+                'model_id' => $user->getId(),
             ]);
         }
     }
@@ -328,12 +328,12 @@ class UsersTest extends BaseTestCase
         $user = $this->createUser();
         $user->assignPermissions([
             $this->createPermission('permission1'),
-            $this->createPermission('permission2')
+            $this->createPermission('permission2'),
         ]);
         $user->save();
 
         $user->removePermissions([
-            $this->getPermissionInstance('permission3')
+            $this->getPermissionInstance('permission3'),
         ]);
         $user->save();
     }
@@ -345,12 +345,12 @@ class UsersTest extends BaseTestCase
         $user = $this->createUser();
         $user->assignRoles([
             $this->createRole('role1'),
-            $this->createRole('role2')
+            $this->createRole('role2'),
         ]);
         $user->save();
 
         $user->removeRoles([
-            $this->getRoleInstance('role3')
+            $this->getRoleInstance('role3'),
         ]);
         $user->save();
     }
@@ -374,7 +374,7 @@ class UsersTest extends BaseTestCase
             'email'    => $user->getEmail(),
             'password' => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
-            'updated_at' => $user->getUpdatedAt()
+            'updated_at' => $user->getUpdatedAt(),
         ]);
     }
 
@@ -393,7 +393,7 @@ class UsersTest extends BaseTestCase
             'email'    => $user->getEmail(),
             'password' => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
-            'updated_at' => $user->getUpdatedAt()
+            'updated_at' => $user->getUpdatedAt(),
         ]);
     }
 
@@ -413,7 +413,7 @@ class UsersTest extends BaseTestCase
         $this->expectException(MethodDoesNotExistsException::class);
 
         $this->app->make(User::class)::fromArray([
-            'noMethod' => 'noValue'
+            'noMethod' => 'noValue',
         ]);
     }
 }

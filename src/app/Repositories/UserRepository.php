@@ -2,22 +2,22 @@
 
 namespace Omatech\Mage\Core\Repositories;
 
-use Illuminate\Support\Facades\DB;
 use Omatech\Lars\BaseRepository;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\DeleteUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UniqueUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
+use Illuminate\Support\Facades\DB;
+use Omatech\Mage\Core\Models\User;
 use Omatech\Mage\Core\Events\Users\UserCreated;
 use Omatech\Mage\Core\Events\Users\UserDeleted;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
-use Omatech\Mage\Core\Models\User;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\DeleteUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UniqueUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 
 class UserRepository extends BaseRepository implements
     AllUserInterface,
@@ -72,7 +72,7 @@ class UserRepository extends BaseRepository implements
             'password'          => $user->password,
             'remember_token'    => $user->remember_token,
             'created_at'        => $user->created_at,
-            'updated_at'        => $user->updated_at
+            'updated_at'        => $user->updated_at,
         ]);
 
         $user->assignPermissions($permissions);
@@ -94,7 +94,7 @@ class UserRepository extends BaseRepository implements
                 'email'             => $user->getEmail(),
                 'email_verified_at' => $user->getEmailVerifiedAt(),
                 'password'          => $user->getPassword(),
-                'remember_token'    => $user->getRememberToken()
+                'remember_token'    => $user->getRememberToken(),
             ]);
 
             $user->setId($created->id);
@@ -152,7 +152,7 @@ class UserRepository extends BaseRepository implements
                 'email'             => $user->getEmail(),
                 'email_verified_at' => $user->getEmailVerifiedAt(),
                 'password'          => $user->getPassword(),
-                'remember_token'    => $user->getRememberToken()
+                'remember_token'    => $user->getRememberToken(),
             ])->save();
 
             $user->setPassword($updated->password);

@@ -2,15 +2,14 @@
 
 namespace Omatech\Mage\Core\Domains\Permissions;
 
+use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
+use Omatech\Mage\Core\Domains\Permissions\Jobs\AllPermission;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Features\FindOrFailPermission;
 use Omatech\Mage\Core\Domains\Permissions\Features\UpdateOrCreatePermission;
 use Omatech\Mage\Core\Domains\Permissions\Features\ExistsAndDeletePermission;
-use Omatech\Mage\Core\Domains\Permissions\Features\FindOrFailPermission;
-use Omatech\Mage\Core\Domains\Permissions\Jobs\AllPermission;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
-use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 
 class Permission implements PermissionInterface
 {

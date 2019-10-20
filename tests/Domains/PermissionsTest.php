@@ -2,18 +2,18 @@
 
 namespace Omatech\Mage\Core\Tests\Domains;
 
+use Omatech\Mage\Core\Tests\BaseTestCase;
+use Omatech\Mage\Core\Domains\Permissions\Permission;
+use Omatech\Mage\Core\Repositories\PermissionRepository;
 use Omatech\Mage\Core\Events\Permissions\PermissionCreated;
 use Omatech\Mage\Core\Events\Permissions\PermissionDeleted;
 use Omatech\Mage\Core\Events\Permissions\PermissionUpdated;
-use Omatech\Mage\Core\Tests\BaseTestCase;
-use Omatech\Mage\Core\Domains\Permissions\Permission;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsAttachedException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionAlreadyExistsException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsAttachedException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionNameExistsMustBeUniqueException;
-use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
-use Omatech\Mage\Core\Repositories\PermissionRepository;
 
 class PermissionsTest extends BaseTestCase
 {
@@ -51,7 +51,7 @@ class PermissionsTest extends BaseTestCase
             'name'       => $permission->getName(),
             'guard_name' => $permission->getGuardName(),
             'created_at' => $permission->getCreatedAt(),
-            'updated_at' => $permission->getUpdatedAt()
+            'updated_at' => $permission->getUpdatedAt(),
         ]);
     }
 
@@ -79,7 +79,7 @@ class PermissionsTest extends BaseTestCase
             'name'       => $permission->getName(),
             'guard_name' => $permission->getGuardName(),
             'created_at' => $permission->getCreatedAt(),
-            'updated_at' => $permission->getUpdatedAt()
+            'updated_at' => $permission->getUpdatedAt(),
         ]);
     }
 
@@ -116,7 +116,7 @@ class PermissionsTest extends BaseTestCase
             'name'       => $permission->getName(),
             'guard_name' => $permission->getGuardName(),
             'created_at' => $permission->getCreatedAt(),
-            'updated_at' => $permission->getUpdatedAt()
+            'updated_at' => $permission->getUpdatedAt(),
         ]);
     }
 
@@ -148,7 +148,7 @@ class PermissionsTest extends BaseTestCase
         $permission = $this->createPermission();
         $role = $this->getRoleInstance();
         $role->assignPermissions([
-            $permission
+            $permission,
         ]);
         $role->save();
 
@@ -160,7 +160,7 @@ class PermissionsTest extends BaseTestCase
         $this->expectException(MethodDoesNotExistsException::class);
 
         $this->app->make(Permission::class)::fromArray([
-            'noMethod' => 'noValue'
+            'noMethod' => 'noValue',
         ]);
     }
 }

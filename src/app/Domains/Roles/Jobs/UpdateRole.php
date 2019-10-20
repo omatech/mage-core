@@ -2,8 +2,8 @@
 
 namespace Omatech\Mage\Core\Domains\Roles\Jobs;
 
-use Omatech\Mage\Core\Domains\Roles\Contracts\UpdateRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Role;
+use Omatech\Mage\Core\Domains\Roles\Contracts\UpdateRoleInterface;
 
 class UpdateRole
 {

@@ -2,22 +2,22 @@
 
 namespace Omatech\Mage\Core\Repositories;
 
-use Illuminate\Support\Facades\DB;
 use Omatech\Lars\BaseRepository;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\DeleteRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\ExistsRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\UniqueRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\UpdateRoleInterface;
+use Illuminate\Support\Facades\DB;
+use Omatech\Mage\Core\Models\Role;
 use Omatech\Mage\Core\Events\Roles\RoleCreated;
 use Omatech\Mage\Core\Events\Roles\RoleDeleted;
 use Omatech\Mage\Core\Events\Roles\RoleUpdated;
-use Omatech\Mage\Core\Models\Role;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\DeleteRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\ExistsRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\UniqueRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\UpdateRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 
 class RoleRepository extends BaseRepository implements
     AllRoleInterface,
@@ -65,7 +65,7 @@ class RoleRepository extends BaseRepository implements
             'name'       => $role->name,
             'guard_name' => $role->guard_name,
             'created_at' => $role->created_at,
-            'updated_at' => $role->updated_at
+            'updated_at' => $role->updated_at,
         ]);
 
         $role->assignPermissions($permissions);
@@ -82,7 +82,7 @@ class RoleRepository extends BaseRepository implements
         $wasRecentlyCreated = DB::transaction(function () use ($role) {
             $created = $this->query()->create([
                 'name'       => $role->getName(),
-                'guard_name' => $role->getGuardName()
+                'guard_name' => $role->getGuardName(),
             ]);
 
             $role->setId($created->id);
@@ -134,7 +134,7 @@ class RoleRepository extends BaseRepository implements
 
             $updated->fill([
                 'name'       => $role->getName(),
-                'guard_name' => $role->getGuardName()
+                'guard_name' => $role->getGuardName(),
             ])->save();
 
             $role->setCreatedAt($updated->created_at);

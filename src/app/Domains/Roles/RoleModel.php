@@ -13,7 +13,7 @@ class RoleModel
             throw new RoleIsNotSavedException;
         }
 
-        if (!in_array($assignRole, $currentRoles, true)) {
+        if (! in_array($assignRole, $currentRoles, true)) {
             $currentRoles[] = $assignRole;
         }
 
