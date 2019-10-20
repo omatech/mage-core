@@ -5,8 +5,8 @@ namespace Omatech\Mage\Core\Tests;
 use Orchestra\Testbench\TestCase;
 use Omatech\Mage\Core\MageServiceProvider;
 use Omatech\Mage\Core\Tests\Shared\Bindings;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Omatech\Mage\Core\Tests\Shared\Factories;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BaseTestCase extends TestCase
 {
@@ -23,7 +23,7 @@ class BaseTestCase extends TestCase
         $this->bindings();
 
         $this->loadLaravelMigrations();
-        $this->loadMigrationsFrom(__DIR__ . '/../src/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../src/database/migrations');
 
         $this->artisan('migrate')->run();
     }
@@ -50,7 +50,7 @@ class BaseTestCase extends TestCase
         $app['config']->set('database.default', 'sqlite');
         $app['config']->set('database.connections.sqlite', [
             'driver'   => 'sqlite',
-            'database' => __DIR__ . '/../testing.sqlite',
+            'database' => __DIR__.'/../testing.sqlite',
             'prefix'   => '',
         ]);
 

@@ -2,8 +2,10 @@
 
 namespace Omatech\Mage\Core\Domains\Users;
 
+use Omatech\Mage\Core\Domains\Roles\RoleModel;
 use Omatech\Mage\Core\Domains\Users\Jobs\AllUser;
 use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
+use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Users\Features\FindOrFailUser;
@@ -13,8 +15,6 @@ use Omatech\Mage\Core\Domains\Users\Features\ExistsAndDeleteUser;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
-use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
-use Omatech\Mage\Core\Domains\Roles\RoleModel;
 
 class User implements UserInterface
 {
@@ -145,7 +145,6 @@ class User implements UserInterface
 
         return $this;
     }
-
 
     /**
      * @return string|null

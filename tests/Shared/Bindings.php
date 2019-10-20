@@ -2,7 +2,6 @@
 
 namespace Omatech\Mage\Core\Tests\Shared;
 
-use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Role;
 use Omatech\Mage\Core\Domains\Users\User;
 use Omatech\Mage\Core\Repositories\RoleRepository;
@@ -25,6 +24,7 @@ use Omatech\Mage\Core\Domains\Users\Contracts\DeleteUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UniqueUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
@@ -68,7 +68,6 @@ trait Bindings
         $this->app->bind(UpdateRoleInterface::class, RoleRepository::class);
         $this->app->bind(UniqueRoleInterface::class, RoleRepository::class);
         $this->app->bind(AttachedRoleInterface::class, RoleRepository::class);
-
     }
 
     private function userBindings()

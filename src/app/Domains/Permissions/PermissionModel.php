@@ -13,7 +13,7 @@ class PermissionModel
             throw new PermissionIsNotSavedException;
         }
 
-        if (!in_array($assignPermission, $currentPermissions, true)) {
+        if (! in_array($assignPermission, $currentPermissions, true)) {
             $currentPermissions[] = $assignPermission;
         }
 

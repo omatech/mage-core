@@ -2,8 +2,6 @@
 
 namespace Omatech\Mage\Core\Tests\Shared;
 
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\WithFaker;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
