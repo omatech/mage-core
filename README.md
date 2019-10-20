@@ -1,10 +1,11 @@
 # Very short description of the package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/omatech/mage-core.svg?style=flat-square)](https://packagist.org/packages/omatech/mage-core)
-[![Build Status](https://img.shields.io/travis/omatech/mage-core/master.svg?style=flat-square)](https://travis-ci.org/omatech/mage-core)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/omatech/mage-core.svg)](https://packagist.org/packages/omatech/mage-core)
+[![Build Status](https://img.shields.io/travis/omatech/mage-core/master.svg)](https://travis-ci.org/omatech/mage-core)
 [![Code Coverage](https://scrutinizer-ci.com/g/omatech/mage-core/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/omatech/mage-core/?branch=master)
-[![Quality Score](https://img.shields.io/scrutinizer/g/omatech/mage-core.svg?style=flat-square)](https://scrutinizer-ci.com/g/omatech/mage-core)
-[![Total Downloads](https://img.shields.io/packagist/dt/omatech/mage-core.svg?style=flat-square)](https://packagist.org/packages/omatech/mage-core)
+[![Quality Score](https://img.shields.io/scrutinizer/g/omatech/mage-core.svg)](https://scrutinizer-ci.com/g/omatech/mage-core)
+[![StyleCI](https://github.styleci.io/repos/213258052/shield?branch=master&style=flat)](https://github.styleci.io/repos/213258052)
+[![Total Downloads](https://img.shields.io/packagist/dt/omatech/mage-core.svg)](https://packagist.org/packages/omatech/mage-core)
 
 This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
 
