@@ -8,19 +8,19 @@ use Omatech\Mage\Core\Events\Roles\RoleCreated;
 use Omatech\Mage\Core\Events\Roles\RoleDeleted;
 use Omatech\Mage\Core\Events\Roles\RoleUpdated;
 use Omatech\Mage\Core\Tests\BaseTestCase;
-use Omatech\Mage\Core\Repositories\Shared\PaginateToArray;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleAlreadyExistsException;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleNameExistsMustBeUniqueException;
+use Omatech\Mage\Core\Repositories\RoleRepository;
 
 class RolesTest extends BaseTestCase
 {
     public function testPaginateToArrayRole(): void
     {
-        $pagination = $this->app->make(RoleInterface::class)::all(new PaginateToArray);
+        $pagination = $this->app->make(RoleInterface::class)::all(new RoleRepository);
 
         $this->assertTrue(is_array($pagination) === true);
     }
@@ -137,6 +137,7 @@ class RolesTest extends BaseTestCase
     public function testUpdateRole(): void
     {
         $this->expectsEvents(RoleUpdated::class);
+
         $role = $this->createRole();
         $role->setName('newName');
 
@@ -254,6 +255,17 @@ class RolesTest extends BaseTestCase
 
         $role->delete();
         $role->delete();
+    }
+
+    public function testExceptionOnUpdateDeletedRole()
+    {
+        $this->expectException(RoleDoesNotExistsException::class);
+
+        $role = $this->createRole();
+        $role->delete();
+
+        $role->setName("roleName");
+        $role->save();
     }
 
     public function testExceptionOnDeleteAttachedRole(): void

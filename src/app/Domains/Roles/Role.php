@@ -7,11 +7,11 @@ use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Features\FindOrFailRole;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 use Omatech\Mage\Core\Domains\Roles\Features\UpdateOrCreateRole;
 use Omatech\Mage\Core\Domains\Roles\Features\ExistsAndDeleteRole;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
 
 class Role implements RoleInterface
 {
@@ -137,12 +137,7 @@ class Role implements RoleInterface
         }, $this->getPermissions());
     }
 
-    /**
-     * @param GetAllInterface $all
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public static function all(GetAllInterface $all)
+    public static function all(AllRoleInterface $all)
     {
         return app()->make(AllRole::class)->make($all);
     }

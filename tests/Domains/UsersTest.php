@@ -8,7 +8,6 @@ use Omatech\Mage\Core\Events\Users\UserDeleted;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 use Omatech\Mage\Core\Models\User as UserModel;
-use Omatech\Mage\Core\Repositories\Shared\PaginateToArray;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 use Omatech\Mage\Core\Domains\Users\Exceptions\UserAlreadyExistsException;
@@ -16,12 +15,13 @@ use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 use Omatech\Mage\Core\Domains\Users\Exceptions\UserNameExistsMustBeUniqueException;
+use Omatech\Mage\Core\Repositories\UserRepository;
 
 class UsersTest extends BaseTestCase
 {
     public function testPaginateToArrayUser(): void
     {
-        $pagination = $this->app->make(UserInterface::class)::all(new PaginateToArray);
+        $pagination = $this->app->make(UserInterface::class)::all(new UserRepository);
 
         $this->assertTrue(is_array($pagination) === true);
     }
@@ -395,6 +395,17 @@ class UsersTest extends BaseTestCase
             'created_at' => $user->getCreatedAt(),
             'updated_at' => $user->getUpdatedAt()
         ]);
+    }
+
+    public function testExceptionOnUpdateDeletedUser()
+    {
+        $this->expectException(UserDoesNotExistsException::class);
+
+        $user = $this->createUser();
+        $user->delete();
+
+        $user->setName("userName");
+        $user->save();
     }
 
     public function testExceptionOnFromArrayUser(): void

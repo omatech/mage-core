@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Omatech\Lars\BaseRepository;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\DeleteUserInterface;
@@ -37,16 +36,10 @@ class UserRepository extends BaseRepository implements
         return User::class;
     }
 
-    /**
-     * @param GetAllInterface $all
-     * @return mixed
-     */
-    public function get(GetAllInterface $all)
+
+    public function get()
     {
-        return $all->get(
-            /** @scrutinizer ignore-type */
-            $this->query()
-        );
+        return $this->query()->paginate()->toArray();
     }
 
     /**
@@ -128,6 +121,7 @@ class UserRepository extends BaseRepository implements
     {
         return $this->query()
             ->where('email', $user->getEmail())
+            ->orWhere('id', $user->getId())
             ->exists();
     }
 

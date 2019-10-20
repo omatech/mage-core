@@ -15,6 +15,7 @@ use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
 use Omatech\Mage\Core\Domains\Roles\RoleModel;
+use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
 
 class User implements UserInterface
 {
@@ -146,7 +147,6 @@ class User implements UserInterface
         return $this;
     }
 
-
     /**
      * @return string|null
      */
@@ -240,12 +240,8 @@ class User implements UserInterface
         }, $this->getRoles());
     }
 
-    /**
-     * @param GetAllInterface $all
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public static function all(GetAllInterface $all)
+
+    public static function all(AllUserInterface $all)
     {
         return app()->make(AllUser::class)->make($all);
     }

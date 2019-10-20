@@ -2,12 +2,11 @@
 
 namespace Omatech\Mage\Core\Tests\Shared;
 
-use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\WithFaker;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 
 trait Factories
 {
@@ -71,5 +70,25 @@ trait Factories
         $user->save();
 
         return $user;
+    }
+
+    public function getTranslationInstance($key = null, $values = [])
+    {
+        $key = $key ?? 'mage.' . strtolower(str_replace(' ', '', $this->faker->name));
+
+        $translation = $this->app->make(TranslationInterface::class);
+
+        $translation->setKey($key);
+        $translation->setTranslations($values);
+
+        return $translation;
+    }
+
+    public function createTranslation($key = null, $values = [])
+    {
+        $translation = $this->getTranslationInstance($key, $values);
+        $translation->save();
+
+        return $translation;
     }
 }

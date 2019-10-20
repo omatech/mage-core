@@ -12,7 +12,6 @@ use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\UniquePermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\UpdatePermissionInterface;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 use Omatech\Mage\Core\Events\Permissions\PermissionCreated;
 use Omatech\Mage\Core\Events\Permissions\PermissionDeleted;
 use Omatech\Mage\Core\Events\Permissions\PermissionUpdated;
@@ -36,16 +35,9 @@ class PermissionRepository extends BaseRepository implements
         return Permission::class;
     }
 
-    /**
-     * @param GetAllInterface $all
-     * @return mixed
-     */
-    public function get(GetAllInterface $all)
+    public function get()
     {
-        return $all->get(
-            /** @scrutinizer ignore-type */
-            $this->query()
-        );
+        return $this->query()->paginate()->toArray();
     }
 
     /**
@@ -100,6 +92,7 @@ class PermissionRepository extends BaseRepository implements
     {
         return $this->query()
             ->where('name', $permission->getName())
+            ->orWhere('id', $permission->getId())
             ->exists();
     }
 

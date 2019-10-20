@@ -3,7 +3,6 @@
 namespace Omatech\Mage\Core\Domains\Permissions\Contracts;
 
 use Omatech\Mage\Core\Domains\Permissions\Permission;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 
 interface PermissionInterface
 {
@@ -24,7 +23,7 @@ interface PermissionInterface
     /**
      * Methods
      */
-    public static function all(GetAllInterface $all);
+    public static function all(AllPermissionInterface $all);
     public static function find(int $id): Permission;
     public function save(): bool;
     public function delete(): bool;

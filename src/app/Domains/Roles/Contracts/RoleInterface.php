@@ -4,7 +4,6 @@ namespace Omatech\Mage\Core\Domains\Roles\Contracts;
 
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Roles\Role;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 
 interface RoleInterface
 {
@@ -27,7 +26,7 @@ interface RoleInterface
     /**
      * Methods
      */
-    public static function all(GetAllInterface $all);
+    public static function all(AllRoleInterface $all);
     public static function find(int $id): Role;
     public function save(): bool;
     public function delete(): bool;

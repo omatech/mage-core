@@ -4,7 +4,6 @@ namespace Omatech\Mage\Core\Domains\Users\Contracts;
 
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 use Omatech\Mage\Core\Domains\Users\User;
 
 interface UserInterface
@@ -39,7 +38,7 @@ interface UserInterface
     /**
      * Methods
      */
-    public static function all(GetAllInterface $all);
+    public static function all(AllUserInterface $all);
     public static function find(int $id): User;
     public function save(): bool;
     public function delete(): bool;

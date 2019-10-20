@@ -3,6 +3,7 @@
 namespace Omatech\Mage\Core\Domains\Permissions;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Features\UpdateOrCreatePermission;
 use Omatech\Mage\Core\Domains\Permissions\Features\ExistsAndDeletePermission;
@@ -116,12 +117,8 @@ class Permission implements PermissionInterface
         return $this;
     }
 
-    /**
-     * @param GetAllInterface $all
-     * @return mixed
-     * @throws BindingResolutionException
-     */
-    public static function all(GetAllInterface $all)
+
+    public static function all(AllPermissionInterface $all)
     {
         return app()->make(AllPermission::class)->make($all);
     }

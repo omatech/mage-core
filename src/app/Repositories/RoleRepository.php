@@ -14,7 +14,6 @@ use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\UniqueRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\UpdateRoleInterface;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 use Omatech\Mage\Core\Events\Roles\RoleCreated;
 use Omatech\Mage\Core\Events\Roles\RoleDeleted;
 use Omatech\Mage\Core\Events\Roles\RoleUpdated;
@@ -38,16 +37,10 @@ class RoleRepository extends BaseRepository implements
         return Role::class;
     }
 
-    /**
-     * @param GetAllInterface $all
-     * @return mixed
-     */
-    public function get(GetAllInterface $all)
+
+    public function get()
     {
-        return $all->get(
-            /** @scrutinizer ignore-type */
-            $this->query()
-        );
+        return $this->query()->paginate()->toArray();
     }
 
     /**
@@ -114,6 +107,7 @@ class RoleRepository extends BaseRepository implements
     {
         return $this->query()
             ->where('name', $role->getName())
+            ->orWhere('id', $role->getId())
             ->exists();
     }
 

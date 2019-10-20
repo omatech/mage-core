@@ -8,6 +8,7 @@ use Omatech\Mage\Core\Domains\Permissions\Jobs\ExistsPermission;
 use Omatech\Mage\Core\Domains\Permissions\Jobs\UniquePermission;
 use Omatech\Mage\Core\Domains\Permissions\Jobs\UpdatePermission;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionNameExistsMustBeUniqueException;
 
 class UpdateOrCreatePermission
@@ -71,6 +72,12 @@ class UpdateOrCreatePermission
 
         if ($exists === true) {
             throw new PermissionNameExistsMustBeUniqueException;
+        }
+
+        $exists = $this->exists->make($permission);
+
+        if ($exists === false) {
+            throw new PermissionDoesNotExistsException;
         }
 
         return $this->update->make($permission);

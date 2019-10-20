@@ -12,14 +12,14 @@ use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionAlreadyExistsExce
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsAttachedException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionNameExistsMustBeUniqueException;
-use Omatech\Mage\Core\Repositories\Shared\PaginateToArray;
 use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
+use Omatech\Mage\Core\Repositories\PermissionRepository;
 
 class PermissionsTest extends BaseTestCase
 {
     public function testPaginateToArrayPermission(): void
     {
-        $pagination = $this->app->make(PermissionInterface::class)::all(new PaginateToArray);
+        $pagination = $this->app->make(PermissionInterface::class)::all(new PermissionRepository);
 
         $this->assertTrue(is_array($pagination) === true);
     }
@@ -128,6 +128,17 @@ class PermissionsTest extends BaseTestCase
 
         $permission->delete();
         $permission->delete();
+    }
+
+    public function testExceptionOnUpdateDeletedPermission()
+    {
+        $this->expectException(PermissionDoesNotExistsException::class);
+
+        $permission = $this->createPermission();
+        $permission->delete();
+
+        $permission->setName("permissionName");
+        $permission->save();
     }
 
     public function testExceptionOnDeleteAttachedPermission(): void

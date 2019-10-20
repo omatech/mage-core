@@ -8,6 +8,7 @@ use Omatech\Mage\Core\Domains\Roles\Jobs\ExistsRole;
 use Omatech\Mage\Core\Domains\Roles\Jobs\UniqueRole;
 use Omatech\Mage\Core\Domains\Roles\Jobs\UpdateRole;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleNameExistsMustBeUniqueException;
 
 class UpdateOrCreateRole
@@ -71,6 +72,12 @@ class UpdateOrCreateRole
 
         if ($exists === true) {
             throw new RoleNameExistsMustBeUniqueException;
+        }
+
+        $exists = $this->exists->make($role);
+
+        if ($exists === false) {
+            throw new RoleDoesNotExistsException;
         }
 
         return $this->update->make($role);

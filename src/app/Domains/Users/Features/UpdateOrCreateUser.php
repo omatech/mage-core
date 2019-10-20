@@ -8,6 +8,7 @@ use Omatech\Mage\Core\Domains\Users\Jobs\ExistsUser;
 use Omatech\Mage\Core\Domains\Users\Jobs\UniqueUser;
 use Omatech\Mage\Core\Domains\Users\Jobs\UpdateUser;
 use Omatech\Mage\Core\Domains\Users\Exceptions\UserAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Users\Exceptions\UserNameExistsMustBeUniqueException;
 
 class UpdateOrCreateUser
@@ -71,6 +72,12 @@ class UpdateOrCreateUser
 
         if ($exists === true) {
             throw new UserNameExistsMustBeUniqueException;
+        }
+
+        $exists = $this->exists->make($user);
+
+        if ($exists === false) {
+            throw new UserDoesNotExistsException;
         }
 
         return $this->update->make($user);
