@@ -35,6 +35,9 @@ class PermissionRepository extends BaseRepository implements
         return Permission::class;
     }
 
+    /**
+     * @return mixed
+     */
     public function get()
     {
         return $this->query()->paginate()->toArray();

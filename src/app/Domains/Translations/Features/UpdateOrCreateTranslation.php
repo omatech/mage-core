@@ -28,6 +28,13 @@ class UpdateOrCreateTranslation
     }
 
 
+    /**
+     * @param Translation $translation
+     * @return bool
+     * @throws TranslationAlreadyExistsException
+     * @throws TranslationDoesNotExistsException
+     * @throws TranslationExistsMustBeUniqueException
+     */
     public function make(Translation $translation): bool
     {
         if ($translation->getId() !== null) {
@@ -37,6 +44,11 @@ class UpdateOrCreateTranslation
         return $this->create($translation);
     }
 
+    /**
+     * @param Translation $translation
+     * @return bool
+     * @throws TranslationAlreadyExistsException
+     */
     private function create(Translation $translation): bool
     {
         $exists = $this->exists->make($translation);
@@ -48,6 +60,12 @@ class UpdateOrCreateTranslation
         return $this->create->make($translation);
     }
 
+    /**
+     * @param Translation $translation
+     * @return bool
+     * @throws TranslationDoesNotExistsException
+     * @throws TranslationExistsMustBeUniqueException
+     */
     private function update(Translation $translation): bool
     {
         $exists = $this->unique->make($translation);

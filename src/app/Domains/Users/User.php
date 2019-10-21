@@ -239,7 +239,11 @@ class User implements UserInterface
         }, $this->getRoles());
     }
 
-
+    /**
+     * @param AllUserInterface $all
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public static function all(AllUserInterface $all)
     {
         return app()->make(AllUser::class)->make($all);
@@ -276,7 +280,7 @@ class User implements UserInterface
     /**
      * @param PermissionInterface $permission
      * @return User
-     * @throws PermissionIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignPermission(PermissionInterface $permission): self
     {
@@ -289,7 +293,7 @@ class User implements UserInterface
     /**
      * @param array $permissions
      * @return User
-     * @throws PermissionIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignPermissions(array $permissions): self
     {
@@ -302,7 +306,7 @@ class User implements UserInterface
     /**
      * @param PermissionInterface $permission
      * @return User
-     * @throws PermissionIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function removePermission(PermissionInterface $permission): self
     {
@@ -315,7 +319,7 @@ class User implements UserInterface
     /**
      * @param array $permissions
      * @return User
-     * @throws PermissionIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function removePermissions(array $permissions): self
     {
@@ -328,7 +332,7 @@ class User implements UserInterface
     /**
      * @param RoleInterface $role
      * @return User
-     * @throws RoleIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignRole(RoleInterface $role): self
     {
@@ -341,7 +345,7 @@ class User implements UserInterface
     /**
      * @param array $roles
      * @return User
-     * @throws RoleIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignRoles(array $roles): self
     {
@@ -354,7 +358,7 @@ class User implements UserInterface
     /**
      * @param RoleInterface $role
      * @return User
-     * @throws RoleIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function removeRole(RoleInterface $role): self
     {
@@ -367,7 +371,7 @@ class User implements UserInterface
     /**
      * @param array $roles
      * @return User
-     * @throws RoleIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function removeRoles(array $roles): self
     {

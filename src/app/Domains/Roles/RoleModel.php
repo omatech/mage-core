@@ -7,6 +7,12 @@ use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 
 class RoleModel
 {
+    /**
+     * @param array $currentRoles
+     * @param RoleInterface $assignRole
+     * @return array
+     * @throws RoleIsNotSavedException
+     */
     public function assignRole(array $currentRoles, RoleInterface $assignRole): array
     {
         if ($assignRole->getId() === null) {
@@ -20,6 +26,12 @@ class RoleModel
         return $currentRoles;
     }
 
+    /**
+     * @param array $currentRoles
+     * @param array $assignRoles
+     * @return array
+     * @throws RoleIsNotSavedException
+     */
     public function assignRoles(array $currentRoles, array $assignRoles): array
     {
         foreach ($assignRoles as $role) {
@@ -31,6 +43,12 @@ class RoleModel
         return $currentRoles;
     }
 
+    /**
+     * @param array $currentRoles
+     * @param RoleInterface $deleteRole
+     * @return array
+     * @throws RoleIsNotSavedException
+     */
     public function removeRole(array $currentRoles, RoleInterface $deleteRole): array
     {
         if ($deleteRole->getId() === null) {
@@ -47,6 +65,12 @@ class RoleModel
         return $currentRoles;
     }
 
+    /**
+     * @param array $currentRoles
+     * @param array $deleteRoles
+     * @return array
+     * @throws RoleIsNotSavedException
+     */
     public function removeRoles(array $currentRoles, array $deleteRoles): array
     {
         foreach ($deleteRoles as $role) {

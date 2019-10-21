@@ -35,6 +35,7 @@ class UpdateOrCreatePermission
      * @return bool
      * @throws PermissionAlreadyExistsException
      * @throws PermissionNameExistsMustBeUniqueException
+     * @throws PermissionDoesNotExistsException
      */
     public function make(Permission $permission): bool
     {
@@ -65,6 +66,7 @@ class UpdateOrCreatePermission
      * @param Permission $permission
      * @return bool
      * @throws PermissionNameExistsMustBeUniqueException
+     * @throws PermissionDoesNotExistsException
      */
     private function update(Permission $permission): bool
     {

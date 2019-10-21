@@ -65,6 +65,7 @@ class UpdateOrCreateUser
      * @param User $user
      * @return bool
      * @throws UserNameExistsMustBeUniqueException
+     * @throws UserDoesNotExistsException
      */
     private function update(User $user): bool
     {

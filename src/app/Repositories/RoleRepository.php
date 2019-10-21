@@ -37,7 +37,9 @@ class RoleRepository extends BaseRepository implements
         return Role::class;
     }
 
-
+    /**
+     * @return mixed
+     */
     public function get()
     {
         return $this->query()->paginate()->toArray();

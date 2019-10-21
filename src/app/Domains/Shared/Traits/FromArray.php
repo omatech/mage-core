@@ -6,6 +6,11 @@ use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
 
 trait FromArray
 {
+    /**
+     * @param array $array
+     * @return static
+     * @throws MethodDoesNotExistsException
+     */
     public static function fromArray(array $array): self
     {
         $self = new static;
@@ -18,7 +23,12 @@ trait FromArray
         return $self;
     }
 
-    private function setMethod($property)
+    /**
+     * @param string $property
+     * @return string
+     * @throws MethodDoesNotExistsException
+     */
+    private function setMethod(string $property): string
     {
         $method = $this->snakeCaseToCamelCase('set'.$property);
 
@@ -29,7 +39,11 @@ trait FromArray
         return $method;
     }
 
-    private function snakeCaseToCamelCase($string)
+    /**
+     * @param string $string
+     * @return string
+     */
+    private function snakeCaseToCamelCase(string $string): string
     {
         return str_replace('_', '', lcfirst(ucwords($string, '_')));
     }

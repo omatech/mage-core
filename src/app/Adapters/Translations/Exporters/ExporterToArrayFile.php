@@ -9,12 +9,16 @@ use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
 
 class ExporterToArrayFile implements ExportTranslationInterface
 {
-    public function export($translations)
+    /**
+     * @param $translations
+     * @return string
+     */
+    public function export(array $translations): string
     {
         Storage::deleteDirectory("translations/tmp");
 
         foreach ($translations as $language => $values) {
-            $groupedTranslations = $this->groupTranslations($values);
+            $groupedTranslations = $this->groupTranslations($values->toArray());
             $this->storeInFiles($language, $groupedTranslations);
         }
 
@@ -25,7 +29,11 @@ class ExporterToArrayFile implements ExportTranslationInterface
         return $path;
     }
 
-    private function groupTranslations($translations)
+    /**
+     * @param array $translations
+     * @return array
+     */
+    private function groupTranslations(array $translations): array
     {
         $groupedTranslations = [];
 
@@ -36,7 +44,11 @@ class ExporterToArrayFile implements ExportTranslationInterface
         return $groupedTranslations;
     }
 
-    private function storeInFiles($language, $groupedTranslations)
+    /**
+     * @param $language
+     * @param $groupedTranslations
+     */
+    private function storeInFiles($language, $groupedTranslations): void
     {
         foreach ($groupedTranslations as $group => $keys) {
             $file = "<?php\n\nreturn [\n\n";
@@ -60,7 +72,10 @@ class ExporterToArrayFile implements ExportTranslationInterface
         }
     }
 
-    private function zipFiles()
+    /**
+     * @return string
+     */
+    private function zipFiles(): string
     {
         $date = Carbon::now('Europe/Madrid')->format('dmY_His');
         $path = storage_path('app/translations/' . $date . '_laravel.zip');
@@ -70,7 +85,11 @@ class ExporterToArrayFile implements ExportTranslationInterface
         return $path;
     }
 
-    private function zipDir($sourcePath, $outZipPath)
+    /**
+     * @param $sourcePath
+     * @param $outZipPath
+     */
+    private function zipDir($sourcePath, $outZipPath): void
     {
         $pathInfo = pathInfo($sourcePath);
         $parentPath = $pathInfo['dirname'] . '/' . $pathInfo['basename'];
@@ -80,11 +99,16 @@ class ExporterToArrayFile implements ExportTranslationInterface
         $z->close();
     }
 
-    private static function folderToZip($folder, &$zipFile, $exclusiveLength)
+    /**
+     * @param $folder
+     * @param $zipFile
+     * @param $exclusiveLength
+     */
+    private static function folderToZip($folder, &$zipFile, $exclusiveLength): void
     {
         $handle = opendir($folder);
         while (false !== $f = readdir($handle)) {
-            if ($f != '.' && $f != '..') {
+            if ($f !== '.' && $f !== '..') {
                 $filePath = "$folder/$f";
                 // Remove prefix from file path before add to zip.
                 $localPath = substr($filePath, $exclusiveLength);

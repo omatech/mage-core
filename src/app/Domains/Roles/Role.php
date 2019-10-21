@@ -10,7 +10,6 @@ use Omatech\Mage\Core\Domains\Roles\Features\FindOrFailRole;
 use Omatech\Mage\Core\Domains\Roles\Features\UpdateOrCreateRole;
 use Omatech\Mage\Core\Domains\Roles\Features\ExistsAndDeleteRole;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
 
 class Role implements RoleInterface
@@ -137,6 +136,11 @@ class Role implements RoleInterface
         }, $this->getPermissions());
     }
 
+    /**
+     * @param AllRoleInterface $all
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public static function all(AllRoleInterface $all)
     {
         return app()->make(AllRole::class)->make($all);
@@ -173,7 +177,7 @@ class Role implements RoleInterface
     /**
      * @param PermissionInterface $permission
      * @return Role
-     * @throws PermissionIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignPermission(PermissionInterface $permission): self
     {
@@ -186,7 +190,7 @@ class Role implements RoleInterface
     /**
      * @param array $permissions
      * @return Role
-     * @throws PermissionIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function assignPermissions(array $permissions): self
     {
@@ -199,7 +203,7 @@ class Role implements RoleInterface
     /**
      * @param PermissionInterface $permission
      * @return Role
-     * @throws PermissionIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function removePermission(PermissionInterface $permission): self
     {
@@ -212,7 +216,7 @@ class Role implements RoleInterface
     /**
      * @param array $permissions
      * @return Role
-     * @throws PermissionIsNotSavedException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function removePermissions(array $permissions): self
     {

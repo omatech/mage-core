@@ -36,7 +36,9 @@ class UserRepository extends BaseRepository implements
         return User::class;
     }
 
-
+    /**
+     * @return mixed
+     */
     public function get()
     {
         return $this->query()->paginate()->toArray();

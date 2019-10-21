@@ -32,6 +32,10 @@ class TranslationRepository extends BaseRepository implements
         return LanguageLine::class;
     }
 
+    /**
+     * @param $locales
+     * @return mixed
+     */
     public function get($locales)
     {
         $select = ['id', 'group', 'key'];
@@ -40,32 +44,17 @@ class TranslationRepository extends BaseRepository implements
             $select[] = "text->$locale as $locale";
         }
 
-        $translations = $this->query()
+        return $this->query()
             ->select($select)
             ->paginate()
             ->toArray();
-
-        return $translations;
     }
 
-    /*public function get($locales)
-    {
-        $translations = $this->query()
-            ->select("group", "key", "text->$lang as value")
-            ->get()
-            ->toArray();
-
-        $translations = array_map(function ($translation) {
-            return [
-                'group' => $translation['group'],
-                'key'  => $translation['group'] . '.' . $translation['key'],
-                'value' => $translation['value']
-            ];
-        }, $translations);
-
-        return $translations;
-    }*/
-
+    /**
+     * @param int $id
+     * @return TranslationInterface|null
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function find(int $id): ?TranslationInterface
     {
         $translation = $this->query()->find($id);
@@ -87,7 +76,7 @@ class TranslationRepository extends BaseRepository implements
     }
 
     /**
-     * @param UserInterface $user
+     * @param TranslationInterface $translation
      * @return bool
      */
     public function create(TranslationInterface $translation): bool
@@ -110,13 +99,13 @@ class TranslationRepository extends BaseRepository implements
     }
 
     /**
-     * @param UserInterface $user
+     * @param TranslationInterface $translation
      * @return bool
      */
     public function exists(TranslationInterface $translation): bool
     {
         return $this->query()
-            ->where(function ($q) use ($translation) {
+            ->where(static function ($q) use ($translation) {
                 $q->where('group', $translation->getGroup())
                     ->where('key', $translation->getKey());
             })
@@ -125,7 +114,7 @@ class TranslationRepository extends BaseRepository implements
     }
 
     /**
-     * @param TranslationInterface $role
+     * @param TranslationInterface $translation
      * @return bool
      */
     public function unique(TranslationInterface $translation): bool
@@ -137,6 +126,10 @@ class TranslationRepository extends BaseRepository implements
             ->exists();
     }
 
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function update(TranslationInterface $translation): bool
     {
         $updated = $this->query()->find($translation->getId());

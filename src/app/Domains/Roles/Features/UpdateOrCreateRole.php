@@ -65,6 +65,7 @@ class UpdateOrCreateRole
      * @param Role $role
      * @return bool
      * @throws RoleNameExistsMustBeUniqueException
+     * @throws RoleDoesNotExistsException
      */
     private function update(Role $role): bool
     {

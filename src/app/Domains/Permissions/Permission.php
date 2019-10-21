@@ -116,7 +116,11 @@ class Permission implements PermissionInterface
         return $this;
     }
 
-
+    /**
+     * @param AllPermissionInterface $all
+     * @return mixed
+     * @throws BindingResolutionException
+     */
     public static function all(AllPermissionInterface $all)
     {
         return app()->make(AllPermission::class)->make($all);
