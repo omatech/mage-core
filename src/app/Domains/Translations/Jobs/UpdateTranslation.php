@@ -2,8 +2,8 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Jobs;
 
-use Omatech\Mage\Core\Domains\Translations\Contracts\UpdateTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Translation;
+use Omatech\Mage\Core\Domains\Translations\Contracts\UpdateTranslationInterface;
 
 class UpdateTranslation
 {

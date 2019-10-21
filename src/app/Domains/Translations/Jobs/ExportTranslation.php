@@ -17,8 +17,7 @@ class ExportTranslation
         AllTranslationInterface $allTranslationInterface,
         ExportTranslationInterface $exportTranslationInterface,
         $locales
-    ): string
-    {
+    ): string {
         $translations = $allTranslationInterface->get($locales);
 
         $parsedTranslations = [];
@@ -28,8 +27,8 @@ class ExportTranslation
                 if (array_key_exists($key, array_flip($locales))) {
                     $parsedTranslations[$key][] = [
                         'group' => $values['group'],
-                        'key' => $values['group'] . '.' . $values['key'],
-                        'value' => $value
+                        'key' => $values['group'].'.'.$values['key'],
+                        'value' => $value,
                     ];
                 }
             }

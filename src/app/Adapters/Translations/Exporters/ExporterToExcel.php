@@ -33,13 +33,13 @@ class ExporterToExcel implements ExportTranslationInterface
     private function toFile($translations): string
     {
         $date = Carbon::now('Europe/Madrid')->format('dmY_His');
-        $path = storage_path('app/translations/' . $date . '_excel.xlsx');
+        $path = storage_path('app/translations/'.$date.'_excel.xlsx');
 
         return (new FastExcel(new SheetCollection($translations)))->export($path, function ($sheets) {
             return [
                 'key1' => 'mage',
                 'key2' => $sheets['key'],
-                'value' => $sheets['value']
+                'value' => $sheets['value'],
             ];
         });
     }

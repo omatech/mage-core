@@ -3,7 +3,6 @@
 namespace Omatech\Mage\Core\Domains\Roles\Contracts;
 
 use Omatech\Mage\Core\Domains\Roles\Role;
-use Omatech\Mage\Core\Domains\Shared\Contracts\GetAllInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 
 interface RoleInterface

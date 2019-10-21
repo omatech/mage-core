@@ -27,5 +27,5 @@ return [
      * This the table name for the language translations.
      */
 
-    'table_name' => 'language_lines'
+    'table_name' => 'language_lines',
 ];

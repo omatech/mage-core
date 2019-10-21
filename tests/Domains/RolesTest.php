@@ -7,6 +7,7 @@ use Omatech\Mage\Core\Tests\BaseTestCase;
 use Omatech\Mage\Core\Events\Roles\RoleCreated;
 use Omatech\Mage\Core\Events\Roles\RoleDeleted;
 use Omatech\Mage\Core\Events\Roles\RoleUpdated;
+use Omatech\Mage\Core\Repositories\RoleRepository;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsAttachedException;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleAlreadyExistsException;
@@ -14,7 +15,6 @@ use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleNameExistsMustBeUniqueException;
-use Omatech\Mage\Core\Repositories\RoleRepository;
 
 class RolesTest extends BaseTestCase
 {
@@ -264,7 +264,7 @@ class RolesTest extends BaseTestCase
         $role = $this->createRole();
         $role->delete();
 
-        $role->setName("roleName");
+        $role->setName('roleName');
         $role->save();
     }
 

@@ -7,10 +7,10 @@ use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Features\FindOrFailRole;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Features\UpdateOrCreateRole;
 use Omatech\Mage\Core\Domains\Roles\Features\ExistsAndDeleteRole;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
 
 class Role implements RoleInterface
 {
