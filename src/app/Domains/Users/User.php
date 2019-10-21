@@ -12,9 +12,7 @@ use Omatech\Mage\Core\Domains\Users\Features\FindOrFailUser;
 use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
 use Omatech\Mage\Core\Domains\Users\Features\UpdateOrCreateUser;
 use Omatech\Mage\Core\Domains\Users\Features\ExistsAndDeleteUser;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 
 class User implements UserInterface
 {

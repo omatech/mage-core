@@ -3,7 +3,6 @@
 namespace Omatech\Mage\Core\Repositories;
 
 use Omatech\Lars\BaseRepository;
-use Illuminate\Support\Facades\DB;
 use Omatech\Mage\Core\Models\LanguageLine;
 use Omatech\Mage\Core\Events\Translations\TranslationCreated;
 use Omatech\Mage\Core\Events\Translations\TranslationDeleted;
@@ -65,11 +64,11 @@ class TranslationRepository extends BaseRepository implements
 
         $translation = app()->make(TranslationInterface::class)::fromArray([
             'id'           => $translation->id,
-            'key'          => $translation->group . '.' . $translation->key,
+            'key'          => $translation->group.'.'.$translation->key,
             'translations' => $translation->text,
             'sync_at'      => $translation->sync_at,
             'created_at'   => $translation->created_at,
-            'updated_at'   => $translation->updated_at
+            'updated_at'   => $translation->updated_at,
         ]);
 
         return $translation;
@@ -85,7 +84,7 @@ class TranslationRepository extends BaseRepository implements
             'group' => $translation->getGroup(),
             'key'   => $translation->getKey(),
             'text'  => $translation->getTranslations(),
-            'sync_at' => $translation->getSyncAt()
+            'sync_at' => $translation->getSyncAt(),
         ]);
 
         $translation->setId($created->id);
@@ -138,7 +137,7 @@ class TranslationRepository extends BaseRepository implements
             'group' => $translation->getGroup(),
             'key' => $translation->getKey(),
             'text' => $translation->getTranslations(),
-            'sync_at' => $translation->getSyncAt()
+            'sync_at' => $translation->getSyncAt(),
         ])->save();
 
         $translation->setId($updated->id);

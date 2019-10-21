@@ -114,27 +114,27 @@ class MageServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/config.php',
+            __DIR__.'/../config/config.php',
             'mage'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/permission.php',
+            __DIR__.'/../config/permission.php',
             'permission'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/auth.providers.php',
+            __DIR__.'/../config/auth.providers.php',
             'auth.providers'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/auth.guards.php',
+            __DIR__.'/../config/auth.guards.php',
             'auth.guards'
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/translation-loader.php',
+            __DIR__.'/../config/translation-loader.php',
             'translation-loader'
         );
     }

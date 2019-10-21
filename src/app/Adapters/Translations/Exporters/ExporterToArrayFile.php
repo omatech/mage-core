@@ -15,7 +15,7 @@ class ExporterToArrayFile implements ExportTranslationInterface
      */
     public function export(array $translations): string
     {
-        Storage::deleteDirectory("translations/tmp");
+        Storage::deleteDirectory('translations/tmp');
 
         foreach ($translations as $language => $values) {
             $groupedTranslations = $this->groupTranslations($values->toArray());
@@ -24,7 +24,7 @@ class ExporterToArrayFile implements ExportTranslationInterface
 
         $path = $this->zipFiles();
 
-        Storage::deleteDirectory("translations/tmp");
+        Storage::deleteDirectory('translations/tmp');
 
         return $path;
     }
@@ -78,7 +78,7 @@ class ExporterToArrayFile implements ExportTranslationInterface
     private function zipFiles(): string
     {
         $date = Carbon::now('Europe/Madrid')->format('dmY_His');
-        $path = storage_path('app/translations/' . $date . '_laravel.zip');
+        $path = storage_path('app/translations/'.$date.'_laravel.zip');
 
         $this->zipDir(storage_path('app/translations/tmp'), $path);
 
@@ -91,8 +91,8 @@ class ExporterToArrayFile implements ExportTranslationInterface
      */
     private function zipDir($sourcePath, $outZipPath): void
     {
-        $pathInfo = pathInfo($sourcePath);
-        $parentPath = $pathInfo['dirname'] . '/' . $pathInfo['basename'];
+        $pathInfo = pathinfo($sourcePath);
+        $parentPath = $pathInfo['dirname'].'/'.$pathInfo['basename'];
         $z = new ZipArchive();
         $z->open($outZipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         self::folderToZip($sourcePath, $z, strlen("$parentPath/"));

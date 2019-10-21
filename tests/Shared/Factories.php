@@ -74,7 +74,7 @@ trait Factories
 
     public function getTranslationInstance($key = null, $values = [])
     {
-        $key = $key ?? 'mage.' . strtolower(str_replace(' ', '', $this->faker->name));
+        $key = $key ?? 'mage.'.strtolower(str_replace(' ', '', $this->faker->name));
 
         $translation = $this->app->make(TranslationInterface::class);
 

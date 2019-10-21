@@ -137,7 +137,7 @@ class PermissionsTest extends BaseTestCase
         $permission = $this->createPermission();
         $permission->delete();
 
-        $permission->setName("permissionName");
+        $permission->setName('permissionName');
         $permission->save();
     }
 

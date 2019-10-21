@@ -2,7 +2,6 @@
 
 namespace Omatech\Mage\Core\Tests\Domains;
 
-use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToArrayFile;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 use Omatech\Mage\Core\Repositories\TranslationRepository;
 use Omatech\Mage\Core\Events\Translations\TranslationCreated;
@@ -10,6 +9,7 @@ use Omatech\Mage\Core\Events\Translations\TranslationDeleted;
 use Omatech\Mage\Core\Events\Translations\TranslationUpdated;
 use Omatech\Mage\Core\Adapters\Translations\GetAllTranslations;
 use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToExcel;
+use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToArrayFile;
 use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationAlreadyExistsException;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationDoesNotExistsException;
@@ -52,7 +52,7 @@ class TranslationsTest extends BaseTestCase
             'key'        => $translation->getKey(),
             'text'       => json_encode($translation->getTranslations()),
             'created_at' => $translation->getCreatedAt(),
-            'updated_at' => $translation->getUpdatedAt()
+            'updated_at' => $translation->getUpdatedAt(),
         ]);
     }
 
@@ -67,7 +67,7 @@ class TranslationsTest extends BaseTestCase
             'key'        => $translation->getKey(),
             'text'       => json_encode($translation->getTranslations()),
             'created_at' => $translation->getCreatedAt(),
-            'updated_at' => $translation->getUpdatedAt()
+            'updated_at' => $translation->getUpdatedAt(),
         ]);
     }
 
@@ -96,7 +96,7 @@ class TranslationsTest extends BaseTestCase
             'key'        => $translation->getKey(),
             'text'       => json_encode($translation->getTranslations()),
             'created_at' => $translation->getCreatedAt(),
-            'updated_at' => $translation->getUpdatedAt()
+            'updated_at' => $translation->getUpdatedAt(),
         ]);
     }
 
@@ -107,7 +107,7 @@ class TranslationsTest extends BaseTestCase
         $translation = $this->createTranslation();
 
         $translation2 = $this->createTranslation();
-        $translation2->setKey($translation->getGroup() . '.' . $translation->getKey());
+        $translation2->setKey($translation->getGroup().'.'.$translation->getKey());
         $translation2->setTranslations($translation->getTranslations());
 
         $result = $translation2->save();
@@ -135,7 +135,7 @@ class TranslationsTest extends BaseTestCase
             'key'        => $translation->getKey(),
             'text'       => json_encode($translation->getTranslations()),
             'created_at' => $translation->getCreatedAt(),
-            'updated_at' => $translation->getUpdatedAt()
+            'updated_at' => $translation->getUpdatedAt(),
         ]);
     }
 
@@ -156,7 +156,7 @@ class TranslationsTest extends BaseTestCase
         $permission = $this->createTranslation();
         $permission->delete();
 
-        $permission->setKey("key");
+        $permission->setKey('key');
         $permission->save();
     }
 

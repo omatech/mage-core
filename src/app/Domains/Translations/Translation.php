@@ -9,8 +9,8 @@ use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Features\FindOrFailTranslation;
 use Omatech\Mage\Core\Domains\Translations\Contracts\AllTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Features\UpdateOrCreateTranslation;
-use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Features\ExistsAndDeleteTranslation;
+use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
 
 class Translation implements TranslationInterface
 {
@@ -120,7 +120,7 @@ class Translation implements TranslationInterface
         $locales = [];
 
         foreach ($availableLocales as $locale) {
-            if (!array_key_exists($locale['locale'], $locales)) {
+            if (! array_key_exists($locale['locale'], $locales)) {
                 $locales[] = $locale['locale'];
             }
         }
@@ -128,14 +128,11 @@ class Translation implements TranslationInterface
         return $locales;
     }
 
-    /**
-     *
-     */
     private function setMissingTranslations(): void
     {
         foreach (static::getLocales() as $locale) {
-            if (!array_key_exists($locale, $this->getTranslations())) {
-                $this->setTranslation($locale, $this->getGroup() . '.' . $this->getKey());
+            if (! array_key_exists($locale, $this->getTranslations())) {
+                $this->setTranslation($locale, $this->getGroup().'.'.$this->getKey());
             }
         }
     }

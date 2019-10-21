@@ -27,7 +27,6 @@ class UpdateOrCreateTranslation
         $this->unique = app()->make(UniqueTranslation::class);
     }
 
-
     /**
      * @param Translation $translation
      * @return bool

@@ -8,6 +8,7 @@ use Omatech\Mage\Core\Events\Users\UserCreated;
 use Omatech\Mage\Core\Events\Users\UserDeleted;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
 use Omatech\Mage\Core\Models\User as UserModel;
+use Omatech\Mage\Core\Repositories\UserRepository;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 use Omatech\Mage\Core\Domains\Users\Exceptions\UserAlreadyExistsException;
@@ -15,7 +16,6 @@ use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 use Omatech\Mage\Core\Domains\Users\Exceptions\UserNameExistsMustBeUniqueException;
-use Omatech\Mage\Core\Repositories\UserRepository;
 
 class UsersTest extends BaseTestCase
 {
@@ -404,7 +404,7 @@ class UsersTest extends BaseTestCase
         $user = $this->createUser();
         $user->delete();
 
-        $user->setName("userName");
+        $user->setName('userName');
         $user->save();
     }
 

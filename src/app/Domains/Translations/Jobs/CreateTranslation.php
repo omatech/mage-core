@@ -2,8 +2,8 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Jobs;
 
-use Omatech\Mage\Core\Domains\Translations\Contracts\CreateTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Translation;
+use Omatech\Mage\Core\Domains\Translations\Contracts\CreateTranslationInterface;
 
 class CreateTranslation
 {
