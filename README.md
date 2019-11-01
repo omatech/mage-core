@@ -2,6 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/omatech/mage-core.svg)](https://packagist.org/packages/omatech/mage-core)
 [![Omatech Mage](https://img.shields.io/badge/omatech-mage-blue)](https://github.com/omatech/mage-core)
+[![Documentation Status](https://readthedocs.org/projects/mage-core/badge/?version=latest)](https://mage-core.readthedocs.io/en/latest/?badge=latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Total Downloads](https://img.shields.io/packagist/dt/omatech/mage-core.svg)](https://packagist.org/packages/omatech/mage-core)
 
