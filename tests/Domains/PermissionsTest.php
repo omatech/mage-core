@@ -2,26 +2,26 @@
 
 namespace Omatech\Mage\Core\Tests\Domains;
 
-use Omatech\Mage\Core\Tests\BaseTestCase;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsAttachedException;
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionNameExistsMustBeUniqueException;
 use Omatech\Mage\Core\Domains\Permissions\Permission;
-use Omatech\Mage\Core\Repositories\PermissionRepository;
+use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
 use Omatech\Mage\Core\Events\Permissions\PermissionCreated;
 use Omatech\Mage\Core\Events\Permissions\PermissionDeleted;
 use Omatech\Mage\Core\Events\Permissions\PermissionUpdated;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsAttachedException;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionAlreadyExistsException;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionNameExistsMustBeUniqueException;
+use Omatech\Mage\Core\Repositories\PermissionRepository;
+use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class PermissionsTest extends BaseTestCase
 {
     public function testPaginateToArrayPermission(): void
     {
-        $pagination = $this->app->make(PermissionInterface::class)::all(new PermissionRepository);
+        $pagination = $this->app->make(PermissionInterface::class)::all(new PermissionRepository());
 
-        $this->assertTrue(is_array($pagination) === true);
+        $this->assertTrue(true === is_array($pagination));
     }
 
     public function testFindPermission(): void
@@ -72,8 +72,8 @@ class PermissionsTest extends BaseTestCase
 
         $result = $permission->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseHas(config('permission.table_names')['permissions'], [
             'name'       => $permission->getName(),
@@ -94,8 +94,8 @@ class PermissionsTest extends BaseTestCase
 
         $result = $permission2->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
     }
 
     public function testDeletePermission(): void
@@ -105,12 +105,12 @@ class PermissionsTest extends BaseTestCase
         $permission = $this->createPermission();
 
         $this->assertTrue(is_int($permission->getId()));
-        $this->assertTrue($permission->getId() !== null);
+        $this->assertTrue(null !== $permission->getId());
 
         $result = $permission->delete();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseMissing(config('permission.table_names')['permissions'], [
             'name'       => $permission->getName(),

@@ -2,10 +2,10 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Features;
 
-use Omatech\Mage\Core\Domains\Translations\Translation;
+use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Translations\Jobs\DeleteTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\ExistsTranslation;
-use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Translations\Translation;
 
 class ExistsAndDeleteTranslation
 {
@@ -14,6 +14,7 @@ class ExistsAndDeleteTranslation
 
     /**
      * ExistsAndDeleteTranslation constructor.
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
@@ -24,15 +25,17 @@ class ExistsAndDeleteTranslation
 
     /**
      * @param Translation $translation
-     * @return bool
+     *
      * @throws TranslationDoesNotExistsException
+     *
+     * @return bool
      */
     public function make(Translation $translation): bool
     {
         $exists = $this->exists->make($translation);
 
-        if ($exists === false) {
-            throw new TranslationDoesNotExistsException;
+        if (false === $exists) {
+            throw new TranslationDoesNotExistsException();
         }
 
         return $this->delete->make($translation);

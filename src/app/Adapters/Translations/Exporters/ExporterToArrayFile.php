@@ -2,15 +2,18 @@
 
 namespace Omatech\Mage\Core\Adapters\Translations\Exporters;
 
-use ZipArchive;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ZipArchive;
 
 class ExporterToArrayFile implements ExportTranslationInterface
 {
     /**
      * @param $translations
+     *
      * @return string
      */
     public function export(array $translations): string
@@ -31,6 +34,7 @@ class ExporterToArrayFile implements ExportTranslationInterface
 
     /**
      * @param array $translations
+     *
      * @return array
      */
     private function groupTranslations(array $translations): array
@@ -91,36 +95,22 @@ class ExporterToArrayFile implements ExportTranslationInterface
      */
     private function zipDir($sourcePath, $outZipPath): void
     {
-        $pathInfo = pathinfo($sourcePath);
-        $parentPath = $pathInfo['dirname'].'/'.$pathInfo['basename'];
-        $z = new ZipArchive();
-        $z->open($outZipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
-        self::folderToZip($sourcePath, $z, strlen("$parentPath/"));
-        $z->close();
-    }
+        $zip = new ZipArchive();
+        $zip->open($outZipPath, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-    /**
-     * @param $folder
-     * @param $zipFile
-     * @param $exclusiveLength
-     */
-    private static function folderToZip($folder, &$zipFile, $exclusiveLength): void
-    {
-        $handle = opendir($folder);
-        while (false !== $f = readdir($handle)) {
-            if ($f !== '.' && $f !== '..') {
-                $filePath = "$folder/$f";
-                // Remove prefix from file path before add to zip.
-                $localPath = substr($filePath, $exclusiveLength);
-                if (is_file($filePath)) {
-                    $zipFile->addFile($filePath, $localPath);
-                } elseif (is_dir($filePath)) {
-                    // Add sub-directory.
-                    $zipFile->addEmptyDir($localPath);
-                    self::folderToZip($filePath, $zipFile, $exclusiveLength);
-                }
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($sourcePath),
+            RecursiveIteratorIterator::LEAVES_ONLY
+        );
+
+        foreach ($files as $file) {
+            if (! $file->isDir()) {
+                $filePath = $file->getRealPath();
+                $relativePath = substr($filePath, strlen($sourcePath) + 1);
+                $zip->addFile($filePath, $relativePath);
             }
         }
-        closedir($handle);
+
+        $zip->close();
     }
 }

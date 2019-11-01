@@ -2,19 +2,20 @@
 
 namespace Omatech\Mage\Core\Domains\Roles;
 
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Features\ExistsAndDeleteRole;
+use Omatech\Mage\Core\Domains\Roles\Features\FindOrFailRole;
+use Omatech\Mage\Core\Domains\Roles\Features\UpdateOrCreateRole;
 use Omatech\Mage\Core\Domains\Roles\Jobs\AllRole;
 use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
-use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Features\FindOrFailRole;
-use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Features\UpdateOrCreateRole;
-use Omatech\Mage\Core\Domains\Roles\Features\ExistsAndDeleteRole;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Shared\Traits\PermissionsManager;
 
 class Role implements RoleInterface
 {
     use FromArray;
+    use PermissionsManager;
 
     private $id;
     private $name;
@@ -33,6 +34,7 @@ class Role implements RoleInterface
 
     /**
      * @param int $id
+     *
      * @return Role
      */
     public function setId(int $id): self
@@ -52,6 +54,7 @@ class Role implements RoleInterface
 
     /**
      * @param string $name
+     *
      * @return Role
      */
     public function setName(string $name): self
@@ -71,6 +74,7 @@ class Role implements RoleInterface
 
     /**
      * @param string $guardName
+     *
      * @return Role
      */
     public function setGuardName(string $guardName): self
@@ -90,6 +94,7 @@ class Role implements RoleInterface
 
     /**
      * @param string $createdAt
+     *
      * @return Role
      */
     public function setCreatedAt(string $createdAt): self
@@ -109,6 +114,7 @@ class Role implements RoleInterface
 
     /**
      * @param string $updatedAt
+     *
      * @return Role
      */
     public function setUpdatedAt(string $updatedAt): self
@@ -138,8 +144,10 @@ class Role implements RoleInterface
 
     /**
      * @param AllRoleInterface $all
-     * @return mixed
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return mixed
      */
     public static function all(AllRoleInterface $all)
     {
@@ -148,8 +156,10 @@ class Role implements RoleInterface
 
     /**
      * @param int $id
-     * @return Role
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return Role
      */
     public static function find(int $id): self
     {
@@ -157,8 +167,9 @@ class Role implements RoleInterface
     }
 
     /**
-     * @return bool
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return bool
      */
     public function save(): bool
     {
@@ -166,63 +177,12 @@ class Role implements RoleInterface
     }
 
     /**
-     * @return bool
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return bool
      */
     public function delete(): bool
     {
         return app()->make(ExistsAndDeleteRole::class)->make($this);
-    }
-
-    /**
-     * @param PermissionInterface $permission
-     * @return Role
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function assignPermission(PermissionInterface $permission): self
-    {
-        $this->permissions = app()->make(PermissionModel::class)
-            ->assignPermission($this->getPermissions(), $permission);
-
-        return $this;
-    }
-
-    /**
-     * @param array $permissions
-     * @return Role
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function assignPermissions(array $permissions): self
-    {
-        $this->permissions = app()->make(PermissionModel::class)
-            ->assignPermissions($this->getPermissions(), $permissions);
-
-        return $this;
-    }
-
-    /**
-     * @param PermissionInterface $permission
-     * @return Role
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function removePermission(PermissionInterface $permission): self
-    {
-        $this->permissions = app()->make(PermissionModel::class)
-            ->removePermission($this->getPermissions(), $permission);
-
-        return $this;
-    }
-
-    /**
-     * @param array $permissions
-     * @return Role
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function removePermissions(array $permissions): self
-    {
-        $this->permissions = app()->make(PermissionModel::class)
-            ->removePermissions($this->getPermissions(), $permissions);
-
-        return $this;
     }
 }

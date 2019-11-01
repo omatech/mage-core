@@ -2,14 +2,14 @@
 
 namespace Omatech\Mage\Core\Domains\Permissions;
 
-use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
-use Omatech\Mage\Core\Domains\Permissions\Jobs\AllPermission;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Features\FindOrFailPermission;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Features\UpdateOrCreatePermission;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Features\ExistsAndDeletePermission;
+use Omatech\Mage\Core\Domains\Permissions\Features\FindOrFailPermission;
+use Omatech\Mage\Core\Domains\Permissions\Features\UpdateOrCreatePermission;
+use Omatech\Mage\Core\Domains\Permissions\Jobs\AllPermission;
+use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 
 class Permission implements PermissionInterface
 {
@@ -31,6 +31,7 @@ class Permission implements PermissionInterface
 
     /**
      * @param int $id
+     *
      * @return Permission
      */
     public function setId(int $id): self
@@ -50,6 +51,7 @@ class Permission implements PermissionInterface
 
     /**
      * @param string $name
+     *
      * @return Permission
      */
     public function setName(string $name): self
@@ -69,6 +71,7 @@ class Permission implements PermissionInterface
 
     /**
      * @param string $guardName
+     *
      * @return Permission
      */
     public function setGuardName(string $guardName): self
@@ -88,6 +91,7 @@ class Permission implements PermissionInterface
 
     /**
      * @param string $createdAt
+     *
      * @return Permission
      */
     public function setCreatedAt(string $createdAt): self
@@ -107,6 +111,7 @@ class Permission implements PermissionInterface
 
     /**
      * @param string $updatedAt
+     *
      * @return Permission
      */
     public function setUpdatedAt(string $updatedAt): self
@@ -118,8 +123,10 @@ class Permission implements PermissionInterface
 
     /**
      * @param AllPermissionInterface $all
-     * @return mixed
+     *
      * @throws BindingResolutionException
+     *
+     * @return mixed
      */
     public static function all(AllPermissionInterface $all)
     {
@@ -128,8 +135,10 @@ class Permission implements PermissionInterface
 
     /**
      * @param int $id
-     * @return Permission
+     *
      * @throws BindingResolutionException
+     *
+     * @return Permission
      */
     public static function find(int $id): self
     {
@@ -137,8 +146,9 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @return bool
      * @throws BindingResolutionException
+     *
+     * @return bool
      */
     public function save(): bool
     {
@@ -146,8 +156,9 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @return bool
      * @throws BindingResolutionException
+     *
+     * @return bool
      */
     public function delete(): bool
     {

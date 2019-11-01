@@ -2,9 +2,9 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Features;
 
-use Omatech\Mage\Core\Domains\Translations\Translation;
-use Omatech\Mage\Core\Domains\Translations\Jobs\FindTranslation;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Translations\Jobs\FindTranslation;
+use Omatech\Mage\Core\Domains\Translations\Translation;
 
 class FindOrFailTranslation
 {
@@ -12,6 +12,7 @@ class FindOrFailTranslation
 
     /**
      * FindOrFailTranslation constructor.
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
@@ -21,15 +22,17 @@ class FindOrFailTranslation
 
     /**
      * @param int $id
-     * @return Translation
+     *
      * @throws TranslationDoesNotExistsException
+     *
+     * @return Translation
      */
     public function make(int $id): Translation
     {
         $translation = $this->find->make($id);
 
-        if ($translation === null) {
-            throw new TranslationDoesNotExistsException;
+        if (null === $translation) {
+            throw new TranslationDoesNotExistsException();
         }
 
         return $translation;

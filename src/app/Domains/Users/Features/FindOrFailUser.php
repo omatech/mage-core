@@ -2,9 +2,9 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Features;
 
-use Omatech\Mage\Core\Domains\Users\User;
-use Omatech\Mage\Core\Domains\Users\Jobs\FindUser;
 use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Users\Jobs\FindUser;
+use Omatech\Mage\Core\Domains\Users\User;
 
 class FindOrFailUser
 {
@@ -12,6 +12,7 @@ class FindOrFailUser
 
     /**
      * FindOrFailUser constructor.
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
@@ -21,15 +22,17 @@ class FindOrFailUser
 
     /**
      * @param int $id
-     * @return User
+     *
      * @throws UserDoesNotExistsException
+     *
+     * @return User
      */
     public function make(int $id): User
     {
         $user = $this->find->make($id);
 
-        if ($user === null) {
-            throw new UserDoesNotExistsException;
+        if (null === $user) {
+            throw new UserDoesNotExistsException();
         }
 
         return $user;

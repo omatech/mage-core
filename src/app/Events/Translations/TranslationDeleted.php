@@ -11,12 +11,13 @@ class TranslationDeleted
 
     /**
      * TranslationDeleted constructor.
+     *
      * @param TranslationInterface $translation
-     * @param bool $wasDelete
+     * @param bool                 $wasDelete
      */
     public function __construct(TranslationInterface $translation, bool $wasDelete)
     {
-        $this->role = $translation;
+        $this->translation = $translation;
         $this->wasDelete = $wasDelete;
     }
 }

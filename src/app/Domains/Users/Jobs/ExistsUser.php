@@ -2,15 +2,17 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Jobs;
 
-use Omatech\Mage\Core\Domains\Users\User;
 use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
+use Omatech\Mage\Core\Domains\Users\User;
 
 class ExistsUser
 {
     /**
      * @param User $user
-     * @return bool
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return bool
      */
     public function make(User $user): bool
     {

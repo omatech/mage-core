@@ -2,14 +2,14 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Features;
 
-use Omatech\Mage\Core\Domains\Users\User;
+use Omatech\Mage\Core\Domains\Users\Exceptions\UserAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Users\Exceptions\UserNameExistsMustBeUniqueException;
 use Omatech\Mage\Core\Domains\Users\Jobs\CreateUser;
 use Omatech\Mage\Core\Domains\Users\Jobs\ExistsUser;
 use Omatech\Mage\Core\Domains\Users\Jobs\UniqueUser;
 use Omatech\Mage\Core\Domains\Users\Jobs\UpdateUser;
-use Omatech\Mage\Core\Domains\Users\Exceptions\UserAlreadyExistsException;
-use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Users\Exceptions\UserNameExistsMustBeUniqueException;
+use Omatech\Mage\Core\Domains\Users\User;
 
 class UpdateOrCreateUser
 {
@@ -20,6 +20,7 @@ class UpdateOrCreateUser
 
     /**
      * UpdateOrCreateUser constructor.
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
@@ -32,13 +33,15 @@ class UpdateOrCreateUser
 
     /**
      * @param User $user
-     * @return bool
+     *
      * @throws UserAlreadyExistsException
      * @throws UserNameExistsMustBeUniqueException
+     *
+     * @return bool
      */
     public function make(User $user): bool
     {
-        if ($user->getId() !== null) {
+        if (null !== $user->getId()) {
             return $this->update($user);
         }
 
@@ -47,15 +50,17 @@ class UpdateOrCreateUser
 
     /**
      * @param User $user
-     * @return bool
+     *
      * @throws UserAlreadyExistsException
+     *
+     * @return bool
      */
     private function create(User $user): bool
     {
         $exists = $this->exists->make($user);
 
-        if ($exists === true) {
-            throw new UserAlreadyExistsException;
+        if (true === $exists) {
+            throw new UserAlreadyExistsException();
         }
 
         return $this->create->make($user);
@@ -63,22 +68,24 @@ class UpdateOrCreateUser
 
     /**
      * @param User $user
-     * @return bool
+     *
      * @throws UserNameExistsMustBeUniqueException
      * @throws UserDoesNotExistsException
+     *
+     * @return bool
      */
     private function update(User $user): bool
     {
         $exists = $this->unique->make($user);
 
-        if ($exists === true) {
-            throw new UserNameExistsMustBeUniqueException;
+        if (true === $exists) {
+            throw new UserNameExistsMustBeUniqueException();
         }
 
         $exists = $this->exists->make($user);
 
-        if ($exists === false) {
-            throw new UserDoesNotExistsException;
+        if (false === $exists) {
+            throw new UserDoesNotExistsException();
         }
 
         return $this->update->make($user);

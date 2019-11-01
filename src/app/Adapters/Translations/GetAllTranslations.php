@@ -8,6 +8,7 @@ class GetAllTranslations extends TranslationRepository
 {
     /**
      * @param $locales
+     *
      * @return array
      */
     public function get($locales): array

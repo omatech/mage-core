@@ -8,12 +8,14 @@ trait FromArray
 {
     /**
      * @param array $array
-     * @return static
+     *
      * @throws MethodDoesNotExistsException
+     *
+     * @return static
      */
     public static function fromArray(array $array): self
     {
-        $self = new static;
+        $self = new static();
 
         foreach ($array as $property => $value) {
             $method = $self->setMethod($property);
@@ -25,8 +27,10 @@ trait FromArray
 
     /**
      * @param string $property
-     * @return string
+     *
      * @throws MethodDoesNotExistsException
+     *
+     * @return string
      */
     private function setMethod(string $property): string
     {
@@ -41,6 +45,7 @@ trait FromArray
 
     /**
      * @param string $string
+     *
      * @return string
      */
     private function snakeCaseToCamelCase(string $string): string

@@ -11,12 +11,13 @@ class TranslationCreated
 
     /**
      * TranslationCreated constructor.
+     *
      * @param TranslationInterface $translation
-     * @param bool $wasRecentlyCreated
+     * @param bool                 $wasRecentlyCreated
      */
     public function __construct(TranslationInterface $translation, bool $wasRecentlyCreated)
     {
-        $this->role = $translation;
+        $this->translation = $translation;
         $this->wasRecentlyCreated = $wasRecentlyCreated;
     }
 }

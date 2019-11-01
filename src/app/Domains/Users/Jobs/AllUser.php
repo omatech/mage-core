@@ -8,6 +8,7 @@ class AllUser
 {
     /**
      * @param AllUserInterface $all
+     *
      * @return mixed
      */
     public function make(AllUserInterface $all)

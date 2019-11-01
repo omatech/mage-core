@@ -3,25 +3,19 @@
 namespace Omatech\Mage\Core\Repositories;
 
 use Omatech\Lars\BaseRepository;
-use Omatech\Mage\Core\Models\LanguageLine;
-use Omatech\Mage\Core\Events\Translations\TranslationCreated;
-use Omatech\Mage\Core\Events\Translations\TranslationDeleted;
-use Omatech\Mage\Core\Events\Translations\TranslationUpdated;
-use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\AllTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\CreateTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\DeleteTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\ExistsTranslationInterface;
+use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\UniqueTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\UpdateTranslationInterface;
+use Omatech\Mage\Core\Events\Translations\TranslationCreated;
+use Omatech\Mage\Core\Events\Translations\TranslationDeleted;
+use Omatech\Mage\Core\Events\Translations\TranslationUpdated;
+use Omatech\Mage\Core\Models\LanguageLine;
 
-class TranslationRepository extends BaseRepository implements
-    AllTranslationInterface,
-    CreateTranslationInterface,
-    DeleteTranslationInterface,
-    UpdateTranslationInterface,
-    ExistsTranslationInterface,
-    UniqueTranslationInterface
+class TranslationRepository extends BaseRepository implements AllTranslationInterface, CreateTranslationInterface, DeleteTranslationInterface, UpdateTranslationInterface, ExistsTranslationInterface, UniqueTranslationInterface
 {
     /**
      * @return string
@@ -33,6 +27,7 @@ class TranslationRepository extends BaseRepository implements
 
     /**
      * @param $locales
+     *
      * @return mixed
      */
     public function get($locales)
@@ -51,14 +46,16 @@ class TranslationRepository extends BaseRepository implements
 
     /**
      * @param int $id
-     * @return TranslationInterface|null
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return TranslationInterface|null
      */
     public function find(int $id): ?TranslationInterface
     {
         $translation = $this->query()->find($id);
 
-        if ($translation === null) {
+        if (null === $translation) {
             return null;
         }
 
@@ -76,14 +73,15 @@ class TranslationRepository extends BaseRepository implements
 
     /**
      * @param TranslationInterface $translation
+     *
      * @return bool
      */
     public function create(TranslationInterface $translation): bool
     {
         $created = $this->query()->create([
-            'group' => $translation->getGroup(),
-            'key'   => $translation->getKey(),
-            'text'  => $translation->getTranslations(),
+            'group'   => $translation->getGroup(),
+            'key'     => $translation->getKey(),
+            'text'    => $translation->getTranslations(),
             'sync_at' => $translation->getSyncAt(),
         ]);
 
@@ -99,6 +97,7 @@ class TranslationRepository extends BaseRepository implements
 
     /**
      * @param TranslationInterface $translation
+     *
      * @return bool
      */
     public function exists(TranslationInterface $translation): bool
@@ -114,6 +113,7 @@ class TranslationRepository extends BaseRepository implements
 
     /**
      * @param TranslationInterface $translation
+     *
      * @return bool
      */
     public function unique(TranslationInterface $translation): bool
@@ -127,6 +127,7 @@ class TranslationRepository extends BaseRepository implements
 
     /**
      * @param TranslationInterface $translation
+     *
      * @return bool
      */
     public function update(TranslationInterface $translation): bool
@@ -134,9 +135,9 @@ class TranslationRepository extends BaseRepository implements
         $updated = $this->query()->find($translation->getId());
 
         $updated->fill([
-            'group' => $translation->getGroup(),
-            'key' => $translation->getKey(),
-            'text' => $translation->getTranslations(),
+            'group'   => $translation->getGroup(),
+            'key'     => $translation->getKey(),
+            'text'    => $translation->getTranslations(),
             'sync_at' => $translation->getSyncAt(),
         ])->save();
 
@@ -151,6 +152,7 @@ class TranslationRepository extends BaseRepository implements
 
     /**
      * @param TranslationInterface $translation
+     *
      * @return bool
      */
     public function delete(TranslationInterface $translation): bool

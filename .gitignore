@@ -6,5 +6,5 @@ coverage
 .vscode
 .history
 .idea
-testing.sqlite
 .phpunit.result.cache
+.php_cs.cache

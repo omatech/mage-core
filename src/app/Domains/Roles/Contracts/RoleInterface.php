@@ -2,8 +2,8 @@
 
 namespace Omatech\Mage\Core\Domains\Roles\Contracts;
 
-use Omatech\Mage\Core\Domains\Roles\Role;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Roles\Role;
 
 interface RoleInterface
 {

@@ -7,6 +7,7 @@ class AllTranslation
     /**
      * @param $all
      * @param array $locales
+     *
      * @return mixed
      */
     public function make($all, array $locales)

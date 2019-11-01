@@ -2,32 +2,24 @@
 
 namespace Omatech\Mage\Core\Repositories;
 
-use Omatech\Lars\BaseRepository;
 use Illuminate\Support\Facades\DB;
-use Omatech\Mage\Core\Models\Role;
-use Omatech\Mage\Core\Events\Roles\RoleCreated;
-use Omatech\Mage\Core\Events\Roles\RoleDeleted;
-use Omatech\Mage\Core\Events\Roles\RoleUpdated;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Lars\BaseRepository;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\DeleteRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\ExistsRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\UniqueRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\UpdateRoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Events\Roles\RoleCreated;
+use Omatech\Mage\Core\Events\Roles\RoleDeleted;
+use Omatech\Mage\Core\Events\Roles\RoleUpdated;
+use Omatech\Mage\Core\Models\Role;
 
-class RoleRepository extends BaseRepository implements
-    AllRoleInterface,
-    CreateRoleInterface,
-    DeleteRoleInterface,
-    ExistsRoleInterface,
-    UpdateRoleInterface,
-    UniqueRoleInterface,
-    FindRoleInterface,
-    AttachedRoleInterface
+class RoleRepository extends BaseRepository implements AllRoleInterface, CreateRoleInterface, DeleteRoleInterface, ExistsRoleInterface, UpdateRoleInterface, UniqueRoleInterface, FindRoleInterface, AttachedRoleInterface
 {
     /**
      * @return string
@@ -47,14 +39,16 @@ class RoleRepository extends BaseRepository implements
 
     /**
      * @param int $id
-     * @return RoleInterface|null
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return RoleInterface|null
      */
     public function find(int $id): ?RoleInterface
     {
         $role = $this->query()->find($id);
 
-        if ($role === null) {
+        if (null === $role) {
             return null;
         }
 
@@ -77,6 +71,7 @@ class RoleRepository extends BaseRepository implements
 
     /**
      * @param RoleInterface $role
+     *
      * @return bool
      */
     public function create(RoleInterface $role): bool
@@ -103,6 +98,7 @@ class RoleRepository extends BaseRepository implements
 
     /**
      * @param RoleInterface $role
+     *
      * @return bool
      */
     public function exists(RoleInterface $role): bool
@@ -115,6 +111,7 @@ class RoleRepository extends BaseRepository implements
 
     /**
      * @param RoleInterface $role
+     *
      * @return bool
      */
     public function unique(RoleInterface $role): bool
@@ -127,6 +124,7 @@ class RoleRepository extends BaseRepository implements
 
     /**
      * @param RoleInterface $role
+     *
      * @return bool
      */
     public function update(RoleInterface $role): bool
@@ -154,6 +152,7 @@ class RoleRepository extends BaseRepository implements
 
     /**
      * @param RoleInterface $role
+     *
      * @return bool
      */
     public function delete(RoleInterface $role): bool
@@ -171,6 +170,7 @@ class RoleRepository extends BaseRepository implements
 
     /**
      * @param RoleInterface $role
+     *
      * @return bool
      */
     public function attached(RoleInterface $role): bool
@@ -181,7 +181,7 @@ class RoleRepository extends BaseRepository implements
     }
 
     /**
-     * @param Role $model
+     * @param Role          $model
      * @param RoleInterface $role
      */
     private function syncPermissions(Role $model, RoleInterface $role): void

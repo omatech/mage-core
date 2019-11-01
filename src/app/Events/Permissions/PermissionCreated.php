@@ -11,8 +11,9 @@ class PermissionCreated
 
     /**
      * PermissionCreated constructor.
+     *
      * @param PermissionInterface $permission
-     * @param bool $wasRecentlyCreated
+     * @param bool                $wasRecentlyCreated
      */
     public function __construct(PermissionInterface $permission, bool $wasRecentlyCreated)
     {

@@ -2,21 +2,23 @@
 
 namespace Omatech\Mage\Core\Domains\Users;
 
-use Omatech\Mage\Core\Domains\Roles\RoleModel;
-use Omatech\Mage\Core\Domains\Users\Jobs\AllUser;
-use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
-use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
-use Omatech\Mage\Core\Domains\Users\Features\FindOrFailUser;
-use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
-use Omatech\Mage\Core\Domains\Users\Features\UpdateOrCreateUser;
-use Omatech\Mage\Core\Domains\Users\Features\ExistsAndDeleteUser;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
+use Omatech\Mage\Core\Domains\Shared\Traits\PermissionsManager;
+use Omatech\Mage\Core\Domains\Shared\Traits\RolesManager;
+use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
+use Omatech\Mage\Core\Domains\Users\Features\ExistsAndDeleteUser;
+use Omatech\Mage\Core\Domains\Users\Features\FindOrFailUser;
+use Omatech\Mage\Core\Domains\Users\Features\UpdateOrCreateUser;
+use Omatech\Mage\Core\Domains\Users\Jobs\AllUser;
 
 class User implements UserInterface
 {
     use FromArray;
+    use PermissionsManager;
+    use RolesManager;
 
     private $id;
     private $name;
@@ -40,6 +42,7 @@ class User implements UserInterface
 
     /**
      * @param int $id
+     *
      * @return User
      */
     public function setId(int $id): self
@@ -59,6 +62,7 @@ class User implements UserInterface
 
     /**
      * @param string $name
+     *
      * @return User
      */
     public function setName(string $name): self
@@ -78,6 +82,7 @@ class User implements UserInterface
 
     /**
      * @param string $language
+     *
      * @return User
      */
     public function setLanguage(string $language): self
@@ -97,6 +102,7 @@ class User implements UserInterface
 
     /**
      * @param string $email
+     *
      * @return User
      */
     public function setEmail(string $email): self
@@ -116,6 +122,7 @@ class User implements UserInterface
 
     /**
      * @param string|null $emailVerifiedAt
+     *
      * @return User
      */
     public function setEmailVerifiedAt(?string $emailVerifiedAt): self
@@ -135,6 +142,7 @@ class User implements UserInterface
 
     /**
      * @param string $password
+     *
      * @return User
      */
     public function setPassword(string $password): self
@@ -154,6 +162,7 @@ class User implements UserInterface
 
     /**
      * @param string|null $rememberToken
+     *
      * @return User
      */
     public function setRememberToken(?string $rememberToken): self
@@ -173,6 +182,7 @@ class User implements UserInterface
 
     /**
      * @param string $createdAt
+     *
      * @return User
      */
     public function setCreatedAt(string $createdAt): self
@@ -192,6 +202,7 @@ class User implements UserInterface
 
     /**
      * @param string $updatedAt
+     *
      * @return User
      */
     public function setUpdatedAt(string $updatedAt): self
@@ -239,8 +250,10 @@ class User implements UserInterface
 
     /**
      * @param AllUserInterface $all
-     * @return mixed
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return mixed
      */
     public static function all(AllUserInterface $all)
     {
@@ -249,8 +262,10 @@ class User implements UserInterface
 
     /**
      * @param int $id
-     * @return User
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return User
      */
     public static function find(int $id): self
     {
@@ -258,8 +273,9 @@ class User implements UserInterface
     }
 
     /**
-     * @return bool
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return bool
      */
     public function save(): bool
     {
@@ -267,115 +283,12 @@ class User implements UserInterface
     }
 
     /**
-     * @return bool
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return bool
      */
     public function delete(): bool
     {
         return app()->make(ExistsAndDeleteUser::class)->make($this);
-    }
-
-    /**
-     * @param PermissionInterface $permission
-     * @return User
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function assignPermission(PermissionInterface $permission): self
-    {
-        $this->permissions = app()->make(PermissionModel::class)
-            ->assignPermission($this->getPermissions(), $permission);
-
-        return $this;
-    }
-
-    /**
-     * @param array $permissions
-     * @return User
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function assignPermissions(array $permissions): self
-    {
-        $this->permissions = app()->make(PermissionModel::class)
-            ->assignPermissions($this->getPermissions(), $permissions);
-
-        return $this;
-    }
-
-    /**
-     * @param PermissionInterface $permission
-     * @return User
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function removePermission(PermissionInterface $permission): self
-    {
-        $this->permissions = app()->make(PermissionModel::class)
-            ->removePermission($this->getPermissions(), $permission);
-
-        return $this;
-    }
-
-    /**
-     * @param array $permissions
-     * @return User
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function removePermissions(array $permissions): self
-    {
-        $this->permissions = app()->make(PermissionModel::class)
-            ->removePermissions($this->getPermissions(), $permissions);
-
-        return $this;
-    }
-
-    /**
-     * @param RoleInterface $role
-     * @return User
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function assignRole(RoleInterface $role): self
-    {
-        $this->roles = app()->make(RoleModel::class)
-            ->assignRole($this->getRoles(), $role);
-
-        return $this;
-    }
-
-    /**
-     * @param array $roles
-     * @return User
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function assignRoles(array $roles): self
-    {
-        $this->roles = app()->make(RoleModel::class)
-            ->assignRoles($this->getRoles(), $roles);
-
-        return $this;
-    }
-
-    /**
-     * @param RoleInterface $role
-     * @return User
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function removeRole(RoleInterface $role): self
-    {
-        $this->roles = app()->make(RoleModel::class)
-            ->removeRole($this->getRoles(), $role);
-
-        return $this;
-    }
-
-    /**
-     * @param array $roles
-     * @return User
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function removeRoles(array $roles): self
-    {
-        $this->roles = app()->make(RoleModel::class)
-            ->removeRoles($this->getRoles(), $roles);
-
-        return $this;
     }
 }

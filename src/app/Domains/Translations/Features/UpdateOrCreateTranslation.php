@@ -2,21 +2,25 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Features;
 
-use Omatech\Mage\Core\Domains\Translations\Translation;
+use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationExistsMustBeUniqueException;
 use Omatech\Mage\Core\Domains\Translations\Jobs\CreateTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\ExistsTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\UniqueTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\UpdateTranslation;
-use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationAlreadyExistsException;
-use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationExistsMustBeUniqueException;
+use Omatech\Mage\Core\Domains\Translations\Translation;
 
 class UpdateOrCreateTranslation
 {
+    private $create;
+    private $update;
     private $exists;
+    private $unique;
 
     /**
      * UpdateOrCreateTranslation constructor.
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
@@ -29,14 +33,16 @@ class UpdateOrCreateTranslation
 
     /**
      * @param Translation $translation
-     * @return bool
+     *
      * @throws TranslationAlreadyExistsException
      * @throws TranslationDoesNotExistsException
      * @throws TranslationExistsMustBeUniqueException
+     *
+     * @return bool
      */
     public function make(Translation $translation): bool
     {
-        if ($translation->getId() !== null) {
+        if (null !== $translation->getId()) {
             return $this->update($translation);
         }
 
@@ -45,15 +51,17 @@ class UpdateOrCreateTranslation
 
     /**
      * @param Translation $translation
-     * @return bool
+     *
      * @throws TranslationAlreadyExistsException
+     *
+     * @return bool
      */
     private function create(Translation $translation): bool
     {
         $exists = $this->exists->make($translation);
 
-        if ($exists === true) {
-            throw new TranslationAlreadyExistsException;
+        if (true === $exists) {
+            throw new TranslationAlreadyExistsException();
         }
 
         return $this->create->make($translation);
@@ -61,22 +69,24 @@ class UpdateOrCreateTranslation
 
     /**
      * @param Translation $translation
-     * @return bool
+     *
      * @throws TranslationDoesNotExistsException
      * @throws TranslationExistsMustBeUniqueException
+     *
+     * @return bool
      */
     private function update(Translation $translation): bool
     {
         $exists = $this->unique->make($translation);
 
-        if ($exists === true) {
-            throw new TranslationExistsMustBeUniqueException;
+        if (true === $exists) {
+            throw new TranslationExistsMustBeUniqueException();
         }
 
         $exists = $this->exists->make($translation);
 
-        if ($exists === false) {
-            throw new TranslationDoesNotExistsException;
+        if (false === $exists) {
+            throw new TranslationDoesNotExistsException();
         }
 
         return $this->update->make($translation);

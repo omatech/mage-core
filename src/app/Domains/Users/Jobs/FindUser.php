@@ -2,15 +2,17 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Jobs;
 
-use Omatech\Mage\Core\Domains\Users\User;
 use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
+use Omatech\Mage\Core\Domains\Users\User;
 
 class FindUser
 {
     /**
      * @param int $id
-     * @return User|null
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return User|null
      */
     public function make(int $id): ?User
     {

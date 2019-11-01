@@ -8,6 +8,7 @@ class AllPermission
 {
     /**
      * @param AllPermissionInterface $all
+     *
      * @return mixed
      */
     public function make(AllPermissionInterface $all)

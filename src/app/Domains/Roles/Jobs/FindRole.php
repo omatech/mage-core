@@ -2,15 +2,17 @@
 
 namespace Omatech\Mage\Core\Domains\Roles\Jobs;
 
-use Omatech\Mage\Core\Domains\Roles\Role;
 use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Role;
 
 class FindRole
 {
     /**
      * @param int $id
-     * @return Role|null
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return Role|null
      */
     public function make(int $id): ?Role
     {

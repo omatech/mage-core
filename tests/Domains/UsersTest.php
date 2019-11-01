@@ -2,28 +2,28 @@
 
 namespace Omatech\Mage\Core\Tests\Domains;
 
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
+use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
+use Omatech\Mage\Core\Domains\Users\Exceptions\UserAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Users\Exceptions\UserNameExistsMustBeUniqueException;
 use Omatech\Mage\Core\Domains\Users\User;
-use Omatech\Mage\Core\Tests\BaseTestCase;
 use Omatech\Mage\Core\Events\Users\UserCreated;
 use Omatech\Mage\Core\Events\Users\UserDeleted;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
 use Omatech\Mage\Core\Models\User as UserModel;
 use Omatech\Mage\Core\Repositories\UserRepository;
-use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
-use Omatech\Mage\Core\Domains\Users\Exceptions\UserAlreadyExistsException;
-use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
-use Omatech\Mage\Core\Domains\Users\Exceptions\UserNameExistsMustBeUniqueException;
+use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class UsersTest extends BaseTestCase
 {
     public function testPaginateToArrayUser(): void
     {
-        $pagination = $this->app->make(UserInterface::class)::all(new UserRepository);
+        $pagination = $this->app->make(UserInterface::class)::all(new UserRepository());
 
-        $this->assertTrue(is_array($pagination) === true);
+        $this->assertTrue(true === is_array($pagination));
     }
 
     public function testFindUser(): void
@@ -99,10 +99,10 @@ class UsersTest extends BaseTestCase
         $user->save();
 
         $this->assertDatabaseHas($this->usersDBTable, [
-            'name'     => $user->getName(),
-            'language' => $user->getLanguage(),
-            'email'    => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'name'       => $user->getName(),
+            'language'   => $user->getLanguage(),
+            'email'      => $user->getEmail(),
+            'password'   => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
             'updated_at' => $user->getUpdatedAt(),
         ]);
@@ -110,8 +110,8 @@ class UsersTest extends BaseTestCase
         foreach ($user->getPermissions() as $permission) {
             $this->assertDatabaseHas(config('permission.table_names')['model_has_permissions'], [
                 'permission_id' => $permission->getId(),
-                'model_type' => UserModel::class,
-                'model_id' => $user->getId(),
+                'model_type'    => UserModel::class,
+                'model_id'      => $user->getId(),
             ]);
         }
     }
@@ -136,19 +136,19 @@ class UsersTest extends BaseTestCase
         $user->save();
 
         $this->assertDatabaseHas($this->usersDBTable, [
-            'name'     => $user->getName(),
-            'language' => $user->getLanguage(),
-            'email'    => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'name'       => $user->getName(),
+            'language'   => $user->getLanguage(),
+            'email'      => $user->getEmail(),
+            'password'   => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
             'updated_at' => $user->getUpdatedAt(),
         ]);
 
         foreach ($user->getRoles() as $role) {
             $this->assertDatabaseHas(config('permission.table_names')['model_has_roles'], [
-                'role_id' => $role->getId(),
+                'role_id'    => $role->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId(),
+                'model_id'   => $user->getId(),
             ]);
         }
     }
@@ -172,14 +172,14 @@ class UsersTest extends BaseTestCase
 
         $result = $user->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseHas($this->usersDBTable, [
-            'name'     => $user->getName(),
-            'language' => $user->getLanguage(),
-            'email'    => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'name'       => $user->getName(),
+            'language'   => $user->getLanguage(),
+            'email'      => $user->getEmail(),
+            'password'   => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
             'updated_at' => $user->getUpdatedAt(),
         ]);
@@ -196,8 +196,8 @@ class UsersTest extends BaseTestCase
 
         $result = $user2->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
     }
 
     public function testUpdatePermissionFromUser(): void
@@ -207,14 +207,14 @@ class UsersTest extends BaseTestCase
 
         $result = $user->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseHas($this->usersDBTable, [
-            'name'     => $user->getName(),
-            'language' => $user->getLanguage(),
-            'email'    => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'name'       => $user->getName(),
+            'language'   => $user->getLanguage(),
+            'email'      => $user->getEmail(),
+            'password'   => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
             'updated_at' => $user->getUpdatedAt(),
         ]);
@@ -229,8 +229,8 @@ class UsersTest extends BaseTestCase
         foreach ($user->getPermissions() as $permission) {
             $this->assertDatabaseHas(config('permission.table_names')['model_has_permissions'], [
                 'permission_id' => $permission->getId(),
-                'model_type' => UserModel::class,
-                'model_id' => $user->getId(),
+                'model_type'    => UserModel::class,
+                'model_id'      => $user->getId(),
             ]);
         }
     }
@@ -249,8 +249,8 @@ class UsersTest extends BaseTestCase
         foreach ($user2->getPermissions() as $permission) {
             $this->assertDatabaseMissing(config('permission.table_names')['model_has_permissions'], [
                 'permission_id' => $permission->getId(),
-                'model_type' => UserModel::class,
-                'model_id' => $user->getId(),
+                'model_type'    => UserModel::class,
+                'model_id'      => $user->getId(),
             ]);
         }
     }
@@ -272,8 +272,8 @@ class UsersTest extends BaseTestCase
         foreach ($user2->getPermissions() as $permission) {
             $this->assertDatabaseMissing(config('permission.table_names')['model_has_permissions'], [
                 'permission_id' => $permission->getId(),
-                'model_type' => UserModel::class,
-                'model_id' => $user->getId(),
+                'model_type'    => UserModel::class,
+                'model_id'      => $user->getId(),
             ]);
         }
     }
@@ -291,9 +291,9 @@ class UsersTest extends BaseTestCase
 
         foreach ($user2->getRoles() as $role) {
             $this->assertDatabaseMissing(config('permission.table_names')['model_has_roles'], [
-                'role_id' => $role->getId(),
+                'role_id'    => $role->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId(),
+                'model_id'   => $user->getId(),
             ]);
         }
     }
@@ -314,9 +314,9 @@ class UsersTest extends BaseTestCase
 
         foreach ($user2->getRoles() as $role) {
             $this->assertDatabaseMissing(config('permission.table_names')['model_has_roles'], [
-                'role_id' => $role->getId(),
+                'role_id'    => $role->getId(),
                 'model_type' => UserModel::class,
-                'model_id' => $user->getId(),
+                'model_id'   => $user->getId(),
             ]);
         }
     }
@@ -361,18 +361,18 @@ class UsersTest extends BaseTestCase
         $user = $this->createUser();
 
         $this->assertTrue(is_int($user->getId()));
-        $this->assertTrue($user->getId() !== null);
+        $this->assertTrue(null !== $user->getId());
 
         $result = $user->delete();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseMissing($this->usersDBTable, [
-            'name'     => $user->getName(),
-            'language' => $user->getLanguage(),
-            'email'    => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'name'       => $user->getName(),
+            'language'   => $user->getLanguage(),
+            'email'      => $user->getEmail(),
+            'password'   => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
             'updated_at' => $user->getUpdatedAt(),
         ]);
@@ -388,10 +388,10 @@ class UsersTest extends BaseTestCase
         $user->delete();
 
         $this->assertDatabaseMissing($this->usersDBTable, [
-            'name'     => $user->getName(),
-            'language' => $user->getLanguage(),
-            'email'    => $user->getEmail(),
-            'password' => $user->getPassword(),
+            'name'       => $user->getName(),
+            'language'   => $user->getLanguage(),
+            'email'      => $user->getEmail(),
+            'password'   => $user->getPassword(),
             'created_at' => $user->getCreatedAt(),
             'updated_at' => $user->getUpdatedAt(),
         ]);

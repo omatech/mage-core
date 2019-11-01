@@ -2,31 +2,24 @@
 
 namespace Omatech\Mage\Core\Repositories;
 
-use Omatech\Lars\BaseRepository;
 use Illuminate\Support\Facades\DB;
-use Omatech\Mage\Core\Models\User;
-use Omatech\Mage\Core\Events\Users\UserCreated;
-use Omatech\Mage\Core\Events\Users\UserDeleted;
-use Omatech\Mage\Core\Events\Users\UserUpdated;
+use Omatech\Lars\BaseRepository;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\DeleteUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UniqueUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
-use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
+use Omatech\Mage\Core\Events\Users\UserCreated;
+use Omatech\Mage\Core\Events\Users\UserDeleted;
+use Omatech\Mage\Core\Events\Users\UserUpdated;
+use Omatech\Mage\Core\Models\User;
 
-class UserRepository extends BaseRepository implements
-    AllUserInterface,
-    CreateUserInterface,
-    DeleteUserInterface,
-    ExistsUserInterface,
-    UpdateUserInterface,
-    UniqueUserInterface,
-    FindUserInterface
+class UserRepository extends BaseRepository implements AllUserInterface, CreateUserInterface, DeleteUserInterface, ExistsUserInterface, UpdateUserInterface, UniqueUserInterface, FindUserInterface
 {
     /**
      * @return string
@@ -46,14 +39,16 @@ class UserRepository extends BaseRepository implements
 
     /**
      * @param int $id
-     * @return UserInterface|null
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return UserInterface|null
      */
     public function find(int $id): ?UserInterface
     {
         $user = $this->query()->find($id);
 
-        if ($user === null) {
+        if (null === $user) {
             return null;
         }
 
@@ -85,6 +80,7 @@ class UserRepository extends BaseRepository implements
 
     /**
      * @param UserInterface $user
+     *
      * @return bool
      */
     public function create(UserInterface $user): bool
@@ -117,6 +113,7 @@ class UserRepository extends BaseRepository implements
 
     /**
      * @param UserInterface $user
+     *
      * @return bool
      */
     public function exists(UserInterface $user): bool
@@ -129,6 +126,7 @@ class UserRepository extends BaseRepository implements
 
     /**
      * @param UserInterface $user
+     *
      * @return bool
      */
     public function unique(UserInterface $user): bool
@@ -141,6 +139,7 @@ class UserRepository extends BaseRepository implements
 
     /**
      * @param UserInterface $user
+     *
      * @return bool
      */
     public function update(UserInterface $user): bool
@@ -174,6 +173,7 @@ class UserRepository extends BaseRepository implements
 
     /**
      * @param UserInterface $user
+     *
      * @return bool
      */
     public function delete(UserInterface $user): bool
@@ -190,7 +190,7 @@ class UserRepository extends BaseRepository implements
     }
 
     /**
-     * @param User $model
+     * @param User          $model
      * @param UserInterface $user
      */
     private function syncPermissions(User $model, UserInterface $user): void
@@ -199,7 +199,7 @@ class UserRepository extends BaseRepository implements
     }
 
     /**
-     * @param User $model
+     * @param User          $model
      * @param UserInterface $user
      */
     private function syncRoles(User $model, UserInterface $user): void

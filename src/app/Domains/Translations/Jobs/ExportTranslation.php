@@ -8,9 +8,10 @@ use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
 class ExportTranslation
 {
     /**
-     * @param AllTranslationInterface $allTranslationInterface
+     * @param AllTranslationInterface    $allTranslationInterface
      * @param ExportTranslationInterface $exportTranslationInterface
      * @param $locales
+     *
      * @return string
      */
     public function make(
@@ -27,7 +28,7 @@ class ExportTranslation
                 if (array_key_exists($key, array_flip($locales))) {
                     $parsedTranslations[$key][] = [
                         'group' => $values['group'],
-                        'key' => $values['group'].'.'.$values['key'],
+                        'key'   => $values['group'].'.'.$values['key'],
                         'value' => $value,
                     ];
                 }

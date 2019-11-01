@@ -2,15 +2,17 @@
 
 namespace Omatech\Mage\Core\Domains\Roles\Jobs;
 
-use Omatech\Mage\Core\Domains\Roles\Role;
 use Omatech\Mage\Core\Domains\Roles\Contracts\AttachedRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Role;
 
 class AttachedRole
 {
     /**
      * @param Role $role
-     * @return bool
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return bool
      */
     public function make(Role $role): bool
     {

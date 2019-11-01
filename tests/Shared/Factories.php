@@ -3,10 +3,10 @@
 namespace Omatech\Mage\Core\Tests\Shared;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 
 trait Factories
 {

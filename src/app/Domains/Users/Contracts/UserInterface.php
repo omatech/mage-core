@@ -2,9 +2,9 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Contracts;
 
-use Omatech\Mage\Core\Domains\Users\User;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Users\User;
 
 interface UserInterface
 {

@@ -2,10 +2,10 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Features;
 
-use Omatech\Mage\Core\Domains\Users\User;
+use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Users\Jobs\DeleteUser;
 use Omatech\Mage\Core\Domains\Users\Jobs\ExistsUser;
-use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Users\User;
 
 class ExistsAndDeleteUser
 {
@@ -14,6 +14,7 @@ class ExistsAndDeleteUser
 
     /**
      * ExistsAndDeleteUser constructor.
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
@@ -24,15 +25,17 @@ class ExistsAndDeleteUser
 
     /**
      * @param User $user
-     * @return bool
+     *
      * @throws UserDoesNotExistsException
+     *
+     * @return bool
      */
     public function make(User $user): bool
     {
         $exists = $this->exists->make($user);
 
-        if ($exists === false) {
-            throw new UserDoesNotExistsException;
+        if (false === $exists) {
+            throw new UserDoesNotExistsException();
         }
 
         return $this->delete->make($user);

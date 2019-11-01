@@ -3,14 +3,14 @@
 namespace Omatech\Mage\Core\Domains\Translations;
 
 use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
+use Omatech\Mage\Core\Domains\Translations\Contracts\AllTranslationInterface;
+use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
+use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
+use Omatech\Mage\Core\Domains\Translations\Features\ExistsAndDeleteTranslation;
+use Omatech\Mage\Core\Domains\Translations\Features\FindOrFailTranslation;
+use Omatech\Mage\Core\Domains\Translations\Features\UpdateOrCreateTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\AllTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\ExportTranslation;
-use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
-use Omatech\Mage\Core\Domains\Translations\Features\FindOrFailTranslation;
-use Omatech\Mage\Core\Domains\Translations\Contracts\AllTranslationInterface;
-use Omatech\Mage\Core\Domains\Translations\Features\UpdateOrCreateTranslation;
-use Omatech\Mage\Core\Domains\Translations\Features\ExistsAndDeleteTranslation;
-use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
 
 class Translation implements TranslationInterface
 {
@@ -34,6 +34,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param int $id
+     *
      * @return Translation
      */
     public function setId(int $id): self
@@ -61,6 +62,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param string $key
+     *
      * @return Translation
      */
     public function setKey(string $key): self
@@ -81,6 +83,7 @@ class Translation implements TranslationInterface
     /**
      * @param string $language
      * @param string $text
+     *
      * @return $this
      */
     public function setTranslation(string $language, string $text): self
@@ -100,6 +103,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param array $translations
+     *
      * @return $this
      */
     public function setTranslations(array $translations): self
@@ -147,6 +151,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param string $syncAt
+     *
      * @return Translation
      */
     public function setSyncAt(?string $syncAt): self
@@ -166,6 +171,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param string $createdAt
+     *
      * @return Translation
      */
     public function setCreatedAt(string $createdAt): self
@@ -185,6 +191,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param string $updatedAt
+     *
      * @return Translation
      */
     public function setUpdatedAt(string $updatedAt): self
@@ -196,8 +203,10 @@ class Translation implements TranslationInterface
 
     /**
      * @param AllTranslationInterface $all
-     * @return mixed
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return mixed
      */
     public static function all(AllTranslationInterface $all)
     {
@@ -207,8 +216,10 @@ class Translation implements TranslationInterface
 
     /**
      * @param int $id
-     * @return Translation
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return Translation
      */
     public static function find(int $id): self
     {
@@ -216,8 +227,9 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @return bool
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return bool
      */
     public function save(): bool
     {
@@ -227,8 +239,9 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @return bool
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return bool
      */
     public function delete(): bool
     {
@@ -236,11 +249,13 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @param AllTranslationInterface $allTranslationInterface
+     * @param AllTranslationInterface    $allTranslationInterface
      * @param ExportTranslationInterface $exportTranslationInterface
-     * @param array|null $locales
-     * @return mixed
+     * @param array|null                 $locales
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return mixed
      */
     public static function export(
         AllTranslationInterface $allTranslationInterface,

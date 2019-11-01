@@ -8,15 +8,17 @@ use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 class RoleModel
 {
     /**
-     * @param array $currentRoles
+     * @param array         $currentRoles
      * @param RoleInterface $assignRole
-     * @return array
+     *
      * @throws RoleIsNotSavedException
+     *
+     * @return array
      */
     public function assignRole(array $currentRoles, RoleInterface $assignRole): array
     {
-        if ($assignRole->getId() === null) {
-            throw new RoleIsNotSavedException;
+        if (null === $assignRole->getId()) {
+            throw new RoleIsNotSavedException();
         }
 
         if (! in_array($assignRole, $currentRoles, true)) {
@@ -29,8 +31,10 @@ class RoleModel
     /**
      * @param array $currentRoles
      * @param array $assignRoles
-     * @return array
+     *
      * @throws RoleIsNotSavedException
+     *
+     * @return array
      */
     public function assignRoles(array $currentRoles, array $assignRoles): array
     {
@@ -44,15 +48,17 @@ class RoleModel
     }
 
     /**
-     * @param array $currentRoles
+     * @param array         $currentRoles
      * @param RoleInterface $deleteRole
-     * @return array
+     *
      * @throws RoleIsNotSavedException
+     *
+     * @return array
      */
     public function removeRole(array $currentRoles, RoleInterface $deleteRole): array
     {
-        if ($deleteRole->getId() === null) {
-            throw new RoleIsNotSavedException;
+        if (null === $deleteRole->getId()) {
+            throw new RoleIsNotSavedException();
         }
 
         $currentRoles = array_values(array_filter(
@@ -68,8 +74,10 @@ class RoleModel
     /**
      * @param array $currentRoles
      * @param array $deleteRoles
-     * @return array
+     *
      * @throws RoleIsNotSavedException
+     *
+     * @return array
      */
     public function removeRoles(array $currentRoles, array $deleteRoles): array
     {

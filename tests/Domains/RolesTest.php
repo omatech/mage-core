@@ -2,27 +2,27 @@
 
 namespace Omatech\Mage\Core\Tests\Domains;
 
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsAttachedException;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleNameExistsMustBeUniqueException;
 use Omatech\Mage\Core\Domains\Roles\Role;
-use Omatech\Mage\Core\Tests\BaseTestCase;
+use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
 use Omatech\Mage\Core\Events\Roles\RoleCreated;
 use Omatech\Mage\Core\Events\Roles\RoleDeleted;
 use Omatech\Mage\Core\Events\Roles\RoleUpdated;
 use Omatech\Mage\Core\Repositories\RoleRepository;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsAttachedException;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleAlreadyExistsException;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleNameExistsMustBeUniqueException;
+use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class RolesTest extends BaseTestCase
 {
     public function testPaginateToArrayRole(): void
     {
-        $pagination = $this->app->make(RoleInterface::class)::all(new RoleRepository);
+        $pagination = $this->app->make(RoleInterface::class)::all(new RoleRepository());
 
-        $this->assertTrue(is_array($pagination) === true);
+        $this->assertTrue(true === is_array($pagination));
     }
 
     public function testFindRole(): void
@@ -96,7 +96,7 @@ class RolesTest extends BaseTestCase
 
         $this->assertDatabaseHas(config('permission.table_names')['role_has_permissions'], [
             'permission_id' => $permission->getId(),
-            'role_id' => $role->getId(),
+            'role_id'       => $role->getId(),
         ]);
     }
 
@@ -119,7 +119,7 @@ class RolesTest extends BaseTestCase
         foreach ($role->getPermissions() as $permission) {
             $this->assertDatabaseHas(config('permission.table_names')['role_has_permissions'], [
                 'permission_id' => $permission->getId(),
-                'role_id' => $role->getId(),
+                'role_id'       => $role->getId(),
             ]);
         }
     }
@@ -143,8 +143,8 @@ class RolesTest extends BaseTestCase
 
         $result = $role->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseHas(config('permission.table_names')['roles'], [
             'name'       => $role->getName(),
@@ -165,8 +165,8 @@ class RolesTest extends BaseTestCase
 
         $result = $role2->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
     }
 
     public function testRemovePermissionFromRole(): void
@@ -183,7 +183,7 @@ class RolesTest extends BaseTestCase
         $permission = $role2->getPermissions()[0];
         $this->assertDatabaseMissing(config('permission.table_names')['role_has_permissions'], [
             'permission_id' => $permission->getId(),
-            'role_id' => $role->getId(),
+            'role_id'       => $role->getId(),
         ]);
     }
 
@@ -204,7 +204,7 @@ class RolesTest extends BaseTestCase
         foreach ($role2->getPermissions() as $permission) {
             $this->assertDatabaseMissing(config('permission.table_names')['role_has_permissions'], [
                 'permission_id' => $permission->getId(),
-                'role_id' => $role->getId(),
+                'role_id'       => $role->getId(),
             ]);
         }
     }
@@ -232,12 +232,12 @@ class RolesTest extends BaseTestCase
         $role = $this->createRole();
 
         $this->assertTrue(is_int($role->getId()));
-        $this->assertTrue($role->getId() !== null);
+        $this->assertTrue(null !== $role->getId());
 
         $result = $role->delete();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseMissing(config('permission.table_names')['roles'], [
             'name'       => $role->getName(),

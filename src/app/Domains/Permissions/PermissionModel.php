@@ -8,15 +8,17 @@ use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedExcepti
 class PermissionModel
 {
     /**
-     * @param array $currentPermissions
+     * @param array               $currentPermissions
      * @param PermissionInterface $assignPermission
-     * @return array
+     *
      * @throws PermissionIsNotSavedException
+     *
+     * @return array
      */
     public function assignPermission(array $currentPermissions, PermissionInterface $assignPermission): array
     {
-        if ($assignPermission->getId() === null) {
-            throw new PermissionIsNotSavedException;
+        if (null === $assignPermission->getId()) {
+            throw new PermissionIsNotSavedException();
         }
 
         if (! in_array($assignPermission, $currentPermissions, true)) {
@@ -29,8 +31,10 @@ class PermissionModel
     /**
      * @param array $currentPermissions
      * @param array $assignPermissions
-     * @return array
+     *
      * @throws PermissionIsNotSavedException
+     *
+     * @return array
      */
     public function assignPermissions(array $currentPermissions, array $assignPermissions): array
     {
@@ -44,15 +48,17 @@ class PermissionModel
     }
 
     /**
-     * @param array $currentPermissions
+     * @param array               $currentPermissions
      * @param PermissionInterface $deletePermission
-     * @return array
+     *
      * @throws PermissionIsNotSavedException
+     *
+     * @return array
      */
     public function removePermission(array $currentPermissions, PermissionInterface $deletePermission): array
     {
-        if ($deletePermission->getId() === null) {
-            throw new PermissionIsNotSavedException;
+        if (null === $deletePermission->getId()) {
+            throw new PermissionIsNotSavedException();
         }
 
         $currentPermissions = array_values(array_filter(
@@ -68,8 +74,10 @@ class PermissionModel
     /**
      * @param array $currentPermissions
      * @param array $deletePermissions
-     * @return array
+     *
      * @throws PermissionIsNotSavedException
+     *
+     * @return array
      */
     public function removePermissions(array $currentPermissions, array $deletePermissions): array
     {

@@ -2,14 +2,14 @@
 
 namespace Omatech\Mage\Core\Domains\Roles\Features;
 
-use Omatech\Mage\Core\Domains\Roles\Role;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleAlreadyExistsException;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleNameExistsMustBeUniqueException;
 use Omatech\Mage\Core\Domains\Roles\Jobs\CreateRole;
 use Omatech\Mage\Core\Domains\Roles\Jobs\ExistsRole;
 use Omatech\Mage\Core\Domains\Roles\Jobs\UniqueRole;
 use Omatech\Mage\Core\Domains\Roles\Jobs\UpdateRole;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleAlreadyExistsException;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleNameExistsMustBeUniqueException;
+use Omatech\Mage\Core\Domains\Roles\Role;
 
 class UpdateOrCreateRole
 {
@@ -20,6 +20,7 @@ class UpdateOrCreateRole
 
     /**
      * UpdateOrCreateRole constructor.
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
@@ -32,13 +33,15 @@ class UpdateOrCreateRole
 
     /**
      * @param Role $role
-     * @return bool
+     *
      * @throws RoleAlreadyExistsException
      * @throws RoleNameExistsMustBeUniqueException
+     *
+     * @return bool
      */
     public function make(Role $role): bool
     {
-        if ($role->getId() !== null) {
+        if (null !== $role->getId()) {
             return $this->update($role);
         }
 
@@ -47,15 +50,17 @@ class UpdateOrCreateRole
 
     /**
      * @param Role $role
-     * @return bool
+     *
      * @throws RoleAlreadyExistsException
+     *
+     * @return bool
      */
     private function create(Role $role): bool
     {
         $exists = $this->exists->make($role);
 
-        if ($exists === true) {
-            throw new RoleAlreadyExistsException;
+        if (true === $exists) {
+            throw new RoleAlreadyExistsException();
         }
 
         return $this->create->make($role);
@@ -63,22 +68,24 @@ class UpdateOrCreateRole
 
     /**
      * @param Role $role
-     * @return bool
+     *
      * @throws RoleNameExistsMustBeUniqueException
      * @throws RoleDoesNotExistsException
+     *
+     * @return bool
      */
     private function update(Role $role): bool
     {
         $exists = $this->unique->make($role);
 
-        if ($exists === true) {
-            throw new RoleNameExistsMustBeUniqueException;
+        if (true === $exists) {
+            throw new RoleNameExistsMustBeUniqueException();
         }
 
         $exists = $this->exists->make($role);
 
-        if ($exists === false) {
-            throw new RoleDoesNotExistsException;
+        if (false === $exists) {
+            throw new RoleDoesNotExistsException();
         }
 
         return $this->update->make($role);

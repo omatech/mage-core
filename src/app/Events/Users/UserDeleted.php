@@ -11,8 +11,9 @@ class UserDeleted
 
     /**
      * UserDeleted constructor.
+     *
      * @param UserInterface $user
-     * @param bool $wasDelete
+     * @param bool          $wasDelete
      */
     public function __construct(UserInterface $user, bool $wasDelete)
     {

@@ -2,26 +2,26 @@
 
 namespace Omatech\Mage\Core\Tests\Domains;
 
-use Omatech\Mage\Core\Tests\BaseTestCase;
-use Omatech\Mage\Core\Repositories\TranslationRepository;
-use Omatech\Mage\Core\Events\Translations\TranslationCreated;
-use Omatech\Mage\Core\Events\Translations\TranslationDeleted;
-use Omatech\Mage\Core\Events\Translations\TranslationUpdated;
-use Omatech\Mage\Core\Adapters\Translations\GetAllTranslations;
-use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToExcel;
 use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToArrayFile;
+use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToExcel;
+use Omatech\Mage\Core\Adapters\Translations\GetAllTranslations;
 use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationAlreadyExistsException;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationExistsMustBeUniqueException;
+use Omatech\Mage\Core\Events\Translations\TranslationCreated;
+use Omatech\Mage\Core\Events\Translations\TranslationDeleted;
+use Omatech\Mage\Core\Events\Translations\TranslationUpdated;
+use Omatech\Mage\Core\Repositories\TranslationRepository;
+use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class TranslationsTest extends BaseTestCase
 {
     public function testPaginateToArrayTranslation(): void
     {
-        $pagination = $this->app->make(TranslationInterface::class)::all(new TranslationRepository);
+        $pagination = $this->app->make(TranslationInterface::class)::all(new TranslationRepository());
 
-        $this->assertTrue(is_array($pagination) === true);
+        $this->assertTrue(true === is_array($pagination));
     }
 
     public function testFindTranslation(): void
@@ -88,8 +88,8 @@ class TranslationsTest extends BaseTestCase
 
         $result = $translation->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseHas(config('translation-loader.table_name'), [
             'group'      => $translation->getGroup(),
@@ -112,8 +112,8 @@ class TranslationsTest extends BaseTestCase
 
         $result = $translation2->save();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
     }
 
     public function testDeleteTranslation(): void
@@ -123,12 +123,12 @@ class TranslationsTest extends BaseTestCase
         $translation = $this->createTranslation();
 
         $this->assertTrue(is_int($translation->getId()));
-        $this->assertTrue($translation->getId() !== null);
+        $this->assertTrue(null !== $translation->getId());
 
         $result = $translation->delete();
 
-        $this->assertTrue(is_bool($result) === true);
-        $this->assertTrue($result === true);
+        $this->assertTrue(true === is_bool($result));
+        $this->assertTrue(true === $result);
 
         $this->assertDatabaseMissing(config('translation-loader.table_name'), [
             'group'      => $translation->getGroup(),
@@ -168,7 +168,7 @@ class TranslationsTest extends BaseTestCase
 
         $translation = $this->app->make(TranslationInterface::class);
 
-        $path = $translation::export(new GetAllTranslations, new ExporterToExcel);
+        $path = $translation::export(new GetAllTranslations(), new ExporterToExcel());
 
         $this->assertFileExists($path);
     }
@@ -181,7 +181,7 @@ class TranslationsTest extends BaseTestCase
 
         $translation = $this->app->make(TranslationInterface::class);
 
-        $path = $translation::export(new GetAllTranslations, new ExporterToArrayFile);
+        $path = $translation::export(new GetAllTranslations(), new ExporterToArrayFile());
 
         $this->assertFileExists($path);
     }

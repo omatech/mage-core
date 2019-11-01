@@ -2,15 +2,17 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Jobs;
 
-use Omatech\Mage\Core\Domains\Translations\Translation;
 use Omatech\Mage\Core\Domains\Translations\Contracts\FindTranslationInterface;
+use Omatech\Mage\Core\Domains\Translations\Translation;
 
 class FindTranslation
 {
     /**
      * @param int $id
-     * @return Translation|null
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     *
+     * @return Translation|null
      */
     public function make(int $id): ?Translation
     {

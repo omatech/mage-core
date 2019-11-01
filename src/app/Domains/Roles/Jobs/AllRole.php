@@ -8,6 +8,7 @@ class AllRole
 {
     /**
      * @param AllRoleInterface $all
+     *
      * @return mixed
      */
     public function make(AllRoleInterface $all)
