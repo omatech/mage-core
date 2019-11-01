@@ -7,6 +7,10 @@ use Omatech\Mage\Core\Domains\Roles\RoleModel;
 
 trait RolesManager
 {
+    private $roles = [];
+
+    abstract public function getRoles();
+
     /**
      * @param RoleInterface $role
      *

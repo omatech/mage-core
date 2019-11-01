@@ -7,6 +7,10 @@ use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
 
 trait PermissionsManager
 {
+    private $permissions = [];
+
+    abstract public function getPermissions();
+
     /**
      * @param PermissionInterface $permission
      *
