@@ -24,10 +24,12 @@ env:
 before_script:
   - mysql -e 'create database testing;'
   - travis_retry composer self-update
-  - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-source
+  - travis_retry composer require codacy/coverage scrutinizer/ocular --no-interaction --no-update
+  - travis_retry composer update ${COMPOSER_FLAGS} --prefer-dist --no-interaction --no-suggest
 
 script:
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
-  - wget --output-document=/tmp/ocular.phar https://scrutinizer-ci.com/ocular.phar && php /tmp/ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+  - php vendor/bin/codacycoverage clover coverage.clover
