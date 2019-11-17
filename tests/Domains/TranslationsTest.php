@@ -29,10 +29,10 @@ class TranslationsTest extends BaseTestCase
     {
         $translation = $this->createTranslation();
 
-        $foundTranslation = $this->app->make(TranslationInterface::class)::find($translation->getId());
+        $foundTranslation = $this->app->make(TranslationInterface::class)::find($translation->getGroup().'.'.$translation->getKey());
 
         $this->assertTrue($foundTranslation instanceof TranslationInterface);
-        $this->assertTrue($foundTranslation->getId() === $foundTranslation->getId());
+        $this->assertTrue($translation->getId() === $foundTranslation->getId());
     }
 
     public function testCreateTranslation(): void
