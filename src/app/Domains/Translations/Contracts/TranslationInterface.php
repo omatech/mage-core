@@ -42,7 +42,7 @@ interface TranslationInterface
      */
     public static function all(AllTranslationInterface $all);
 
-    public static function find(int $id): Translation;
+    public static function find(string $key): Translation;
 
     public function save(): bool;
 

@@ -13,7 +13,7 @@ class BaseTestCase extends TestCase
 {
     use Bindings;
     use Factories;
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     public $usersDBTable;
 
@@ -31,8 +31,6 @@ class BaseTestCase extends TestCase
 
     /**
      * @param \Illuminate\Foundation\Application $app
-     *
-     * @return array
      */
     public function getPackageProviders($app): array
     {

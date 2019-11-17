@@ -5,12 +5,14 @@ namespace Omatech\Mage\Core\Domains\Translations;
 use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 use Omatech\Mage\Core\Domains\Translations\Contracts\AllTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
+use Omatech\Mage\Core\Domains\Translations\Contracts\ImportTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Features\ExistsAndDeleteTranslation;
 use Omatech\Mage\Core\Domains\Translations\Features\FindOrFailTranslation;
 use Omatech\Mage\Core\Domains\Translations\Features\UpdateOrCreateTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\AllTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\ExportTranslation;
+use Omatech\Mage\Core\Domains\Translations\Jobs\ImportTranslation;
 
 class Translation implements TranslationInterface
 {
@@ -24,17 +26,12 @@ class Translation implements TranslationInterface
     private $createdAt;
     private $updatedAt;
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     *
      * @return Translation
      */
     public function setId(int $id): self
@@ -44,25 +41,17 @@ class Translation implements TranslationInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getGroup(): string
     {
         return $this->group;
     }
 
-    /**
-     * @return string
-     */
     public function getKey(): string
     {
         return $this->key;
     }
 
     /**
-     * @param string $key
-     *
      * @return Translation
      */
     public function setKey(string $key): self
@@ -81,9 +70,6 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @param string $language
-     * @param string $text
-     *
      * @return $this
      */
     public function setTranslation(string $language, string $text): self
@@ -93,17 +79,12 @@ class Translation implements TranslationInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getTranslations(): array
     {
         return $this->translations;
     }
 
     /**
-     * @param array $translations
-     *
      * @return $this
      */
     public function setTranslations(array $translations): self
@@ -115,9 +96,6 @@ class Translation implements TranslationInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
     private static function getLocales(): array
     {
         $availableLocales = config('mage.translations.available_locales');
@@ -161,17 +139,12 @@ class Translation implements TranslationInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
     /**
-     * @param string $createdAt
-     *
      * @return Translation
      */
     public function setCreatedAt(string $createdAt): self
@@ -181,17 +154,12 @@ class Translation implements TranslationInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param string $updatedAt
-     *
      * @return Translation
      */
     public function setUpdatedAt(string $updatedAt): self
@@ -202,8 +170,6 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @param AllTranslationInterface $all
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @return mixed
@@ -215,21 +181,17 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @param int $id
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @return Translation
      */
-    public static function find(int $id): self
+    public static function find(string $key): self
     {
-        return app()->make(FindOrFailTranslation::class)->make($id);
+        return app()->make(FindOrFailTranslation::class)->make($key);
     }
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return bool
      */
     public function save(): bool
     {
@@ -240,8 +202,6 @@ class Translation implements TranslationInterface
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return bool
      */
     public function delete(): bool
     {
@@ -249,10 +209,6 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @param AllTranslationInterface    $allTranslationInterface
-     * @param ExportTranslationInterface $exportTranslationInterface
-     * @param array|null                 $locales
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @return mixed
@@ -266,5 +222,14 @@ class Translation implements TranslationInterface
 
         return app()->make(ExportTranslation::class)
             ->make($allTranslationInterface, $exportTranslationInterface, $locales);
+    }
+
+    public static function import(
+        ImportTranslationInterface $importTranslationInterface,
+        string $path,
+        string $locale = ''
+    ) {
+        return app()->make(ImportTranslation::class)
+            ->make($importTranslationInterface, $path, $locale);
     }
 }

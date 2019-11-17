@@ -5,6 +5,7 @@ namespace Omatech\Mage\Core\Tests\Domains;
 use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToArrayFile;
 use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToExcel;
 use Omatech\Mage\Core\Adapters\Translations\GetAllTranslations;
+use Omatech\Mage\Core\Adapters\Translations\Importers\ImporterFromExcel;
 use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationAlreadyExistsException;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationDoesNotExistsException;
@@ -32,13 +33,6 @@ class TranslationsTest extends BaseTestCase
 
         $this->assertTrue($foundTranslation instanceof TranslationInterface);
         $this->assertTrue($foundTranslation->getId() === $foundTranslation->getId());
-    }
-
-    public function testExceptionOnFindTranslation(): void
-    {
-        $this->expectException(TranslationDoesNotExistsException::class);
-
-        $this->app->make(TranslationInterface::class)::find(1);
     }
 
     public function testCreateTranslation(): void
@@ -184,5 +178,43 @@ class TranslationsTest extends BaseTestCase
         $path = $translation::export(new GetAllTranslations(), new ExporterToArrayFile());
 
         $this->assertFileExists($path);
+    }
+
+    public function testImportLanguageFromExcelsTranslations()
+    {
+        $translation = $this->app->make(TranslationInterface::class);
+
+        $result = $translation::import(
+            new ImporterFromExcel(),
+            __DIR__.'/../stubs/stub.xlsx'
+        );
+
+        $this->assertTrue($result);
+    }
+
+    public function testImportSingleExistingLanguageFromExcelsTranslations()
+    {
+        $translation = $this->app->make(TranslationInterface::class);
+
+        $result = $translation::import(
+            new ImporterFromExcel(),
+            __DIR__.'/../stubs/stub.xlsx',
+            'ca'
+        );
+
+        $this->assertTrue($result);
+    }
+
+    public function testImportSingleNotExistingLanguageFromExcelsTranslations()
+    {
+        $translation = $this->app->make(TranslationInterface::class);
+
+        $result = $translation::import(
+            new ImporterFromExcel(),
+            __DIR__.'/../stubs/stub.xlsx',
+            'jp'
+        );
+
+        $this->assertTrue($result);
     }
 }

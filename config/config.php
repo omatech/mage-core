@@ -10,7 +10,7 @@ return [
                 'locale'   => 'ca',
                 'name_key' => 'mage.translations.language.ca',
             ], [
-                'locale'   => 'de',
+                'locale'   => 'en',
                 'name_key' => 'mage.translations.language.en',
             ],
         ],

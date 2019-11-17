@@ -2,6 +2,7 @@
 
 namespace Omatech\Mage\Core\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use Omatech\Lars\BaseRepository;
 use Omatech\Mage\Core\Domains\Translations\Contracts\AllTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\CreateTranslationInterface;
@@ -17,9 +18,6 @@ use Omatech\Mage\Core\Models\LanguageLine;
 
 class TranslationRepository extends BaseRepository implements AllTranslationInterface, CreateTranslationInterface, DeleteTranslationInterface, UpdateTranslationInterface, ExistsTranslationInterface, UniqueTranslationInterface
 {
-    /**
-     * @return string
-     */
     public function model(): string
     {
         return LanguageLine::class;
@@ -48,15 +46,17 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
      * @param int $id
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return TranslationInterface|null
      */
-    public function find(int $id): ?TranslationInterface
+    public function find(string $key): ?TranslationInterface
     {
-        $translation = $this->query()->find($id);
+        $translation = $this->query()
+            ->where(DB::raw("CONCAT(`group`, '.', `key`)"), $key)
+            ->first();
 
         if (null === $translation) {
-            return null;
+            return app()->make(TranslationInterface::class)::fromArray([
+                'key' => $key,
+            ]);
         }
 
         $translation = app()->make(TranslationInterface::class)::fromArray([
@@ -71,11 +71,6 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
         return $translation;
     }
 
-    /**
-     * @param TranslationInterface $translation
-     *
-     * @return bool
-     */
     public function create(TranslationInterface $translation): bool
     {
         $created = $this->query()->create([
@@ -95,11 +90,6 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
         return $created->wasRecentlyCreated;
     }
 
-    /**
-     * @param TranslationInterface $translation
-     *
-     * @return bool
-     */
     public function exists(TranslationInterface $translation): bool
     {
         return $this->query()
@@ -111,11 +101,6 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
             ->exists();
     }
 
-    /**
-     * @param TranslationInterface $translation
-     *
-     * @return bool
-     */
     public function unique(TranslationInterface $translation): bool
     {
         return $this->query()
@@ -125,11 +110,6 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
             ->exists();
     }
 
-    /**
-     * @param TranslationInterface $translation
-     *
-     * @return bool
-     */
     public function update(TranslationInterface $translation): bool
     {
         $updated = $this->query()->find($translation->getId());
@@ -150,11 +130,6 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
         return count($updated->getChanges()) >= 1;
     }
 
-    /**
-     * @param TranslationInterface $translation
-     *
-     * @return bool
-     */
     public function delete(TranslationInterface $translation): bool
     {
         $isDeleted = $this->query()
