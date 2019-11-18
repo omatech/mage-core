@@ -32,17 +32,12 @@ class User implements UserInterface
     private $permissions = [];
     private $roles = [];
 
-    /**
-     * @return int|null
-     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     *
      * @return User
      */
     public function setId(int $id): self
@@ -52,17 +47,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
-     *
      * @return User
      */
     public function setName(string $name): self
@@ -72,17 +62,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getLanguage(): string
     {
         return $this->language;
     }
 
     /**
-     * @param string $language
-     *
      * @return User
      */
     public function setLanguage(string $language): self
@@ -92,17 +77,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
     /**
-     * @param string $email
-     *
      * @return User
      */
     public function setEmail(string $email): self
@@ -112,17 +92,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getEmailVerifiedAt(): ?string
     {
         return $this->emailVerifiedAt;
     }
 
     /**
-     * @param string|null $emailVerifiedAt
-     *
      * @return User
      */
     public function setEmailVerifiedAt(?string $emailVerifiedAt): self
@@ -132,17 +107,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
     /**
-     * @param string $password
-     *
      * @return User
      */
     public function setPassword(string $password): self
@@ -152,17 +122,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getRememberToken(): ?string
     {
         return $this->rememberToken;
     }
 
     /**
-     * @param string|null $rememberToken
-     *
      * @return User
      */
     public function setRememberToken(?string $rememberToken): self
@@ -172,17 +137,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
     /**
-     * @param string $createdAt
-     *
      * @return User
      */
     public function setCreatedAt(string $createdAt): self
@@ -192,17 +152,12 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param string $updatedAt
-     *
      * @return User
      */
     public function setUpdatedAt(string $updatedAt): self
@@ -212,25 +167,16 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getPermissions(): array
     {
         return $this->permissions;
     }
 
-    /**
-     * @return array
-     */
     public function getRoles(): array
     {
         return $this->roles;
     }
 
-    /**
-     * @return array
-     */
     public function getPermissionsIds(): array
     {
         return array_map(static function (PermissionInterface $permission) {
@@ -238,9 +184,6 @@ class User implements UserInterface
         }, $this->getPermissions());
     }
 
-    /**
-     * @return array
-     */
     public function getRolesIds(): array
     {
         return array_map(static function (RoleInterface $role) {
@@ -249,8 +192,6 @@ class User implements UserInterface
     }
 
     /**
-     * @param AllUserInterface $all
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @return mixed
@@ -261,21 +202,17 @@ class User implements UserInterface
     }
 
     /**
-     * @param int $id
-     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
      * @return User
      */
-    public static function find(int $id): self
+    public static function find(int $id)
     {
         return app()->make(FindOrFailUser::class)->make($id);
     }
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return bool
      */
     public function save(): bool
     {
@@ -284,8 +221,6 @@ class User implements UserInterface
 
     /**
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return bool
      */
     public function delete(): bool
     {

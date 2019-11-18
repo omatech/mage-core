@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'bindings' => [
+        'users' => Omatech\Mage\Core\Domains\Users\Contracts\UserInterface::class,
+    ],
     'translations' => [
         'available_locales' => [
             [

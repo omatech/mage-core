@@ -60,7 +60,7 @@ interface UserInterface
      */
     public static function all(AllUserInterface $all);
 
-    public static function find(int $id): User;
+    public static function find(int $id);
 
     public function save(): bool;
 

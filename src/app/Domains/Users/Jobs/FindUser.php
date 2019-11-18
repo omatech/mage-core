@@ -14,7 +14,7 @@ class FindUser
      *
      * @return User|null
      */
-    public function make(int $id): ?User
+    public function make(int $id)
     {
         return app()->make(FindUserInterface::class)->find($id);
     }

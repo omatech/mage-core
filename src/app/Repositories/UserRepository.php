@@ -42,9 +42,8 @@ class UserRepository extends BaseRepository implements AllUserInterface, CreateU
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
-     * @return UserInterface|null
      */
-    public function find(int $id): ?UserInterface
+    public function find(int $id)
     {
         $user = $this->query()->find($id);
 
@@ -60,7 +59,7 @@ class UserRepository extends BaseRepository implements AllUserInterface, CreateU
             return app()->make(RoleInterface::class)::find($role['id']);
         }, $user->roles->toArray());
 
-        $user = app()->make(UserInterface::class)::fromArray([
+        $user = app()->make(config('bindings.users'))::fromArray([
             'id'                => $user->id,
             'name'              => $user->name,
             'language'          => $user->language,
