@@ -13,7 +13,7 @@ class BaseTestCase extends TestCase
 {
     use Bindings;
     use Factories;
-    //use RefreshDatabase;
+    use RefreshDatabase;
 
     public $usersDBTable;
 
@@ -23,7 +23,8 @@ class BaseTestCase extends TestCase
 
         $this->bindings();
 
-        $this->loadLaravelMigrations();
+        $this->artisan('vendor:publish --tag=mage-migrations')->run();
+        $this->artisan('migrate')->run();
     }
 
     /**

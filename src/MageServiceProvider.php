@@ -2,6 +2,7 @@
 
 namespace Omatech\Mage\Core;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AttachedPermissionInterface;
@@ -53,7 +54,6 @@ class MageServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->permissionBindings();
         $this->roleBindings();
         $this->userBindings();
@@ -74,6 +74,8 @@ class MageServiceProvider extends ServiceProvider
         $this->app->bind('mage.translations', function () {
             return new Translation();
         });
+
+        $this->publishes($this->migrations(), 'mage-migrations');
     }
 
     private function permissionBindings()
@@ -155,5 +157,28 @@ class MageServiceProvider extends ServiceProvider
             __DIR__.'/../config/translation-loader.php',
             'translation-loader'
         );
+    }
+
+    public function migrations()
+    {
+        $migrations = [];
+
+        $filesystem = new Filesystem();
+        $source = __DIR__.'/database/migrations/';
+        $destination = $this->app->databasePath().DIRECTORY_SEPARATOR.'migrations'.DIRECTORY_SEPARATOR;
+
+        foreach ($filesystem->files($source) as $index => $file) {
+            $sourceFileName = $file->getFilename();
+            $migrationName = substr($sourceFileName, 18, strlen($sourceFileName));
+
+            $fileExists = 0 != count($filesystem->glob($destination.'*'.$migrationName));
+
+            if (! $fileExists) {
+                $destinationFileName = date('Y_m_d').'_'.str_pad($index, 6, '0').'_'.$migrationName;
+                $migrations[$source.$sourceFileName] = $destination.$destinationFileName;
+            }
+        }
+
+        return $migrations;
     }
 }
