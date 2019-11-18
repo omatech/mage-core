@@ -39,9 +39,7 @@ class UserRepository extends BaseRepository implements AllUserInterface, CreateU
 
     /**
      * @param int $id
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
+     * @return mixed|null
      */
     public function find(int $id)
     {
@@ -59,7 +57,7 @@ class UserRepository extends BaseRepository implements AllUserInterface, CreateU
             return app()->make(RoleInterface::class)::find($role['id']);
         }, $user->roles->toArray());
 
-        $user = app()->make(config('bindings.users'))::fromArray([
+        $user = app()->make(UserInterface::class)::fromArray([
             'id'                => $user->id,
             'name'              => $user->name,
             'language'          => $user->language,
@@ -95,7 +93,6 @@ class UserRepository extends BaseRepository implements AllUserInterface, CreateU
             ]);
 
             $user->setId($created->id);
-            $user->setPassword($created->password);
             $user->setCreatedAt($created->created_at);
             $user->setUpdatedAt($created->updated_at);
 
@@ -155,7 +152,6 @@ class UserRepository extends BaseRepository implements AllUserInterface, CreateU
                 'remember_token'    => $user->getRememberToken(),
             ])->save();
 
-            $user->setPassword($updated->password);
             $user->setCreatedAt($updated->created_at);
             $user->setUpdatedAt($updated->updated_at);
 

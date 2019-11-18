@@ -7,8 +7,12 @@ use Omatech\Mage\Core\Domains\Translations\Translation;
 
 class FindOrFailTranslation
 {
-    public function make(string $key): Translation
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function make(string $key)
     {
-        return app()->make(FindTranslation::class)->make($key);
+        return (new FindTranslation())->make($key);
     }
 }

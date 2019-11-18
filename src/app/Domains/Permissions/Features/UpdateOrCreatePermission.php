@@ -20,15 +20,13 @@ class UpdateOrCreatePermission
 
     /**
      * UpdateOrCreatePermission constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->exists = app()->make(ExistsPermission::class);
-        $this->create = app()->make(CreatePermission::class);
-        $this->update = app()->make(UpdatePermission::class);
-        $this->unique = app()->make(UniquePermission::class);
+        $this->exists = new ExistsPermission();
+        $this->create = new CreatePermission();
+        $this->update = new UpdatePermission();
+        $this->unique = new UniquePermission();
     }
 
     /**

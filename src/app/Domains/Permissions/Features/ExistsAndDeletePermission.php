@@ -17,14 +17,12 @@ class ExistsAndDeletePermission
 
     /**
      * ExistsAndDeletePermission constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->exists = app()->make(ExistsPermission::class);
-        $this->attached = app()->make(AttachedPermission::class);
-        $this->delete = app()->make(DeletePermission::class);
+        $this->exists = new ExistsPermission();
+        $this->attached = new AttachedPermission();
+        $this->delete = new DeletePermission();
     }
 
     /**

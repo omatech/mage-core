@@ -20,24 +20,21 @@ class UpdateOrCreateUser
 
     /**
      * UpdateOrCreateUser constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->exists = app()->make(ExistsUser::class);
-        $this->create = app()->make(CreateUser::class);
-        $this->update = app()->make(UpdateUser::class);
-        $this->unique = app()->make(UniqueUser::class);
+        $this->exists = new ExistsUser();
+        $this->create = new CreateUser();
+        $this->update = new UpdateUser();
+        $this->unique = new UniqueUser();
     }
 
     /**
      * @param User $user
-     *
-     * @throws UserAlreadyExistsException
-     * @throws UserNameExistsMustBeUniqueException
-     *
      * @return bool
+     * @throws UserAlreadyExistsException
+     * @throws UserDoesNotExistsException
+     * @throws UserNameExistsMustBeUniqueException
      */
     public function make(User $user): bool
     {
@@ -50,10 +47,8 @@ class UpdateOrCreateUser
 
     /**
      * @param User $user
-     *
-     * @throws UserAlreadyExistsException
-     *
      * @return bool
+     * @throws UserAlreadyExistsException
      */
     private function create(User $user): bool
     {
@@ -68,11 +63,9 @@ class UpdateOrCreateUser
 
     /**
      * @param User $user
-     *
-     * @throws UserNameExistsMustBeUniqueException
-     * @throws UserDoesNotExistsException
-     *
      * @return bool
+     * @throws UserDoesNotExistsException
+     * @throws UserNameExistsMustBeUniqueException
      */
     private function update(User $user): bool
     {

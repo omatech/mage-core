@@ -22,7 +22,6 @@ class Role implements RoleInterface
     private $guardName;
     private $createdAt;
     private $updatedAt;
-    private $permissions = [];
 
     /**
      * @return int|null
@@ -34,10 +33,9 @@ class Role implements RoleInterface
 
     /**
      * @param int $id
-     *
-     * @return Role
+     * @return $this|mixed
      */
-    public function setId(int $id): self
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -54,10 +52,9 @@ class Role implements RoleInterface
 
     /**
      * @param string $name
-     *
-     * @return Role
+     * @return $this|mixed
      */
-    public function setName(string $name): self
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -74,10 +71,9 @@ class Role implements RoleInterface
 
     /**
      * @param string $guardName
-     *
-     * @return Role
+     * @return $this|mixed
      */
-    public function setGuardName(string $guardName): self
+    public function setGuardName(string $guardName)
     {
         $this->guardName = $guardName;
 
@@ -94,10 +90,9 @@ class Role implements RoleInterface
 
     /**
      * @param string $createdAt
-     *
-     * @return Role
+     * @return $this|mixed
      */
-    public function setCreatedAt(string $createdAt): self
+    public function setCreatedAt(string $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -114,10 +109,9 @@ class Role implements RoleInterface
 
     /**
      * @param string $updatedAt
-     *
-     * @return Role
+     * @return $this|mixed
      */
-    public function setUpdatedAt(string $updatedAt): self
+    public function setUpdatedAt(string $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -144,45 +138,41 @@ class Role implements RoleInterface
 
     /**
      * @param AllRoleInterface $all
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return mixed
      */
     public static function all(AllRoleInterface $all)
     {
-        return app()->make(AllRole::class)->make($all);
+        return (new AllRole)->make($all);
     }
 
     /**
      * @param int $id
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return Role
+     * @return mixed|Role|null
+     * @throws Exceptions\RoleDoesNotExistsException
      */
-    public static function find(int $id): self
+    public static function find(int $id)
     {
-        return app()->make(FindOrFailRole::class)->make($id);
+        return (new FindOrFailRole)->make($id);
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
+     * @throws Exceptions\RoleAlreadyExistsException
+     * @throws Exceptions\RoleDoesNotExistsException
+     * @throws Exceptions\RoleNameExistsMustBeUniqueException
      */
     public function save(): bool
     {
-        return app()->make(UpdateOrCreateRole::class)->make($this);
+        return (new UpdateOrCreateRole)->make($this);
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
+     * @throws Exceptions\RoleDoesNotExistsException
+     * @throws Exceptions\RoleIsAttachedException
      */
     public function delete(): bool
     {
-        return app()->make(ExistsAndDeleteRole::class)->make($this);
+        return (new ExistsAndDeleteRole)->make($this);
     }
 }

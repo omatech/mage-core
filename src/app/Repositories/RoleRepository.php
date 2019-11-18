@@ -39,12 +39,9 @@ class RoleRepository extends BaseRepository implements AllRoleInterface, CreateR
 
     /**
      * @param int $id
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return RoleInterface|null
+     * @return mixed|null
      */
-    public function find(int $id): ?RoleInterface
+    public function find(int $id)
     {
         $role = $this->query()->find($id);
 
@@ -52,7 +49,7 @@ class RoleRepository extends BaseRepository implements AllRoleInterface, CreateR
             return null;
         }
 
-        $permissions = array_map(function ($permission) {
+        $permissions = array_map(static function ($permission) {
             return app()->make(PermissionInterface::class)::find($permission['id']);
         }, $role->permissions->toArray());
 
@@ -71,7 +68,6 @@ class RoleRepository extends BaseRepository implements AllRoleInterface, CreateR
 
     /**
      * @param RoleInterface $role
-     *
      * @return bool
      */
     public function create(RoleInterface $role): bool
@@ -98,7 +94,6 @@ class RoleRepository extends BaseRepository implements AllRoleInterface, CreateR
 
     /**
      * @param RoleInterface $role
-     *
      * @return bool
      */
     public function exists(RoleInterface $role): bool
@@ -111,7 +106,6 @@ class RoleRepository extends BaseRepository implements AllRoleInterface, CreateR
 
     /**
      * @param RoleInterface $role
-     *
      * @return bool
      */
     public function unique(RoleInterface $role): bool
@@ -124,7 +118,6 @@ class RoleRepository extends BaseRepository implements AllRoleInterface, CreateR
 
     /**
      * @param RoleInterface $role
-     *
      * @return bool
      */
     public function update(RoleInterface $role): bool
@@ -152,7 +145,6 @@ class RoleRepository extends BaseRepository implements AllRoleInterface, CreateR
 
     /**
      * @param RoleInterface $role
-     *
      * @return bool
      */
     public function delete(RoleInterface $role): bool
@@ -170,7 +162,6 @@ class RoleRepository extends BaseRepository implements AllRoleInterface, CreateR
 
     /**
      * @param RoleInterface $role
-     *
      * @return bool
      */
     public function attached(RoleInterface $role): bool

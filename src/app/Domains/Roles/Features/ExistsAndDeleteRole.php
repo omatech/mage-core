@@ -17,14 +17,12 @@ class ExistsAndDeleteRole
 
     /**
      * ExistsAndDeleteRole constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->exists = app()->make(ExistsRole::class);
-        $this->attached = app()->make(AttachedRole::class);
-        $this->delete = app()->make(DeleteRole::class);
+        $this->exists = new ExistsRole();
+        $this->attached = new AttachedRole();
+        $this->delete = new DeleteRole();
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace Omatech\Mage\Core\Domains\Permissions\Jobs;
 
 use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
-use Omatech\Mage\Core\Domains\Permissions\Permission;
 
 class FindPermission
 {
@@ -12,9 +11,9 @@ class FindPermission
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      *
-     * @return Permission|null
+     * @return mixed
      */
-    public function make(int $id): ?Permission
+    public function make(int $id)
     {
         return app()->make(FindPermissionInterface::class)->find($id);
     }

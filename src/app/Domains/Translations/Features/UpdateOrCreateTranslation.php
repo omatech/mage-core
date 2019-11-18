@@ -20,25 +20,21 @@ class UpdateOrCreateTranslation
 
     /**
      * UpdateOrCreateTranslation constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->create = app()->make(CreateTranslation::class);
-        $this->update = app()->make(UpdateTranslation::class);
-        $this->exists = app()->make(ExistsTranslation::class);
-        $this->unique = app()->make(UniqueTranslation::class);
+        $this->create = new CreateTranslation();
+        $this->update = new UpdateTranslation();
+        $this->exists = new ExistsTranslation();
+        $this->unique = new UniqueTranslation();
     }
 
     /**
      * @param Translation $translation
-     *
+     * @return bool
      * @throws TranslationAlreadyExistsException
      * @throws TranslationDoesNotExistsException
      * @throws TranslationExistsMustBeUniqueException
-     *
-     * @return bool
      */
     public function make(Translation $translation): bool
     {
@@ -51,10 +47,8 @@ class UpdateOrCreateTranslation
 
     /**
      * @param Translation $translation
-     *
-     * @throws TranslationAlreadyExistsException
-     *
      * @return bool
+     * @throws TranslationAlreadyExistsException
      */
     private function create(Translation $translation): bool
     {
@@ -69,11 +63,9 @@ class UpdateOrCreateTranslation
 
     /**
      * @param Translation $translation
-     *
+     * @return bool
      * @throws TranslationDoesNotExistsException
      * @throws TranslationExistsMustBeUniqueException
-     *
-     * @return bool
      */
     private function update(Translation $translation): bool
     {

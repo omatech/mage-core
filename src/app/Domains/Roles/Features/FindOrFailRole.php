@@ -12,22 +12,18 @@ class FindOrFailRole
 
     /**
      * FindOrFailRole constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->find = app()->make(FindRole::class);
+        $this->find = new FindRole();
     }
 
     /**
      * @param int $id
-     *
+     * @return Role|null
      * @throws RoleDoesNotExistsException
-     *
-     * @return Role
      */
-    public function make(int $id): Role
+    public function make(int $id)
     {
         $role = $this->find->make($id);
 

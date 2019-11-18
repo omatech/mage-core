@@ -8,12 +8,10 @@ trait FromArray
 {
     /**
      * @param array $array
-     *
-     * @throws MethodDoesNotExistsException
-     *
      * @return static
+     * @throws MethodDoesNotExistsException
      */
-    public static function fromArray(array $array): self
+    public static function fromArray(array $array)
     {
         $self = new static();
 

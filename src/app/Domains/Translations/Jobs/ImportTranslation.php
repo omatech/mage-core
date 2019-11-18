@@ -7,6 +7,12 @@ use Omatech\Mage\Core\Domains\Translations\Translation;
 
 class ImportTranslation
 {
+    /**
+     * @param ImportTranslationInterface $importTranslationInterface
+     * @param string $path
+     * @param string $locale
+     * @return bool
+     */
     public function make(
         ImportTranslationInterface $importTranslationInterface,
         string $path,

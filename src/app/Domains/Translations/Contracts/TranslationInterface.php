@@ -7,44 +7,103 @@ use Omatech\Mage\Core\Domains\Translations\Translation;
 interface TranslationInterface
 {
     /**
-     * Properties.
+     * @return int|null
      */
     public function getId(): ?int;
 
-    public function setId(int $id): Translation;
-
-    public function getGroup(): string;
-
-    public function getKey(): string;
-
-    public function setKey(string $key): Translation;
-
-    public function setTranslation(string $language, string $text): Translation;
-
-    public function getTranslations(): array;
-
-    public function setTranslations(array $translations): Translation;
-
-    public function getSyncAt(): ?string;
-
-    public function setSyncAt(?string $syncAt): Translation;
-
-    public function getCreatedAt(): string;
-
-    public function setCreatedAt(string $createdAt): Translation;
-
-    public function getUpdatedAt(): string;
-
-    public function setUpdatedAt(string $updatedAt): Translation;
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function setId(int $id);
 
     /**
-     * Methods.
+     * @return string
+     */
+    public function getGroup(): string;
+
+    /**
+     * @return string
+     */
+    public function getKey(): string;
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function setKey(string $key);
+
+    /**
+     * @param string $language
+     * @param string $text
+     * @return mixed
+     */
+    public function setTranslation(string $language, string $text);
+
+    /**
+     * @return array
+     */
+    public function getTranslations(): array;
+
+    /**
+     * @param array $translations
+     * @return mixed
+     */
+    public function setTranslations(array $translations);
+
+    /**
+     * @return string|null
+     */
+    public function getSyncAt(): ?string;
+
+    /**
+     * @param string|null $syncAt
+     * @return mixed
+     */
+    public function setSyncAt(?string $syncAt);
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string;
+
+    /**
+     * @param string $createdAt
+     * @return mixed
+     */
+    public function setCreatedAt(string $createdAt);
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt(): string;
+
+    /**
+     * @param string $updatedAt
+     * @return mixed
+     */
+    public function setUpdatedAt(string $updatedAt);
+
+    /**
+     * @param AllTranslationInterface $all
+     * @return mixed
      */
     public static function all(AllTranslationInterface $all);
 
-    public static function find(string $key): Translation;
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public static function find(string $key);
 
+    /**
+     * @return bool
+     */
     public function save(): bool;
 
-    public static function fromArray(array $array): Translation;
+    /**
+     * @param array $array
+     * @return mixed
+     */
+    public static function fromArray(array $array);
 }

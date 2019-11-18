@@ -14,21 +14,17 @@ class ExistsAndDeleteTranslation
 
     /**
      * ExistsAndDeleteTranslation constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->exists = app()->make(ExistsTranslation::class);
-        $this->delete = app()->make(DeleteTranslation::class);
+        $this->exists = new ExistsTranslation();
+        $this->delete = new DeleteTranslation();
     }
 
     /**
      * @param Translation $translation
-     *
-     * @throws TranslationDoesNotExistsException
-     *
      * @return bool
+     * @throws TranslationDoesNotExistsException
      */
     public function make(Translation $translation): bool
     {

@@ -18,6 +18,9 @@ use Omatech\Mage\Core\Models\LanguageLine;
 
 class TranslationRepository extends BaseRepository implements AllTranslationInterface, CreateTranslationInterface, DeleteTranslationInterface, UpdateTranslationInterface, ExistsTranslationInterface, UniqueTranslationInterface
 {
+    /**
+     * @return string
+     */
     public function model(): string
     {
         return LanguageLine::class;
@@ -43,11 +46,10 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
     }
 
     /**
-     * @param int $id
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @param string $key
+     * @return mixed
      */
-    public function find(string $key): ?TranslationInterface
+    public function find(string $key)
     {
         $translation = $this->query()
             ->where(DB::raw("CONCAT(`group`, '.', `key`)"), $key)
@@ -71,6 +73,10 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
         return $translation;
     }
 
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function create(TranslationInterface $translation): bool
     {
         $created = $this->query()->create([
@@ -90,6 +96,10 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
         return $created->wasRecentlyCreated;
     }
 
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function exists(TranslationInterface $translation): bool
     {
         return $this->query()
@@ -101,6 +111,10 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
             ->exists();
     }
 
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function unique(TranslationInterface $translation): bool
     {
         return $this->query()
@@ -110,6 +124,10 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
             ->exists();
     }
 
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function update(TranslationInterface $translation): bool
     {
         $updated = $this->query()->find($translation->getId());
@@ -130,6 +148,10 @@ class TranslationRepository extends BaseRepository implements AllTranslationInte
         return count($updated->getChanges()) >= 1;
     }
 
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function delete(TranslationInterface $translation): bool
     {
         $isDeleted = $this->query()

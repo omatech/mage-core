@@ -13,14 +13,12 @@ trait PermissionsManager
 
     /**
      * @param PermissionInterface $permission
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return self
+     * @return $this
+     * @throws \Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException
      */
-    public function assignPermission(PermissionInterface $permission): self
+    public function assignPermission(PermissionInterface $permission)
     {
-        $this->permissions = app()->make(PermissionModel::class)
+        $this->permissions = (new PermissionModel())
             ->assignPermission($this->getPermissions(), $permission);
 
         return $this;
@@ -28,14 +26,12 @@ trait PermissionsManager
 
     /**
      * @param array $permissions
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return self
+     * @return $this
+     * @throws \Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException
      */
-    public function assignPermissions(array $permissions): self
+    public function assignPermissions(array $permissions)
     {
-        $this->permissions = app()->make(PermissionModel::class)
+        $this->permissions = (new PermissionModel())
             ->assignPermissions($this->getPermissions(), $permissions);
 
         return $this;
@@ -43,14 +39,12 @@ trait PermissionsManager
 
     /**
      * @param PermissionInterface $permission
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return self
+     * @return $this
+     * @throws \Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException
      */
-    public function removePermission(PermissionInterface $permission): self
+    public function removePermission(PermissionInterface $permission)
     {
-        $this->permissions = app()->make(PermissionModel::class)
+        $this->permissions = (new PermissionModel())
             ->removePermission($this->getPermissions(), $permission);
 
         return $this;
@@ -58,14 +52,12 @@ trait PermissionsManager
 
     /**
      * @param array $permissions
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return self
+     * @return $this
+     * @throws \Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException
      */
-    public function removePermissions(array $permissions): self
+    public function removePermissions(array $permissions)
     {
-        $this->permissions = app()->make(PermissionModel::class)
+        $this->permissions = (new PermissionModel())
             ->removePermissions($this->getPermissions(), $permissions);
 
         return $this;

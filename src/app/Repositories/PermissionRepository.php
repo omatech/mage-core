@@ -37,12 +37,9 @@ class PermissionRepository extends BaseRepository implements AllPermissionInterf
 
     /**
      * @param int $id
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return PermissionInterface|null
+     * @return mixed|null
      */
-    public function find(int $id): ?PermissionInterface
+    public function find(int $id)
     {
         $permission = $this->query()->find($id);
 
@@ -63,7 +60,6 @@ class PermissionRepository extends BaseRepository implements AllPermissionInterf
 
     /**
      * @param PermissionInterface $permission
-     *
      * @return bool
      */
     public function create(PermissionInterface $permission): bool
@@ -84,7 +80,6 @@ class PermissionRepository extends BaseRepository implements AllPermissionInterf
 
     /**
      * @param PermissionInterface $permission
-     *
      * @return bool
      */
     public function exists(PermissionInterface $permission): bool
@@ -97,7 +92,6 @@ class PermissionRepository extends BaseRepository implements AllPermissionInterf
 
     /**
      * @param PermissionInterface $permission
-     *
      * @return bool
      */
     public function unique(PermissionInterface $permission): bool
@@ -110,7 +104,6 @@ class PermissionRepository extends BaseRepository implements AllPermissionInterf
 
     /**
      * @param PermissionInterface $permission
-     *
      * @return bool
      */
     public function update(PermissionInterface $permission): bool
@@ -132,7 +125,6 @@ class PermissionRepository extends BaseRepository implements AllPermissionInterf
 
     /**
      * @param PermissionInterface $permission
-     *
      * @return bool
      */
     public function delete(PermissionInterface $permission): bool
@@ -150,7 +142,6 @@ class PermissionRepository extends BaseRepository implements AllPermissionInterf
 
     /**
      * @param PermissionInterface $permission
-     *
      * @return bool
      */
     public function attached(PermissionInterface $permission): bool

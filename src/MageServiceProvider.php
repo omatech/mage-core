@@ -40,6 +40,7 @@ use Omatech\Mage\Core\Domains\Users\Contracts\ExistsUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UniqueUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Users\User;
 use Omatech\Mage\Core\Repositories\PermissionRepository;
 use Omatech\Mage\Core\Repositories\RoleRepository;
@@ -105,7 +106,7 @@ class MageServiceProvider extends ServiceProvider
 
     private function userBindings()
     {
-        $this->app->bind(config('bindings.users'), User::class);
+        $this->app->bind(UserInterface::class, User::class);
         $this->app->bind(AllUserInterface::class, UserRepository::class);
         $this->app->bind(FindUserInterface::class, UserRepository::class);
         $this->app->bind(CreateUserInterface::class, UserRepository::class);

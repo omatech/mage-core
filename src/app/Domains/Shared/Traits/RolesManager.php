@@ -13,14 +13,12 @@ trait RolesManager
 
     /**
      * @param RoleInterface $role
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return self
+     * @return $this
+     * @throws \Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException
      */
-    public function assignRole(RoleInterface $role): self
+    public function assignRole(RoleInterface $role)
     {
-        $this->roles = app()->make(RoleModel::class)
+        $this->roles = (new RoleModel())
             ->assignRole($this->getRoles(), $role);
 
         return $this;
@@ -28,14 +26,12 @@ trait RolesManager
 
     /**
      * @param array $roles
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return self
+     * @return $this
+     * @throws \Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException
      */
-    public function assignRoles(array $roles): self
+    public function assignRoles(array $roles)
     {
-        $this->roles = app()->make(RoleModel::class)
+        $this->roles = (new RoleModel())
             ->assignRoles($this->getRoles(), $roles);
 
         return $this;
@@ -43,14 +39,12 @@ trait RolesManager
 
     /**
      * @param RoleInterface $role
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return self
+     * @return $this
+     * @throws \Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException
      */
-    public function removeRole(RoleInterface $role): self
+    public function removeRole(RoleInterface $role)
     {
-        $this->roles = app()->make(RoleModel::class)
+        $this->roles = (new RoleModel())
             ->removeRole($this->getRoles(), $role);
 
         return $this;
@@ -58,14 +52,12 @@ trait RolesManager
 
     /**
      * @param array $roles
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return self
+     * @return $this
+     * @throws \Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException
      */
-    public function removeRoles(array $roles): self
+    public function removeRoles(array $roles)
     {
-        $this->roles = app()->make(RoleModel::class)
+        $this->roles = (new RoleModel())
             ->removeRoles($this->getRoles(), $roles);
 
         return $this;

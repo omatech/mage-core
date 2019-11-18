@@ -26,35 +26,46 @@ class Translation implements TranslationInterface
     private $createdAt;
     private $updatedAt;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @return Translation
+     * @param int $id
+     * @return $this|mixed
      */
-    public function setId(int $id): self
+    public function setId(int $id)
     {
         $this->id = $id;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getGroup(): string
     {
         return $this->group;
     }
 
+    /**
+     * @return string
+     */
     public function getKey(): string
     {
         return $this->key;
     }
 
     /**
-     * @return Translation
+     * @param string $key
+     * @return $this|mixed
      */
-    public function setKey(string $key): self
+    public function setKey(string $key)
     {
         $key = explode('.', $key);
 
@@ -70,24 +81,30 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @return $this
+     * @param string $language
+     * @param string $text
+     * @return $this|mixed
      */
-    public function setTranslation(string $language, string $text): self
+    public function setTranslation(string $language, string $text)
     {
         $this->translations[$language] = $text;
 
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getTranslations(): array
     {
         return $this->translations;
     }
 
     /**
-     * @return $this
+     * @param array $translations
+     * @return $this|mixed
      */
-    public function setTranslations(array $translations): self
+    public function setTranslations(array $translations)
     {
         foreach ($translations as $language => $text) {
             $this->setTranslation($language, $text);
@@ -96,6 +113,9 @@ class Translation implements TranslationInterface
         return $this;
     }
 
+    /**
+     * @return array
+     */
     private static function getLocales(): array
     {
         $availableLocales = config('mage.translations.available_locales');
@@ -110,6 +130,9 @@ class Translation implements TranslationInterface
         return $locales;
     }
 
+    /**
+     * @return void
+     */
     private function setMissingTranslations(): void
     {
         foreach (static::getLocales() as $locale) {
@@ -128,41 +151,48 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @param string $syncAt
-     *
-     * @return Translation
+     * @param string|null $syncAt
+     * @return $this|mixed
      */
-    public function setSyncAt(?string $syncAt): self
+    public function setSyncAt(?string $syncAt)
     {
         $this->syncAt = $syncAt;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
     /**
-     * @return Translation
+     * @param string $createdAt
+     * @return $this|mixed
      */
-    public function setCreatedAt(string $createdAt): self
+    public function setCreatedAt(string $createdAt)
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
 
     /**
-     * @return Translation
+     * @param string $updatedAt
+     * @return $this|mixed
      */
-    public function setUpdatedAt(string $updatedAt): self
+    public function setUpdatedAt(string $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -170,48 +200,51 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
+     * @param AllTranslationInterface $all
      * @return mixed
      */
     public static function all(AllTranslationInterface $all)
     {
-        return app()->make(AllTranslation::class)
+        return (new AllTranslation)
             ->make($all, static::getLocales());
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return Translation
+     * @param string $key
+     * @return static
      */
     public static function find(string $key): self
     {
-        return app()->make(FindOrFailTranslation::class)->make($key);
+        return (new FindOrFailTranslation)->make($key);
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return bool
+     * @throws Exceptions\TranslationAlreadyExistsException
+     * @throws Exceptions\TranslationDoesNotExistsException
+     * @throws Exceptions\TranslationExistsMustBeUniqueException
      */
     public function save(): bool
     {
         $this->setMissingTranslations();
 
-        return app()->make(UpdateOrCreateTranslation::class)->make($this);
+        return (new UpdateOrCreateTranslation)->make($this);
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return bool
+     * @throws Exceptions\TranslationDoesNotExistsException
      */
     public function delete(): bool
     {
-        return app()->make(ExistsAndDeleteTranslation::class)->make($this);
+        return (new ExistsAndDeleteTranslation)->make($this);
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return mixed
+     * @param AllTranslationInterface $allTranslationInterface
+     * @param ExportTranslationInterface $exportTranslationInterface
+     * @param array|null $locales
+     * @return string
      */
     public static function export(
         AllTranslationInterface $allTranslationInterface,
@@ -220,16 +253,22 @@ class Translation implements TranslationInterface
     ) {
         $locales = $locales ?? static::getLocales();
 
-        return app()->make(ExportTranslation::class)
+        return (new ExportTranslation)
             ->make($allTranslationInterface, $exportTranslationInterface, $locales);
     }
 
+    /**
+     * @param ImportTranslationInterface $importTranslationInterface
+     * @param string $path
+     * @param string $locale
+     * @return bool
+     */
     public static function import(
         ImportTranslationInterface $importTranslationInterface,
         string $path,
         string $locale = ''
     ) {
-        return app()->make(ImportTranslation::class)
+        return (new ImportTranslation)
             ->make($importTranslationInterface, $path, $locale);
     }
 }

@@ -29,154 +29,197 @@ class User implements UserInterface
     private $rememberToken;
     private $createdAt;
     private $updatedAt;
-    private $permissions = [];
-    private $roles = [];
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @return User
+     * @param int $id
+     * @return $this|mixed
      */
-    public function setId(int $id): self
+    public function setId(int $id)
     {
         $this->id = $id;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @return User
+     * @param string $name
+     * @return $this|mixed
      */
-    public function setName(string $name): self
+    public function setName(string $name)
     {
         $this->name = $name;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getLanguage(): string
     {
         return $this->language;
     }
 
     /**
-     * @return User
+     * @param string $language
+     * @return $this|mixed
      */
-    public function setLanguage(string $language): self
+    public function setLanguage(string $language)
     {
         $this->language = $language;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getEmail(): string
     {
         return $this->email;
     }
 
     /**
-     * @return User
+     * @param string $email
+     * @return $this|mixed
      */
-    public function setEmail(string $email): self
+    public function setEmail(string $email)
     {
         $this->email = $email;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmailVerifiedAt(): ?string
     {
         return $this->emailVerifiedAt;
     }
 
     /**
-     * @return User
+     * @param string|null $emailVerifiedAt
+     * @return $this|mixed
      */
-    public function setEmailVerifiedAt(?string $emailVerifiedAt): self
+    public function setEmailVerifiedAt(?string $emailVerifiedAt)
     {
         $this->emailVerifiedAt = $emailVerifiedAt;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPassword(): string
     {
         return $this->password;
     }
 
     /**
-     * @return User
+     * @param string $password
+     * @return $this|mixed
      */
-    public function setPassword(string $password): self
+    public function setPassword(string $password)
     {
         $this->password = $password;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getRememberToken(): ?string
     {
         return $this->rememberToken;
     }
 
     /**
-     * @return User
+     * @param string|null $rememberToken
+     * @return $this|mixed
      */
-    public function setRememberToken(?string $rememberToken): self
+    public function setRememberToken(?string $rememberToken)
     {
         $this->rememberToken = $rememberToken;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
 
     /**
-     * @return User
+     * @param string $createdAt
+     * @return $this|mixed
      */
-    public function setCreatedAt(string $createdAt): self
+    public function setCreatedAt(string $createdAt)
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getUpdatedAt(): string
     {
         return $this->updatedAt;
     }
 
     /**
-     * @return User
+     * @param string $updatedAt
+     * @return $this|mixed
      */
-    public function setUpdatedAt(string $updatedAt): self
+    public function setUpdatedAt(string $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getPermissions(): array
     {
         return $this->permissions;
     }
 
+    /**
+     * @return array
+     */
     public function getRoles(): array
     {
         return $this->roles;
     }
 
+    /**
+     * @return array
+     */
     public function getPermissionsIds(): array
     {
         return array_map(static function (PermissionInterface $permission) {
@@ -184,6 +227,9 @@ class User implements UserInterface
         }, $this->getPermissions());
     }
 
+    /**
+     * @return array
+     */
     public function getRolesIds(): array
     {
         return array_map(static function (RoleInterface $role) {
@@ -192,38 +238,41 @@ class User implements UserInterface
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
+     * @param AllUserInterface $all
      * @return mixed
      */
     public static function all(AllUserInterface $all)
     {
-        return app()->make(AllUser::class)->make($all);
+        return (new AllUser())->make($all);
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
-     * @return User
+     * @param int $id
+     * @return mixed|User|null
+     * @throws Exceptions\UserDoesNotExistsException
      */
     public static function find(int $id)
     {
-        return app()->make(FindOrFailUser::class)->make($id);
+        return (new FindOrFailUser())->make($id);
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return bool
+     * @throws Exceptions\UserAlreadyExistsException
+     * @throws Exceptions\UserDoesNotExistsException
+     * @throws Exceptions\UserNameExistsMustBeUniqueException
      */
     public function save(): bool
     {
-        return app()->make(UpdateOrCreateUser::class)->make($this);
+        return (new UpdateOrCreateUser())->make($this);
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return bool
+     * @throws Exceptions\UserDoesNotExistsException
      */
     public function delete(): bool
     {
-        return app()->make(ExistsAndDeleteUser::class)->make($this);
+        return ( new ExistsAndDeleteUser())->make($this);
     }
 }

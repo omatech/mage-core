@@ -2,7 +2,6 @@
 
 namespace Omatech\Mage\Core\Domains\Permissions;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Features\ExistsAndDeletePermission;
@@ -30,11 +29,9 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @param int $id
-     *
-     * @return Permission
+     * @return $this|mixed
      */
-    public function setId(int $id): self
+    public function setId(int $id)
     {
         $this->id = $id;
 
@@ -50,11 +47,9 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @param string $name
-     *
-     * @return Permission
+     * @return $this|mixed
      */
-    public function setName(string $name): self
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -70,11 +65,9 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @param string $guardName
-     *
-     * @return Permission
+     * @return $this|mixed
      */
-    public function setGuardName(string $guardName): self
+    public function setGuardName(string $guardName)
     {
         $this->guardName = $guardName;
 
@@ -90,11 +83,9 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @param string $createdAt
-     *
-     * @return Permission
+     * @return $this|mixed
      */
-    public function setCreatedAt(string $createdAt): self
+    public function setCreatedAt(string $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -111,10 +102,9 @@ class Permission implements PermissionInterface
 
     /**
      * @param string $updatedAt
-     *
-     * @return Permission
+     * @return $this|mixed
      */
-    public function setUpdatedAt(string $updatedAt): self
+    public function setUpdatedAt(string $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -123,45 +113,39 @@ class Permission implements PermissionInterface
 
     /**
      * @param AllPermissionInterface $all
-     *
-     * @throws BindingResolutionException
-     *
      * @return mixed
      */
     public static function all(AllPermissionInterface $all)
     {
-        return app()->make(AllPermission::class)->make($all);
+        return (new AllPermission())->make($all);
     }
 
     /**
      * @param int $id
-     *
-     * @throws BindingResolutionException
-     *
-     * @return Permission
+     * @return mixed
+     * @throws Exceptions\PermissionDoesNotExistsException
      */
-    public static function find(int $id): self
+    public static function find(int $id)
     {
-        return app()->make(FindOrFailPermission::class)->make($id);
+        return (new FindOrFailPermission())->make($id);
     }
 
     /**
-     * @throws BindingResolutionException
-     *
-     * @return bool
+     * @throws Exceptions\PermissionAlreadyExistsException
+     * @throws Exceptions\PermissionDoesNotExistsException
+     * @throws Exceptions\PermissionNameExistsMustBeUniqueException
      */
     public function save(): bool
     {
-        return app()->make(UpdateOrCreatePermission::class)->make($this);
+        return (new UpdateOrCreatePermission())->make($this);
     }
 
     /**
-     * @throws BindingResolutionException
-     *
-     * @return bool
+     * @throws Exceptions\PermissionDoesNotExistsException
+     * @throws Exceptions\PermissionIsAttachedException
      */
     public function delete(): bool
     {
-        return app()->make(ExistsAndDeletePermission::class)->make($this);
+        return (new ExistsAndDeletePermission())->make($this);
     }
 }

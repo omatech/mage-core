@@ -4,7 +4,6 @@ namespace Omatech\Mage\Core\Domains\Permissions\Features;
 
 use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionDoesNotExistsException;
 use Omatech\Mage\Core\Domains\Permissions\Jobs\FindPermission;
-use Omatech\Mage\Core\Domains\Permissions\Permission;
 
 class FindOrFailPermission
 {
@@ -12,22 +11,18 @@ class FindOrFailPermission
 
     /**
      * FindOrFailPermission constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->find = app()->make(FindPermission::class);
+        $this->find = new FindPermission();
     }
 
     /**
      * @param int $id
-     *
+     * @return mixed
      * @throws PermissionDoesNotExistsException
-     *
-     * @return Permission
      */
-    public function make(int $id): Permission
+    public function make(int $id)
     {
         $permission = $this->find->make($id);
 

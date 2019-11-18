@@ -20,24 +20,21 @@ class UpdateOrCreateRole
 
     /**
      * UpdateOrCreateRole constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->exists = app()->make(ExistsRole::class);
-        $this->create = app()->make(CreateRole::class);
-        $this->update = app()->make(UpdateRole::class);
-        $this->unique = app()->make(UniqueRole::class);
+        $this->exists = new ExistsRole();
+        $this->create = new CreateRole();
+        $this->update = new UpdateRole();
+        $this->unique = new UniqueRole();
     }
 
     /**
      * @param Role $role
-     *
-     * @throws RoleAlreadyExistsException
-     * @throws RoleNameExistsMustBeUniqueException
-     *
      * @return bool
+     * @throws RoleAlreadyExistsException
+     * @throws RoleDoesNotExistsException
+     * @throws RoleNameExistsMustBeUniqueException
      */
     public function make(Role $role): bool
     {
@@ -50,10 +47,8 @@ class UpdateOrCreateRole
 
     /**
      * @param Role $role
-     *
-     * @throws RoleAlreadyExistsException
-     *
      * @return bool
+     * @throws RoleAlreadyExistsException
      */
     private function create(Role $role): bool
     {
@@ -68,11 +63,9 @@ class UpdateOrCreateRole
 
     /**
      * @param Role $role
-     *
-     * @throws RoleNameExistsMustBeUniqueException
-     * @throws RoleDoesNotExistsException
-     *
      * @return bool
+     * @throws RoleDoesNotExistsException
+     * @throws RoleNameExistsMustBeUniqueException
      */
     private function update(Role $role): bool
     {

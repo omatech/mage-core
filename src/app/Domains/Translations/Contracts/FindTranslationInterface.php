@@ -4,5 +4,9 @@ namespace Omatech\Mage\Core\Domains\Translations\Contracts;
 
 interface FindTranslationInterface
 {
-    public function find(string $key): ?TranslationInterface;
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function find(string $key);
 }

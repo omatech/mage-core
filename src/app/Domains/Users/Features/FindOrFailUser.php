@@ -12,22 +12,18 @@ class FindOrFailUser
 
     /**
      * FindOrFailUser constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->find = app()->make(FindUser::class);
+        $this->find = new FindUser();
     }
 
     /**
      * @param int $id
-     *
+     * @return User|null
      * @throws UserDoesNotExistsException
-     *
-     * @return User
      */
-    public function make(int $id): User
+    public function make(int $id)
     {
         $user = $this->find->make($id);
 

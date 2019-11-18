@@ -2,43 +2,88 @@
 
 namespace Omatech\Mage\Core\Domains\Permissions\Contracts;
 
-use Omatech\Mage\Core\Domains\Permissions\Permission;
-
 interface PermissionInterface
 {
     /**
-     * Properties.
+     * @return int|null
      */
     public function getId(): ?int;
 
-    public function setId(int $id): Permission;
-
-    public function getName(): string;
-
-    public function setName(string $name): Permission;
-
-    public function getGuardName(): string;
-
-    public function setGuardName(string $string): Permission;
-
-    public function getCreatedAt(): string;
-
-    public function setCreatedAt(string $createdAt): Permission;
-
-    public function getUpdatedAt(): string;
-
-    public function setUpdatedAt(string $updatedAt): Permission;
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function setId(int $id);
 
     /**
-     * Methods.
+     * @return string
+     */
+    public function getName(): string;
+
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function setName(string $name);
+
+    /**
+     * @return string
+     */
+    public function getGuardName(): string;
+
+    /**
+     * @param string $string
+     * @return mixed
+     */
+    public function setGuardName(string $string);
+
+    /**
+     * @return string
+     */
+    public function getCreatedAt(): string;
+
+    /**
+     * @param string $createdAt
+     * @return mixed
+     */
+    public function setCreatedAt(string $createdAt);
+
+    /**
+     * @return string
+     */
+    public function getUpdatedAt(): string;
+
+    /**
+     * @param string $updatedAt
+     * @return mixed
+     */
+    public function setUpdatedAt(string $updatedAt);
+
+    /**
+     * @param AllPermissionInterface $all
+     * @return mixed
      */
     public static function all(AllPermissionInterface $all);
 
-    public static function find(int $id): Permission;
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public static function find(int $id);
 
+    /**
+     * @return bool
+     */
     public function save(): bool;
 
+    /**
+     * @return bool
+     */
     public function delete(): bool;
 
-    public static function fromArray(array $array): Permission;
+    /**
+     * @param array $array
+     * @return mixed
+     */
+    public static function fromArray(array $array);
 }

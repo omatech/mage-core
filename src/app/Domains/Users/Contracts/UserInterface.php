@@ -9,78 +9,197 @@ use Omatech\Mage\Core\Domains\Users\User;
 interface UserInterface
 {
     /**
-     * Properties.
+     * @return int|null
      */
     public function getId(): ?int;
 
-    public function setId(int $id): User;
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function setId(int $id);
 
+    /**
+     * @return string
+     */
     public function getName(): string;
 
-    public function setName(string $name): User;
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function setName(string $name);
 
+    /**
+     * @return string
+     */
     public function getLanguage(): string;
 
-    public function setLanguage(string $language): User;
+    /**
+     * @param string $language
+     * @return mixed
+     */
+    public function setLanguage(string $language);
 
+    /**
+     * @return string
+     */
     public function getEmail(): string;
 
-    public function setEmail(string $email): User;
+    /**
+     * @param string $email
+     * @return mixed
+     */
+    public function setEmail(string $email);
 
+    /**
+     * @return string|null
+     */
     public function getEmailVerifiedAt(): ?string;
 
-    public function setEmailVerifiedAt(?string $emailVerifiedAt): User;
+    /**
+     * @param string|null $emailVerifiedAt
+     * @return mixed
+     */
+    public function setEmailVerifiedAt(?string $emailVerifiedAt);
 
+    /**
+     * @return string
+     */
     public function getPassword(): string;
 
-    public function setPassword(string $password): User;
+    /**
+     * @param string $password
+     * @return mixed
+     */
+    public function setPassword(string $password);
 
+    /**
+     * @return string|null
+     */
     public function getRememberToken(): ?string;
 
-    public function setRememberToken(?string $rememberToken): User;
+    /**
+     * @param string|null $rememberToken
+     * @return mixed
+     */
+    public function setRememberToken(?string $rememberToken);
 
+    /**
+     * @return string
+     */
     public function getCreatedAt(): string;
 
-    public function setCreatedAt(string $createdAt): User;
+    /**
+     * @param string $createdAt
+     * @return mixed
+     */
+    public function setCreatedAt(string $createdAt);
 
+    /**
+     * @return string
+     */
     public function getUpdatedAt(): string;
 
-    public function setUpdatedAt(string $updatedAt): User;
+    /**
+     * @param string $updatedAt
+     * @return mixed
+     */
+    public function setUpdatedAt(string $updatedAt);
 
+    /**
+     * @return array
+     */
     public function getPermissions(): array;
 
+    /**
+     * @return array
+     */
     public function getRoles(): array;
 
+    /**
+     * @return array
+     */
     public function getPermissionsIds(): array;
 
+    /**
+     * @return array
+     */
     public function getRolesIds(): array;
 
     /**
-     * Methods.
+     * @param AllUserInterface $all
+     * @return mixed
      */
     public static function all(AllUserInterface $all);
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public static function find(int $id);
 
+    /**
+     * @return bool
+     */
     public function save(): bool;
 
+    /**
+     * @return bool
+     */
     public function delete(): bool;
 
-    public function assignPermission(PermissionInterface $permission): User;
+    /**
+     * @param PermissionInterface $permission
+     * @return mixed
+     */
+    public function assignPermission(PermissionInterface $permission);
 
-    public function assignPermissions(array $permissions): User;
+    /**
+     * @param array $permissions
+     * @return mixed
+     */
+    public function assignPermissions(array $permissions);
 
-    public function removePermission(PermissionInterface $permission): User;
+    /**
+     * @param PermissionInterface $permission
+     * @return mixed
+     */
+    public function removePermission(PermissionInterface $permission);
 
-    public function removePermissions(array $permissions): User;
+    /**
+     * @param array $permissions
+     * @return mixed
+     */
+    public function removePermissions(array $permissions);
 
-    public function assignRole(RoleInterface $role): User;
+    /**
+     * @param RoleInterface $role
+     * @return mixed
+     */
+    public function assignRole(RoleInterface $role);
 
-    public function assignRoles(array $roles): User;
+    /**
+     * @param array $roles
+     * @return mixed
+     */
+    public function assignRoles(array $roles);
 
-    public function removeRole(RoleInterface $role): User;
+    /**
+     * @param RoleInterface $role
+     * @return mixed
+     */
+    public function removeRole(RoleInterface $role);
 
-    public function removeRoles(array $roles): User;
+    /**
+     * @param array $roles
+     * @return mixed
+     */
+    public function removeRoles(array $roles);
 
-    public static function fromArray(array $array): User;
+    /**
+     * @param array $array
+     * @return mixed
+     */
+    public static function fromArray(array $array);
 }

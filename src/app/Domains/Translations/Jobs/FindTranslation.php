@@ -8,9 +8,10 @@ use Omatech\Mage\Core\Domains\Translations\Translation;
 class FindTranslation
 {
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @param string $key
+     * @return mixed
      */
-    public function make(string $key): ?Translation
+    public function make(string $key)
     {
         return app()->make(FindTranslationInterface::class)->find($key);
     }

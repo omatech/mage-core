@@ -14,21 +14,17 @@ class ExistsAndDeleteUser
 
     /**
      * ExistsAndDeleteUser constructor.
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function __construct()
     {
-        $this->exists = app()->make(ExistsUser::class);
-        $this->delete = app()->make(DeleteUser::class);
+        $this->exists = new ExistsUser();
+        $this->delete = new DeleteUser();
     }
 
     /**
      * @param User $user
-     *
-     * @throws UserDoesNotExistsException
-     *
      * @return bool
+     * @throws UserDoesNotExistsException
      */
     public function make(User $user): bool
     {

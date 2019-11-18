@@ -3,55 +3,123 @@
 namespace Omatech\Mage\Core\Domains\Roles\Contracts;
 
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
-use Omatech\Mage\Core\Domains\Roles\Role;
 
 interface RoleInterface
 {
     /**
-     * Properties.
+     * @return int|null
      */
     public function getId(): ?int;
 
-    public function setId(int $id): Role;
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function setId(int $id);
 
+    /**
+     * @return string
+     */
     public function getName(): string;
 
-    public function setName(string $name): Role;
+    /**
+     * @param string $name
+     * @return mixed
+     */
+    public function setName(string $name);
 
+    /**
+     * @return string
+     */
     public function getGuardName(): string;
 
-    public function setGuardName(string $string): Role;
+    /**
+     * @param string $string
+     * @return mixed
+     */
+    public function setGuardName(string $string);
 
+    /**
+     * @return string
+     */
     public function getCreatedAt(): string;
 
-    public function setCreatedAt(string $createdAt): Role;
+    /**
+     * @param string $createdAt
+     * @return mixed
+     */
+    public function setCreatedAt(string $createdAt);
 
+    /**
+     * @return string
+     */
     public function getUpdatedAt(): string;
 
-    public function setUpdatedAt(string $updatedAt): Role;
+    /**
+     * @param string $updatedAt
+     * @return mixed
+     */
+    public function setUpdatedAt(string $updatedAt);
 
+    /**
+     * @return array
+     */
     public function getPermissions(): array;
 
+    /**
+     * @return array
+     */
     public function getPermissionsIds(): array;
 
     /**
-     * Methods.
+     * @param AllRoleInterface $all
+     * @return mixed
      */
     public static function all(AllRoleInterface $all);
 
-    public static function find(int $id): Role;
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public static function find(int $id);
 
+    /**
+     * @return bool
+     */
     public function save(): bool;
 
+    /**
+     * @return bool
+     */
     public function delete(): bool;
 
-    public function assignPermission(PermissionInterface $permission): Role;
+    /**
+     * @param PermissionInterface $permission
+     * @return mixed
+     */
+    public function assignPermission(PermissionInterface $permission);
 
-    public function assignPermissions(array $permissions): Role;
+    /**
+     * @param array $permissions
+     * @return mixed
+     */
+    public function assignPermissions(array $permissions);
 
-    public function removePermission(PermissionInterface $permission): Role;
+    /**
+     * @param PermissionInterface $permission
+     * @return mixed
+     */
+    public function removePermission(PermissionInterface $permission);
 
-    public function removePermissions(array $permissions): Role;
+    /**
+     * @param array $permissions
+     * @return mixed
+     */
+    public function removePermissions(array $permissions);
 
-    public static function fromArray(array $array): Role;
+    /**
+     * @param array $array
+     * @return mixed
+     */
+    public static function fromArray(array $array);
 }
