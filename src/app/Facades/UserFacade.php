@@ -3,7 +3,6 @@
 namespace Omatech\Mage\Core\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Omatech\Mage\Core\Domains\Users\User;
 
 class UserFacade extends Facade
 {
@@ -14,6 +13,6 @@ class UserFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return User::class;
+        return 'mage.users';
     }
 }

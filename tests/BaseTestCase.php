@@ -24,9 +24,6 @@ class BaseTestCase extends TestCase
         $this->bindings();
 
         $this->loadLaravelMigrations();
-        $this->loadMigrationsFrom(__DIR__.'/../src/database/migrations');
-
-        $this->artisan('migrate')->run();
     }
 
     /**

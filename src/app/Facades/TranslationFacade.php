@@ -3,7 +3,6 @@
 namespace Omatech\Mage\Core\Facades;
 
 use Illuminate\Support\Facades\Facade;
-use Omatech\Mage\Core\Domains\Translations\Translation;
 
 class TranslationFacade extends Facade
 {
@@ -14,6 +13,6 @@ class TranslationFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return Translation::class;
+        return 'mage.translations';
     }
 }

@@ -14,6 +14,6 @@ class PermissionFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return Permission::class;
+        return 'mage.permissions';
     }
 }

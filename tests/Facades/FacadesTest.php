@@ -3,7 +3,7 @@
 namespace Omatech\Mage\Core\Tests\Facades;
 
 use Exception;
-use Omatech\Mage\Core\MageFacade as Mage;
+use Omatech\Mage\Core\Mage;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class FacadesTest extends BaseTestCase
@@ -11,7 +11,7 @@ class FacadesTest extends BaseTestCase
     public function testPermissionFacade()
     {
         $permission = $this->createPermission();
-        $permissionFacade = Mage::domain('Permission');
+        $permissionFacade = Mage::domain('Permissions');
 
         $found = $permissionFacade::find($permission->getId());
 
@@ -21,7 +21,7 @@ class FacadesTest extends BaseTestCase
     public function testRoleFacade()
     {
         $role = $this->createRole();
-        $roleFacade = Mage::domain('Role');
+        $roleFacade = Mage::domain('Roles');
 
         $found = $roleFacade::find($role->getId());
 
@@ -31,7 +31,7 @@ class FacadesTest extends BaseTestCase
     public function testUserFacade()
     {
         $user = $this->createUser();
-        $userFacade = Mage::domain('User');
+        $userFacade = Mage::domain('Users');
 
         $found = $userFacade::find($user->getId());
 
@@ -41,7 +41,7 @@ class FacadesTest extends BaseTestCase
     public function testTranslationFacade()
     {
         $translation = $this->createTranslation();
-        $translationFacade = Mage::domain('Translation');
+        $translationFacade = Mage::domain('Translations');
 
         $found = $translationFacade::find($translation->getGroup().'.'.$translation->getKey());
 

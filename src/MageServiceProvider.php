@@ -53,10 +53,27 @@ class MageServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->permissionBindings();
         $this->roleBindings();
         $this->userBindings();
         $this->translationBindings();
+
+        $this->app->bind('mage.permissions', function () {
+            return new Permission();
+        });
+
+        $this->app->bind('mage.roles', function () {
+            return new Role();
+        });
+
+        $this->app->bind('mage.users', function () {
+            return new User();
+        });
+
+        $this->app->bind('mage.translations', function () {
+            return new Translation();
+        });
     }
 
     private function permissionBindings()

@@ -14,6 +14,6 @@ class RoleFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return Role::class;
+        return 'mage.roles';
     }
 }
