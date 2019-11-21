@@ -1,9 +1,10 @@
 # Very short description of the package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/omatech/mage-core.svg)](https://packagist.org/packages/omatech/mage-core)
+[![Latest Stable Version](https://poser.pugx.org/omatech/mage-core/v/stable)](https://packagist.org/packages/omatech/mage-core)
+[![Latest Unstable Version](https://poser.pugx.org/omatech/mage-core/v/unstable)](https://packagist.org/packages/omatech/mage-core)
 [![Omatech Mage](https://img.shields.io/badge/omatech-mage-blue)](https://github.com/omatech/mage-core)
 [![Documentation Status](https://readthedocs.org/projects/mage-core/badge/?version=latest)](https://mage-core.readthedocs.io/en/latest/?badge=latest)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/packagist/l/omatech/mage-core)](https://opensource.org/licenses/MIT)
 [![Total Downloads](https://img.shields.io/packagist/dt/omatech/mage-core.svg)](https://packagist.org/packages/omatech/mage-core)
 
 [![Build Status](https://img.shields.io/travis/omatech/mage-core/master.svg)](https://travis-ci.org/omatech/mage-core)
