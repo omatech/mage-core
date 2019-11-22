@@ -58,7 +58,7 @@
                 "Omatech\\Mage\\Core\\MageServiceProvider"
             ],
             "aliases": {
-                "Permissions": "Omatech\\Mage\\Core\\Facades\\PermissionsFacade"
+                "Mage": "Omatech\\Mage\\Core\\MageFacade"
             }
         }
     }
