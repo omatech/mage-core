@@ -45,7 +45,13 @@ use Omatech\Mage\Core\Domains\Users\User;
 use Omatech\Mage\Core\Repositories\PermissionRepository;
 use Omatech\Mage\Core\Repositories\RoleRepository;
 use Omatech\Mage\Core\Repositories\TranslationRepository;
-use Omatech\Mage\Core\Repositories\UserRepository;
+use Omatech\Mage\Core\Repositories\Users\AllUser;
+use Omatech\Mage\Core\Repositories\Users\CreateUser;
+use Omatech\Mage\Core\Repositories\Users\DeleteUser;
+use Omatech\Mage\Core\Repositories\Users\ExistsUser;
+use Omatech\Mage\Core\Repositories\Users\FindUser;
+use Omatech\Mage\Core\Repositories\Users\UniqueUser;
+use Omatech\Mage\Core\Repositories\Users\UpdateUser;
 
 class MageServiceProvider extends ServiceProvider
 {
@@ -60,19 +66,19 @@ class MageServiceProvider extends ServiceProvider
         $this->translationBindings();
 
         $this->app->bind('mage.permissions', function () {
-            return new Permission();
+            return $this->app->make(PermissionInterface::class);
         });
 
         $this->app->bind('mage.roles', function () {
-            return new Role();
+            return $this->app->make(RoleInterface::class);
         });
 
         $this->app->bind('mage.users', function () {
-            return new User();
+            return $this->app->make(UserInterface::class);
         });
 
         $this->app->bind('mage.translations', function () {
-            return new Translation();
+            return $this->app->make(TranslationInterface::class);
         });
 
         $this->publishes($this->migrations(), 'mage-migrations');
@@ -107,13 +113,13 @@ class MageServiceProvider extends ServiceProvider
     private function userBindings()
     {
         $this->app->bind(UserInterface::class, User::class);
-        $this->app->bind(AllUserInterface::class, UserRepository::class);
-        $this->app->bind(FindUserInterface::class, UserRepository::class);
-        $this->app->bind(CreateUserInterface::class, UserRepository::class);
-        $this->app->bind(DeleteUserInterface::class, UserRepository::class);
-        $this->app->bind(ExistsUserInterface::class, UserRepository::class);
-        $this->app->bind(UpdateUserInterface::class, UserRepository::class);
-        $this->app->bind(UniqueUserInterface::class, UserRepository::class);
+        $this->app->bind(AllUserInterface::class, AllUser::class);
+        $this->app->bind(FindUserInterface::class, FindUser::class);
+        $this->app->bind(CreateUserInterface::class, CreateUser::class);
+        $this->app->bind(DeleteUserInterface::class, DeleteUser::class);
+        $this->app->bind(ExistsUserInterface::class, ExistsUser::class);
+        $this->app->bind(UpdateUserInterface::class, UpdateUser::class);
+        $this->app->bind(UniqueUserInterface::class, UniqueUser::class);
     }
 
     private function translationBindings()

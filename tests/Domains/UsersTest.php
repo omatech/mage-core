@@ -14,14 +14,14 @@ use Omatech\Mage\Core\Events\Users\UserCreated;
 use Omatech\Mage\Core\Events\Users\UserDeleted;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
 use Omatech\Mage\Core\Models\User as UserModel;
-use Omatech\Mage\Core\Repositories\UserRepository;
+use Omatech\Mage\Core\Repositories\Users\AllUser;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class UsersTest extends BaseTestCase
 {
     public function testPaginateToArrayUser(): void
     {
-        $pagination = $this->app->make(UserInterface::class)::all(new UserRepository());
+        $pagination = $this->app->make(UserInterface::class)::all(new AllUser());
 
         $this->assertTrue(true === is_array($pagination));
     }
