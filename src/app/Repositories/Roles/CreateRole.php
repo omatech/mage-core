@@ -2,10 +2,10 @@
 
 namespace Omatech\Mage\Core\Repositories\Roles;
 
+use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Events\Roles\RoleCreated;
 use Omatech\Mage\Core\Repositories\RoleBaseRepository;
-use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
-use Omatech\Mage\Core\Domains\Roles\Contracts\CreateRoleInterface;
 
 class CreateRole extends RoleBaseRepository implements CreateRoleInterface
 {

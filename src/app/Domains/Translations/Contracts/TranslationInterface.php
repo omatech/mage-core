@@ -2,8 +2,6 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Contracts;
 
-use Omatech\Mage\Core\Domains\Translations\Translation;
-
 interface TranslationInterface
 {
     /**

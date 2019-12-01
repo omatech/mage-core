@@ -2,9 +2,9 @@
 
 namespace Omatech\Mage\Core\Repositories\Translations;
 
-use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\UniqueTranslationInterface;
+use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
 class UniqueTranslation extends TranslationBaseRepository implements UniqueTranslationInterface
 {

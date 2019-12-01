@@ -16,7 +16,7 @@ class FindUser extends UserBaseRepository implements FindUserInterface
         $user = $this->query()->find($id);
 
         if (null === $user) {
-            return null;
+            return;
         }
 
         $permissions = array_map(static function ($permission) {
