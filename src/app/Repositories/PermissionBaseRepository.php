@@ -1,0 +1,14 @@
+<?php
+
+namespace Omatech\Mage\Core\Repositories;
+
+use Omatech\Lars\BaseRepository;
+use Omatech\Mage\Core\Models\Permission;
+
+class PermissionBaseRepository extends BaseRepository
+{
+    public function model(): string
+    {
+        return Permission::class;
+    }
+}

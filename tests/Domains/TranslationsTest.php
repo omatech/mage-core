@@ -13,14 +13,14 @@ use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationExistsMustBeUni
 use Omatech\Mage\Core\Events\Translations\TranslationCreated;
 use Omatech\Mage\Core\Events\Translations\TranslationDeleted;
 use Omatech\Mage\Core\Events\Translations\TranslationUpdated;
-use Omatech\Mage\Core\Repositories\TranslationRepository;
+use Omatech\Mage\Core\Repositories\Translations\AllTranslation;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class TranslationsTest extends BaseTestCase
 {
     public function testPaginateToArrayTranslation(): void
     {
-        $pagination = $this->app->make(TranslationInterface::class)::all(new TranslationRepository());
+        $pagination = $this->app->make(TranslationInterface::class)::all(new AllTranslation());
 
         $this->assertTrue(true === is_array($pagination));
     }

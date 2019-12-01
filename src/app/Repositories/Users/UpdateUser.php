@@ -2,7 +2,6 @@
 
 namespace Omatech\Mage\Core\Repositories\Users;
 
-use Illuminate\Support\Facades\DB;
 use Omatech\Mage\Core\Domains\Users\Contracts\UpdateUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
@@ -12,10 +11,9 @@ class UpdateUser extends UserBaseRepository implements UpdateUserInterface
 {
     public function update(UserInterface $user): bool
     {
-        $isUpdated = DB::transaction(function () use ($user) {
-            $updated = $this->query()->find($user->getId());
+        $updated = $this->query()->find($user->getId());
 
-            $updated->fill([
+        $updated->fill([
                 'name'              => $user->getName(),
                 'language'          => $user->getLanguage(),
                 'email'             => $user->getEmail(),
@@ -24,17 +22,14 @@ class UpdateUser extends UserBaseRepository implements UpdateUserInterface
                 'remember_token'    => $user->getRememberToken(),
             ])->save();
 
-            $user->setCreatedAt($updated->created_at);
-            $user->setUpdatedAt($updated->updated_at);
+        $user->setCreatedAt($updated->created_at);
+        $user->setUpdatedAt($updated->updated_at);
 
-            $this->syncPermissions($updated, $user);
-            $this->syncRoles($updated, $user);
+        $this->syncPermissions($updated, $user);
+        $this->syncRoles($updated, $user);
 
-            return count($updated->getChanges()) >= 1;
-        });
+        event(new UserUpdated($user, count($updated->getChanges()) >= 1));
 
-        event(new UserUpdated($user, $isUpdated));
-
-        return $isUpdated;
+        return count($updated->getChanges()) >= 1;
     }
 }

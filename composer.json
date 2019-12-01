@@ -37,7 +37,8 @@
             "Omatech\\Mage\\Core\\Repositories\\": "src/app/Repositories",
             "Omatech\\Mage\\Core\\Models\\": "src/app/Models",
             "Omatech\\Mage\\Core\\Events\\": "src/app/Events",
-            "Omatech\\Mage\\Core\\Adapters\\": "src/app/Adapters"
+            "Omatech\\Mage\\Core\\Adapters\\": "src/app/Adapters",
+            "Omatech\\Mage\\Core\\Providers\\": "src/app/Providers"
         }
     },
     "autoload-dev": {

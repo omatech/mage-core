@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\UserBaseRepository;
 
 class UniqueUser extends UserBaseRepository implements UniqueUserInterface
 {
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
     public function unique(UserInterface $user): bool
     {
         return $this->query()

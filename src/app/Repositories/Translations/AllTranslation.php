@@ -1,16 +1,13 @@
 <?php
 
-namespace Omatech\Mage\Core\Adapters\Translations;
+namespace Omatech\Mage\Core\Repositories\Translations;
 
 use Omatech\Mage\Core\Domains\Translations\Contracts\AllTranslationInterface;
 use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
-class GetAllTranslations extends TranslationBaseRepository implements AllTranslationInterface
+class AllTranslation extends TranslationBaseRepository implements AllTranslationInterface
 {
-    /**
-     * @param $locales
-     */
-    public function get($locales): array
+    public function get($locales)
     {
         $select = ['id', 'group', 'key'];
 
@@ -20,7 +17,7 @@ class GetAllTranslations extends TranslationBaseRepository implements AllTransla
 
         return $this->query()
             ->select($select)
-            ->get()
+            ->paginate()
             ->toArray();
     }
 }

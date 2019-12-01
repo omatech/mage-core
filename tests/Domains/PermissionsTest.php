@@ -12,14 +12,14 @@ use Omatech\Mage\Core\Domains\Shared\Exceptions\MethodDoesNotExistsException;
 use Omatech\Mage\Core\Events\Permissions\PermissionCreated;
 use Omatech\Mage\Core\Events\Permissions\PermissionDeleted;
 use Omatech\Mage\Core\Events\Permissions\PermissionUpdated;
-use Omatech\Mage\Core\Repositories\PermissionRepository;
+use Omatech\Mage\Core\Repositories\Permissions\AllPermission;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class PermissionsTest extends BaseTestCase
 {
     public function testPaginateToArrayPermission(): void
     {
-        $pagination = $this->app->make(PermissionInterface::class)::all(new PermissionRepository());
+        $pagination = $this->app->make(PermissionInterface::class)::all(new AllPermission());
 
         $this->assertTrue(true === is_array($pagination));
     }

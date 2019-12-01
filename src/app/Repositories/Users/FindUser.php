@@ -8,6 +8,7 @@ use Omatech\Mage\Core\Repositories\UserBaseRepository;
 class FindUser extends UserBaseRepository implements FindUserInterface
 {
     /**
+     * @param int $id
      * @return mixed|null
      */
     public function find(int $id)

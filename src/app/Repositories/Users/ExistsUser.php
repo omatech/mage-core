@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\UserBaseRepository;
 
 class ExistsUser extends UserBaseRepository implements ExistsUserInterface
 {
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
     public function exists(UserInterface $user): bool
     {
         return $this->query()

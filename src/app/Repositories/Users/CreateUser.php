@@ -2,7 +2,6 @@
 
 namespace Omatech\Mage\Core\Repositories\Users;
 
-use Illuminate\Support\Facades\DB;
 use Omatech\Mage\Core\Domains\Users\Contracts\CreateUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Events\Users\UserCreated;
@@ -12,8 +11,7 @@ class CreateUser extends UserBaseRepository implements CreateUserInterface
 {
     public function create(UserInterface $user): bool
     {
-        $wasRecentlyCreated = DB::transaction(function () use ($user) {
-            $created = $this->query()->create([
+        $created = $this->query()->create([
                 'name'              => $user->getName(),
                 'language'          => $user->getLanguage(),
                 'email'             => $user->getEmail(),
@@ -22,18 +20,15 @@ class CreateUser extends UserBaseRepository implements CreateUserInterface
                 'remember_token'    => $user->getRememberToken(),
             ]);
 
-            $user->setId($created->id);
-            $user->setCreatedAt($created->created_at);
-            $user->setUpdatedAt($created->updated_at);
+        $user->setId($created->id);
+        $user->setCreatedAt($created->created_at);
+        $user->setUpdatedAt($created->updated_at);
 
-            $this->syncPermissions($created, $user);
-            $this->syncRoles($created, $user);
+        $this->syncPermissions($created, $user);
+        $this->syncRoles($created, $user);
 
-            return $created->wasRecentlyCreated;
-        });
+        event(new UserCreated($user, $created->wasRecentlyCreated));
 
-        event(new UserCreated($user, $wasRecentlyCreated));
-
-        return $wasRecentlyCreated;
+        return $created->wasRecentlyCreated;
     }
 }

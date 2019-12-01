@@ -15,10 +15,8 @@ class DeleteUser extends UserBaseRepository implements DeleteUserInterface
             ->where('id', $user->getId())
             ->delete();
 
-        $isDeleted = $isDeleted > 0;
+        event(new UserDeleted($user, $isDeleted > 0));
 
-        event(new UserDeleted($user, $isDeleted));
-
-        return $isDeleted;
+        return $isDeleted > 0;
     }
 }
