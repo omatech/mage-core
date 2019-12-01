@@ -12,7 +12,7 @@ class FindRole extends RoleBaseRepository implements FindRoleInterface
         $role = $this->query()->find($id);
 
         if (null === $role) {
-            return null;
+            return;
         }
 
         $permissions = array_map(static function ($permission) {
