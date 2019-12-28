@@ -11,9 +11,6 @@ class TranslationDeleted
 
     /**
      * TranslationDeleted constructor.
-     *
-     * @param TranslationInterface $translation
-     * @param bool                 $wasDelete
      */
     public function __construct(TranslationInterface $translation, bool $wasDelete)
     {

@@ -3,23 +3,30 @@
 namespace Omatech\Mage\Core\Repositories\Roles;
 
 use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Repositories\Permissions\FindPermission;
 use Omatech\Mage\Core\Repositories\RoleBaseRepository;
 
 class FindRole extends RoleBaseRepository implements FindRoleInterface
 {
-    public function find(int $id)
+    /**
+     * @param array $params
+     */
+    public function find(array $params)
     {
-        $role = $this->query()->find($id);
+        $role = $this->query()->find($params['id']);
 
         if (null === $role) {
-            return;
+            return null;
         }
 
         $permissions = array_map(static function ($permission) {
-            return app('mage.permissions')::find($permission['id']);
+            return resolve('mage.permissions')::find(new FindPermission(), [
+                'id' => $permission['id'],
+            ]);
         }, $role->permissions->toArray());
 
-        $role = app('mage.roles')::fromArray([
+        $role = resolve('mage.roles')::fromArray([
             'id'         => $role->id,
             'name'       => $role->name,
             'guard_name' => $role->guard_name,

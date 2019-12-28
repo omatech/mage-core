@@ -9,8 +9,9 @@ class GetAllTranslations extends TranslationBaseRepository implements AllTransla
 {
     /**
      * @param $locales
+     * @return array
      */
-    public function get($locales): array
+    public function get(array $locales): array
     {
         $select = ['id', 'group', 'key'];
 

@@ -4,11 +4,11 @@ namespace Omatech\Mage\Core\Domains\Roles;
 
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\AllRoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Features\ExistsAndDeleteRole;
 use Omatech\Mage\Core\Domains\Roles\Features\FindOrFailRole;
 use Omatech\Mage\Core\Domains\Roles\Features\UpdateOrCreateRole;
-use Omatech\Mage\Core\Domains\Roles\Jobs\AllRole;
 use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 use Omatech\Mage\Core\Domains\Shared\Traits\PermissionsManager;
 
@@ -33,7 +33,7 @@ class Role implements RoleInterface
 
     /**
      * @param int $id
-     * @return $this|mixed
+     * @return $this
      */
     public function setId(int $id)
     {
@@ -52,7 +52,7 @@ class Role implements RoleInterface
 
     /**
      * @param string $name
-     * @return $this|mixed
+     * @return $this
      */
     public function setName(string $name)
     {
@@ -71,7 +71,7 @@ class Role implements RoleInterface
 
     /**
      * @param string $guardName
-     * @return $this|mixed
+     * @return $this
      */
     public function setGuardName(string $guardName)
     {
@@ -90,7 +90,7 @@ class Role implements RoleInterface
 
     /**
      * @param string $createdAt
-     * @return $this|mixed
+     * @return $this
      */
     public function setCreatedAt(string $createdAt)
     {
@@ -109,7 +109,7 @@ class Role implements RoleInterface
 
     /**
      * @param string $updatedAt
-     * @return $this|mixed
+     * @return $this
      */
     public function setUpdatedAt(string $updatedAt)
     {
@@ -142,17 +142,18 @@ class Role implements RoleInterface
      */
     public static function all(AllRoleInterface $all)
     {
-        return (new AllRole)->make($all);
+        return $all->get();
     }
 
     /**
-     * @param int $id
-     * @return mixed|Role|null
+     * @param FindRoleInterface $find
+     * @param array $params
+     * @return mixed
      * @throws Exceptions\RoleDoesNotExistsException
      */
-    public static function find(int $id)
+    public static function find(FindRoleInterface $find, array $params)
     {
-        return (new FindOrFailRole)->make($id);
+        return (new FindOrFailRole())->make($find, $params);
     }
 
     /**
@@ -163,7 +164,7 @@ class Role implements RoleInterface
      */
     public function save(): bool
     {
-        return (new UpdateOrCreateRole)->make($this);
+        return (new UpdateOrCreateRole())->make($this);
     }
 
     /**
@@ -173,6 +174,6 @@ class Role implements RoleInterface
      */
     public function delete(): bool
     {
-        return (new ExistsAndDeleteRole)->make($this);
+        return (new ExistsAndDeleteRole())->make($this);
     }
 }

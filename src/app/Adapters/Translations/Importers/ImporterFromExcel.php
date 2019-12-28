@@ -9,6 +9,11 @@ use Rap2hpoutre\FastExcel\FastExcel;
 
 class ImporterFromExcel implements ImportTranslationInterface
 {
+    /**
+     * @param string $path
+     * @param string $locale
+     * @return array
+     */
     public function import(string $path, string $locale = ''): array
     {
         $sheetNames = $this->getSheets($path, $locale);
@@ -17,6 +22,11 @@ class ImporterFromExcel implements ImportTranslationInterface
         return $this->parseTranslations($sheetNames, $sheets);
     }
 
+    /**
+     * @param string $path
+     * @param string $locale
+     * @return array
+     */
     private function getSheets(string $path, string $locale = ''): array
     {
         $sheetNames = [];
@@ -35,6 +45,11 @@ class ImporterFromExcel implements ImportTranslationInterface
         return $sheetNames;
     }
 
+    /**
+     * @param string $path
+     * @param array $sheetNames
+     * @return array
+     */
     private function importSheets(string $path, array $sheetNames): array
     {
         $sheets = (new FastExcel());
@@ -48,6 +63,11 @@ class ImporterFromExcel implements ImportTranslationInterface
         return $sheets;
     }
 
+    /**
+     * @param array $sheetNames
+     * @param array $sheets
+     * @return array
+     */
     private function parseTranslations(array $sheetNames, array $sheets): array
     {
         $translations = [];

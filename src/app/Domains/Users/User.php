@@ -8,11 +8,11 @@ use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 use Omatech\Mage\Core\Domains\Shared\Traits\PermissionsManager;
 use Omatech\Mage\Core\Domains\Shared\Traits\RolesManager;
 use Omatech\Mage\Core\Domains\Users\Contracts\AllUserInterface;
+use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
 use Omatech\Mage\Core\Domains\Users\Contracts\UserInterface;
 use Omatech\Mage\Core\Domains\Users\Features\ExistsAndDeleteUser;
 use Omatech\Mage\Core\Domains\Users\Features\FindOrFailUser;
 use Omatech\Mage\Core\Domains\Users\Features\UpdateOrCreateUser;
-use Omatech\Mage\Core\Domains\Users\Jobs\AllUser;
 
 class User implements UserInterface
 {
@@ -243,17 +243,18 @@ class User implements UserInterface
      */
     public static function all(AllUserInterface $all)
     {
-        return (new AllUser())->make($all);
+        return $all->get();
     }
 
     /**
-     * @param int $id
+     * @param FindUserInterface $find
+     * @param array $params
      * @return mixed|User|null
      * @throws Exceptions\UserDoesNotExistsException
      */
-    public static function find(int $id)
+    public static function find(FindUserInterface $find, array $params)
     {
-        return (new FindOrFailUser())->make($id);
+        return (new FindOrFailUser())->make($find, $params);
     }
 
     /**
@@ -273,6 +274,6 @@ class User implements UserInterface
      */
     public function delete(): bool
     {
-        return ( new ExistsAndDeleteUser())->make($this);
+        return (new ExistsAndDeleteUser())->make($this);
     }
 }

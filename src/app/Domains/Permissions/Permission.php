@@ -3,11 +3,11 @@
 namespace Omatech\Mage\Core\Domains\Permissions;
 
 use Omatech\Mage\Core\Domains\Permissions\Contracts\AllPermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Contracts\FindPermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
 use Omatech\Mage\Core\Domains\Permissions\Features\ExistsAndDeletePermission;
 use Omatech\Mage\Core\Domains\Permissions\Features\FindOrFailPermission;
 use Omatech\Mage\Core\Domains\Permissions\Features\UpdateOrCreatePermission;
-use Omatech\Mage\Core\Domains\Permissions\Jobs\AllPermission;
 use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 
 class Permission implements PermissionInterface
@@ -29,7 +29,8 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @return $this|mixed
+     * @param int $id
+     * @return $this
      */
     public function setId(int $id)
     {
@@ -47,7 +48,8 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @return $this|mixed
+     * @param string $name
+     * @return $this
      */
     public function setName(string $name)
     {
@@ -65,7 +67,8 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @return $this|mixed
+     * @param string $guardName
+     * @return $this
      */
     public function setGuardName(string $guardName)
     {
@@ -83,7 +86,8 @@ class Permission implements PermissionInterface
     }
 
     /**
-     * @return $this|mixed
+     * @param string $createdAt
+     * @return $this
      */
     public function setCreatedAt(string $createdAt)
     {
@@ -102,7 +106,7 @@ class Permission implements PermissionInterface
 
     /**
      * @param string $updatedAt
-     * @return $this|mixed
+     * @return $this
      */
     public function setUpdatedAt(string $updatedAt)
     {
@@ -117,20 +121,22 @@ class Permission implements PermissionInterface
      */
     public static function all(AllPermissionInterface $all)
     {
-        return (new AllPermission())->make($all);
+        return $all->get();
     }
 
     /**
-     * @param int $id
+     * @param FindPermissionInterface $find
+     * @param array $params
      * @return mixed
      * @throws Exceptions\PermissionDoesNotExistsException
      */
-    public static function find(int $id)
+    public static function find(FindPermissionInterface $find, array $params)
     {
-        return (new FindOrFailPermission())->make($id);
+        return (new FindOrFailPermission())->make($find, $params);
     }
 
     /**
+     * @return bool
      * @throws Exceptions\PermissionAlreadyExistsException
      * @throws Exceptions\PermissionDoesNotExistsException
      * @throws Exceptions\PermissionNameExistsMustBeUniqueException
@@ -141,6 +147,7 @@ class Permission implements PermissionInterface
     }
 
     /**
+     * @return bool
      * @throws Exceptions\PermissionDoesNotExistsException
      * @throws Exceptions\PermissionIsAttachedException
      */

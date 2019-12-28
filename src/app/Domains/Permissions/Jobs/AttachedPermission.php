@@ -9,13 +9,10 @@ class AttachedPermission
 {
     /**
      * @param Permission $permission
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Permission $permission): bool
     {
-        return app()->make(AttachedPermissionInterface::class)->attached($permission);
+        return resolve(AttachedPermissionInterface::class)->attached($permission);
     }
 }

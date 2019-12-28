@@ -3,28 +3,35 @@
 namespace Omatech\Mage\Core\Repositories\Users;
 
 use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
+use Omatech\Mage\Core\Repositories\Permissions\FindPermission;
+use Omatech\Mage\Core\Repositories\Roles\FindRole;
 use Omatech\Mage\Core\Repositories\UserBaseRepository;
 
 class FindUser extends UserBaseRepository implements FindUserInterface
 {
     /**
      * @param int $id
+     *
      * @return mixed|null
      */
-    public function find(int $id)
+    public function find($params)
     {
-        $user = $this->query()->find($id);
+        $user = $this->query()->find($params['id']);
 
         if (null === $user) {
             return;
         }
 
         $permissions = array_map(static function ($permission) {
-            return app('mage.permissions')::find($permission['id']);
+            return app('mage.permissions')::find(new FindPermission(), [
+                'id' => $permission['id'],
+            ]);
         }, $user->permissions->toArray());
 
         $roles = array_map(static function ($role) {
-            return app('mage.roles')::find($role['id']);
+            return app('mage.roles')::find(new FindRole(), [
+                'id' => $role['id'],
+            ]);
         }, $user->roles->toArray());
 
         $user = app('mage.users')::fromArray([

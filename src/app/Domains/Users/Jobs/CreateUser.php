@@ -9,13 +9,10 @@ class CreateUser
 {
     /**
      * @param User $user
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(User $user): bool
     {
-        return app()->make(CreateUserInterface::class)->create($user);
+        return resolve(CreateUserInterface::class)->create($user);
     }
 }

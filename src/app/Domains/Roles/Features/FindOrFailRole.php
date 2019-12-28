@@ -2,30 +2,20 @@
 
 namespace Omatech\Mage\Core\Domains\Roles\Features;
 
+use Omatech\Mage\Core\Domains\Roles\Contracts\FindRoleInterface;
 use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Roles\Jobs\FindRole;
-use Omatech\Mage\Core\Domains\Roles\Role;
 
 class FindOrFailRole
 {
-    private $find;
-
     /**
-     * FindOrFailRole constructor.
-     */
-    public function __construct()
-    {
-        $this->find = new FindRole();
-    }
-
-    /**
-     * @param int $id
-     * @return Role|null
+     * @param FindRoleInterface $find
+     * @param array $params
+     * @return mixed
      * @throws RoleDoesNotExistsException
      */
-    public function make(int $id)
+    public function make(FindRoleInterface $find, array $params)
     {
-        $role = $this->find->make($id);
+        $role = $find->find($params);
 
         if (null === $role) {
             throw new RoleDoesNotExistsException();

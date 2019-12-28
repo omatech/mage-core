@@ -3,18 +3,22 @@
 namespace Omatech\Mage\Core\Domains\Shared\Traits;
 
 use Omatech\Mage\Core\Domains\Roles\Contracts\RoleInterface;
+use Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException;
 use Omatech\Mage\Core\Domains\Roles\RoleModel;
 
 trait RolesManager
 {
     private $roles = [];
 
+    /**
+     * @return mixed
+     */
     abstract public function getRoles();
 
     /**
      * @param RoleInterface $role
-     * @return $this
-     * @throws \Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException
+     * @return self
+     * @throws RoleIsNotSavedException
      */
     public function assignRole(RoleInterface $role)
     {
@@ -26,8 +30,8 @@ trait RolesManager
 
     /**
      * @param array $roles
-     * @return $this
-     * @throws \Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException
+     * @return self
+     * @throws RoleIsNotSavedException
      */
     public function assignRoles(array $roles)
     {
@@ -39,8 +43,8 @@ trait RolesManager
 
     /**
      * @param RoleInterface $role
-     * @return $this
-     * @throws \Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException
+     * @return self
+     * @throws RoleIsNotSavedException
      */
     public function removeRole(RoleInterface $role)
     {
@@ -52,8 +56,8 @@ trait RolesManager
 
     /**
      * @param array $roles
-     * @return $this
-     * @throws \Omatech\Mage\Core\Domains\Roles\Exceptions\RoleIsNotSavedException
+     * @return self
+     * @throws RoleIsNotSavedException
      */
     public function removeRoles(array $roles)
     {

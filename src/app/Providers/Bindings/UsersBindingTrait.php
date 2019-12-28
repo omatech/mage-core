@@ -24,7 +24,7 @@ trait UsersBindingTrait
     private function userBindings()
     {
         $this->app->bind('mage.users', function () {
-            return $this->app->make(UserInterface::class);
+            return resolve(UserInterface::class);
         });
 
         $this->app->bind(UserInterface::class, User::class);

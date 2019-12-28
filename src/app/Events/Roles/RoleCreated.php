@@ -11,9 +11,6 @@ class RoleCreated
 
     /**
      * RoleCreated constructor.
-     *
-     * @param RoleInterface $role
-     * @param bool          $wasRecentlyCreated
      */
     public function __construct(RoleInterface $role, bool $wasRecentlyCreated)
     {

@@ -8,12 +8,10 @@ use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedExcepti
 class PermissionModel
 {
     /**
-     * @param array               $currentPermissions
+     * @param array $currentPermissions
      * @param PermissionInterface $assignPermission
-     *
-     * @throws PermissionIsNotSavedException
-     *
      * @return array
+     * @throws PermissionIsNotSavedException
      */
     public function assignPermission(array $currentPermissions, PermissionInterface $assignPermission): array
     {
@@ -31,10 +29,8 @@ class PermissionModel
     /**
      * @param array $currentPermissions
      * @param array $assignPermissions
-     *
-     * @throws PermissionIsNotSavedException
-     *
      * @return array
+     * @throws PermissionIsNotSavedException
      */
     public function assignPermissions(array $currentPermissions, array $assignPermissions): array
     {
@@ -48,12 +44,10 @@ class PermissionModel
     }
 
     /**
-     * @param array               $currentPermissions
+     * @param array $currentPermissions
      * @param PermissionInterface $deletePermission
-     *
-     * @throws PermissionIsNotSavedException
-     *
      * @return array
+     * @throws PermissionIsNotSavedException
      */
     public function removePermission(array $currentPermissions, PermissionInterface $deletePermission): array
     {
@@ -74,10 +68,8 @@ class PermissionModel
     /**
      * @param array $currentPermissions
      * @param array $deletePermissions
-     *
-     * @throws PermissionIsNotSavedException
-     *
      * @return array
+     * @throws PermissionIsNotSavedException
      */
     public function removePermissions(array $currentPermissions, array $deletePermissions): array
     {

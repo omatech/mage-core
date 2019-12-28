@@ -89,15 +89,47 @@ interface TranslationInterface
     public static function all(AllTranslationInterface $all);
 
     /**
-     * @param string $key
+     * @param FindTranslationInterface $find
+     * @param array $params
      * @return mixed
      */
-    public static function find(string $key);
+    public static function find(FindTranslationInterface $find, array $params);
 
     /**
      * @return bool
      */
     public function save(): bool;
+
+    /**
+     * @return bool
+     */
+    public function delete(): bool;
+
+    /**
+     * @param AllTranslationInterface $all
+     * @param ExportTranslationInterface $export
+     * @param array|null $locales
+     * @return mixed
+     */
+    public static function export(
+        AllTranslationInterface $all,
+        ExportTranslationInterface $export,
+        array $locales = null
+    );
+
+    /**
+     * @param FindTranslationInterface $find
+     * @param ImportTranslationInterface $import
+     * @param string $path
+     * @param string $locale
+     * @return mixed
+     */
+    public static function import(
+        FindTranslationInterface $find,
+        ImportTranslationInterface $import,
+        string $path,
+        string $locale = ''
+    );
 
     /**
      * @param array $array

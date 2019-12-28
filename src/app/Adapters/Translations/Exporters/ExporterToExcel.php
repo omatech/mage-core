@@ -12,12 +12,6 @@ class ExporterToExcel implements ExportTranslationInterface
 {
     /**
      * @param array $translations
-     *
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
-     *
      * @return string
      */
     public function export(array $translations): string
@@ -26,16 +20,10 @@ class ExporterToExcel implements ExportTranslationInterface
     }
 
     /**
-     * @param $translations
-     *
-     * @throws \Box\Spout\Common\Exception\IOException
-     * @throws \Box\Spout\Common\Exception\InvalidArgumentException
-     * @throws \Box\Spout\Common\Exception\UnsupportedTypeException
-     * @throws \Box\Spout\Writer\Exception\WriterNotOpenedException
-     *
+     * @param array $translations
      * @return string
      */
-    private function toFile($translations): string
+    private function toFile(array $translations): string
     {
         $path = base_path('storage/app/translations');
         File::makeDirectory($path, 0777, true, true);

@@ -25,13 +25,12 @@ class ExistsAndDeletePermission
         $this->delete = new DeletePermission();
     }
 
+
     /**
      * @param Permission $permission
-     *
+     * @return bool
      * @throws PermissionDoesNotExistsException
      * @throws PermissionIsAttachedException
-     *
-     * @return bool
      */
     public function make(Permission $permission): bool
     {

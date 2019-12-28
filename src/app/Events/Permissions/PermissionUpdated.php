@@ -11,9 +11,6 @@ class PermissionUpdated
 
     /**
      * PermissionUpdated constructor.
-     *
-     * @param PermissionInterface $permission
-     * @param bool                $wasUpdated
      */
     public function __construct(PermissionInterface $permission, bool $wasUpdated)
     {

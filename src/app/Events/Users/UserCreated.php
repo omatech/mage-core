@@ -11,9 +11,6 @@ class UserCreated
 
     /**
      * UserCreated constructor.
-     *
-     * @param UserInterface $user
-     * @param bool          $wasRecentlyCreated
      */
     public function __construct(UserInterface $user, bool $wasRecentlyCreated)
     {

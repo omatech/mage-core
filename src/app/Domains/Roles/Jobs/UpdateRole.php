@@ -9,13 +9,10 @@ class UpdateRole
 {
     /**
      * @param Role $role
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Role $role): bool
     {
-        return app()->make(UpdateRoleInterface::class)->update($role);
+        return resolve(UpdateRoleInterface::class)->update($role);
     }
 }

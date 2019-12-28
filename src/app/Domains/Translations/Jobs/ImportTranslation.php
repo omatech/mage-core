@@ -2,26 +2,29 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Jobs;
 
+use Omatech\Mage\Core\Domains\Translations\Contracts\FindTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\ImportTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Translation;
 
 class ImportTranslation
 {
     /**
-     * @param ImportTranslationInterface $importTranslationInterface
+     * @param FindTranslationInterface $find
+     * @param ImportTranslationInterface $import
      * @param string $path
      * @param string $locale
      * @return bool
      */
     public function make(
-        ImportTranslationInterface $importTranslationInterface,
+        FindTranslationInterface $find,
+        ImportTranslationInterface $import,
         string $path,
         string $locale = ''
     ) {
-        $translations = $importTranslationInterface->import($path, $locale);
+        $translations = $import->import($path, $locale);
 
-        $results = array_map(function ($translation) {
-            return Translation::find($translation['key'])
+        $results = array_map(function ($translation) use ($find) {
+            return Translation::find($find, ['key' => $translation['key']])
                 ->setTranslations($translation['value'])
                 ->save();
         }, $translations);

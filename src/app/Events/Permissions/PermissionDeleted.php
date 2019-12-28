@@ -11,9 +11,6 @@ class PermissionDeleted
 
     /**
      * PermissionDeleted constructor.
-     *
-     * @param PermissionInterface $permission
-     * @param bool                $wasDelete
      */
     public function __construct(PermissionInterface $permission, bool $wasDelete)
     {

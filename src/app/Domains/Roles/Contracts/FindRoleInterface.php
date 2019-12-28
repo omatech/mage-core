@@ -5,8 +5,8 @@ namespace Omatech\Mage\Core\Domains\Roles\Contracts;
 interface FindRoleInterface
 {
     /**
-     * @param int $id
+     * @param array $params
      * @return mixed
      */
-    public function find(int $id);
+    public function find(array $params);
 }

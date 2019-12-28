@@ -9,13 +9,10 @@ class UniqueTranslation
 {
     /**
      * @param Translation $translation
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Translation $translation): bool
     {
-        return app()->make(UniqueTranslationInterface::class)->unique($translation);
+        return resolve(UniqueTranslationInterface::class)->unique($translation);
     }
 }

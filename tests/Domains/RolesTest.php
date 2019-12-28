@@ -14,13 +14,14 @@ use Omatech\Mage\Core\Events\Roles\RoleCreated;
 use Omatech\Mage\Core\Events\Roles\RoleDeleted;
 use Omatech\Mage\Core\Events\Roles\RoleUpdated;
 use Omatech\Mage\Core\Repositories\Roles\AllRole;
+use Omatech\Mage\Core\Repositories\Roles\FindRole;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class RolesTest extends BaseTestCase
 {
     public function testPaginateToArrayRole(): void
     {
-        $pagination = $this->app->make(RoleInterface::class)::all(new AllRole());
+        $pagination = resolve(RoleInterface::class)::all(new AllRole());
 
         $this->assertTrue(true === is_array($pagination));
     }
@@ -29,7 +30,9 @@ class RolesTest extends BaseTestCase
     {
         $role = $this->createRole();
 
-        $foundRole = $this->app->make(RoleInterface::class)::find($role->getId());
+        $foundRole = resolve(RoleInterface::class)::find(new FindRole(), [
+            'id' => $role->getId(),
+        ]);
 
         $this->assertTrue($foundRole instanceof RoleInterface);
         $this->assertTrue($foundRole->getId() === $role->getId());
@@ -44,7 +47,9 @@ class RolesTest extends BaseTestCase
         ]);
         $role->save();
 
-        $foundRole = $this->app->make(RoleInterface::class)::find($role->getId());
+        $foundRole = resolve(RoleInterface::class)::find(new FindRole(), [
+            'id' => $role->getId(),
+        ]);
 
         $this->assertTrue($foundRole instanceof RoleInterface);
         $this->assertTrue($foundRole->getId() === $role->getId());
@@ -55,7 +60,9 @@ class RolesTest extends BaseTestCase
     {
         $this->expectException(RoleDoesNotExistsException::class);
 
-        $this->app->make(RoleInterface::class)::find(1);
+        resolve(RoleInterface::class)::find(new FindRole(), [
+            'id' => 1,
+        ]);
     }
 
     public function testCreateRole(): void
@@ -286,7 +293,7 @@ class RolesTest extends BaseTestCase
     {
         $this->expectException(MethodDoesNotExistsException::class);
 
-        $this->app->make(Role::class)::fromArray([
+        resolve(Role::class)::fromArray([
             'noMethod' => 'noValue',
         ]);
     }

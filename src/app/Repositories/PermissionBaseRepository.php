@@ -7,6 +7,9 @@ use Omatech\Mage\Core\Models\Permission;
 
 class PermissionBaseRepository extends BaseRepository
 {
+    /**
+     * @return string
+     */
     public function model(): string
     {
         return Permission::class;

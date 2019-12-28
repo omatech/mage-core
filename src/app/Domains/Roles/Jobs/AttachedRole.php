@@ -9,13 +9,10 @@ class AttachedRole
 {
     /**
      * @param Role $role
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Role $role): bool
     {
-        return app()->make(AttachedRoleInterface::class)->attached($role);
+        return resolve(AttachedRoleInterface::class)->attached($role);
     }
 }

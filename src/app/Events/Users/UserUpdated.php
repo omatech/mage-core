@@ -11,9 +11,6 @@ class UserUpdated
 
     /**
      * UserUpdated constructor.
-     *
-     * @param UserInterface $user
-     * @param bool          $wasUpdated
      */
     public function __construct(UserInterface $user, bool $wasUpdated)
     {

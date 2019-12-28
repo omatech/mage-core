@@ -9,13 +9,10 @@ class UpdateUser
 {
     /**
      * @param User $user
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(User $user): bool
     {
-        return app()->make(UpdateUserInterface::class)->update($user);
+        return resolve(UpdateUserInterface::class)->update($user);
     }
 }

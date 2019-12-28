@@ -24,7 +24,7 @@ trait TranslationsBindingTrait
     private function translationBindings()
     {
         $this->app->bind('mage.translations', function () {
-            return $this->app->make(TranslationInterface::class);
+            return resolve(TranslationInterface::class);
         });
 
         $this->app->bind(TranslationInterface::class, Translation::class);

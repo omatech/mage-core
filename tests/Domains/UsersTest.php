@@ -15,13 +15,14 @@ use Omatech\Mage\Core\Events\Users\UserDeleted;
 use Omatech\Mage\Core\Events\Users\UserUpdated;
 use Omatech\Mage\Core\Models\User as UserModel;
 use Omatech\Mage\Core\Repositories\Users\AllUser;
+use Omatech\Mage\Core\Repositories\Users\FindUser;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class UsersTest extends BaseTestCase
 {
     public function testPaginateToArrayUser(): void
     {
-        $pagination = $this->app->make(UserInterface::class)::all(new AllUser());
+        $pagination = resolve(UserInterface::class)::all(new AllUser());
 
         $this->assertTrue(true === is_array($pagination));
     }
@@ -30,7 +31,9 @@ class UsersTest extends BaseTestCase
     {
         $user = $this->createUser();
 
-        $foundUser = $this->app->make(UserInterface::class)::find($user->getId());
+        $foundUser = resolve(UserInterface::class)::find(new FindUser(), [
+            'id' => $user->getId(),
+        ]);
 
         $this->assertTrue($foundUser instanceof UserInterface);
         $this->assertTrue($foundUser->getId() === $user->getId());
@@ -51,7 +54,9 @@ class UsersTest extends BaseTestCase
 
         $user->save();
 
-        $foundUser = $this->app->make(UserInterface::class)::find($user->getId());
+        $foundUser = resolve(UserInterface::class)::find(new FindUser(), [
+            'id' => $user->getId(),
+        ]);
 
         $this->assertTrue($foundUser instanceof UserInterface);
         $this->assertTrue($foundUser->getId() === $user->getId());
@@ -62,7 +67,9 @@ class UsersTest extends BaseTestCase
     {
         $this->expectException(UserDoesNotExistsException::class);
 
-        $this->app->make(UserInterface::class)::find(1);
+        resolve(UserInterface::class)::find(new FindUser(), [
+            'id' => 1,
+        ]);
     }
 
     public function testCreateUser(): void
@@ -412,7 +419,7 @@ class UsersTest extends BaseTestCase
     {
         $this->expectException(MethodDoesNotExistsException::class);
 
-        $this->app->make(User::class)::fromArray([
+        resolve(User::class)::fromArray([
             'noMethod' => 'noValue',
         ]);
     }

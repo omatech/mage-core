@@ -2,30 +2,21 @@
 
 namespace Omatech\Mage\Core\Domains\Users\Features;
 
+use Omatech\Mage\Core\Domains\Users\Contracts\FindUserInterface;
 use Omatech\Mage\Core\Domains\Users\Exceptions\UserDoesNotExistsException;
-use Omatech\Mage\Core\Domains\Users\Jobs\FindUser;
 use Omatech\Mage\Core\Domains\Users\User;
 
 class FindOrFailUser
 {
-    private $find;
-
     /**
-     * FindOrFailUser constructor.
-     */
-    public function __construct()
-    {
-        $this->find = new FindUser();
-    }
-
-    /**
-     * @param int $id
+     * @param FindUserInterface $find
+     * @param $params
      * @return User|null
      * @throws UserDoesNotExistsException
      */
-    public function make(int $id)
+    public function make(FindUserInterface $find, $params)
     {
-        $user = $this->find->make($id);
+        $user = $find->find($params);
 
         if (null === $user) {
             throw new UserDoesNotExistsException();

@@ -9,13 +9,10 @@ class ExistsPermission
 {
     /**
      * @param Permission $permission
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Permission $permission): bool
     {
-        return app()->make(ExistsPermissionInterface::class)->exists($permission);
+        return resolve(ExistsPermissionInterface::class)->exists($permission);
     }
 }

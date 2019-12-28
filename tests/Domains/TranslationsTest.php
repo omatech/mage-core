@@ -14,13 +14,14 @@ use Omatech\Mage\Core\Events\Translations\TranslationCreated;
 use Omatech\Mage\Core\Events\Translations\TranslationDeleted;
 use Omatech\Mage\Core\Events\Translations\TranslationUpdated;
 use Omatech\Mage\Core\Repositories\Translations\AllTranslation;
+use Omatech\Mage\Core\Repositories\Translations\FindTranslation;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class TranslationsTest extends BaseTestCase
 {
     public function testPaginateToArrayTranslation(): void
     {
-        $pagination = $this->app->make(TranslationInterface::class)::all(new AllTranslation());
+        $pagination = resolve(TranslationInterface::class)::all(new AllTranslation());
 
         $this->assertTrue(true === is_array($pagination));
     }
@@ -29,7 +30,9 @@ class TranslationsTest extends BaseTestCase
     {
         $translation = $this->createTranslation();
 
-        $foundTranslation = $this->app->make(TranslationInterface::class)::find($translation->getGroup().'.'.$translation->getKey());
+        $foundTranslation = resolve(TranslationInterface::class)::find(new FindTranslation(), [
+            'key' => $translation->getGroup().'.'.$translation->getKey(),
+        ]);
 
         $this->assertTrue($foundTranslation instanceof TranslationInterface);
         $this->assertTrue($translation->getId() === $foundTranslation->getId());
@@ -160,7 +163,7 @@ class TranslationsTest extends BaseTestCase
         $this->createTranslation();
         $this->createTranslation();
 
-        $translation = $this->app->make(TranslationInterface::class);
+        $translation = resolve(TranslationInterface::class);
 
         $path = $translation::export(new GetAllTranslations(), new ExporterToExcel());
 
@@ -173,7 +176,7 @@ class TranslationsTest extends BaseTestCase
         $this->createTranslation();
         $this->createTranslation();
 
-        $translation = $this->app->make(TranslationInterface::class);
+        $translation = resolve(TranslationInterface::class);
 
         $path = $translation::export(new GetAllTranslations(), new ExporterToArrayFile());
 
@@ -182,9 +185,10 @@ class TranslationsTest extends BaseTestCase
 
     public function testImportLanguageFromExcelsTranslations()
     {
-        $translation = $this->app->make(TranslationInterface::class);
+        $translation = resolve(TranslationInterface::class);
 
         $result = $translation::import(
+            new FindTranslation(),
             new ImporterFromExcel(),
             __DIR__.'/../stubs/stub.xlsx'
         );
@@ -194,9 +198,10 @@ class TranslationsTest extends BaseTestCase
 
     public function testImportSingleExistingLanguageFromExcelsTranslations()
     {
-        $translation = $this->app->make(TranslationInterface::class);
+        $translation = resolve(TranslationInterface::class);
 
         $result = $translation::import(
+            new FindTranslation(),
             new ImporterFromExcel(),
             __DIR__.'/../stubs/stub.xlsx',
             'ca'
@@ -207,9 +212,10 @@ class TranslationsTest extends BaseTestCase
 
     public function testImportSingleNotExistingLanguageFromExcelsTranslations()
     {
-        $translation = $this->app->make(TranslationInterface::class);
+        $translation = resolve(TranslationInterface::class);
 
         $result = $translation::import(
+            new FindTranslation(),
             new ImporterFromExcel(),
             __DIR__.'/../stubs/stub.xlsx',
             'jp'

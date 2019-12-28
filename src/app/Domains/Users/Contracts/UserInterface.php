@@ -133,10 +133,11 @@ interface UserInterface
     public static function all(AllUserInterface $all);
 
     /**
-     * @param int $id
+     * @param FindUserInterface $find
+     * @param array $params
      * @return mixed
      */
-    public static function find(int $id);
+    public static function find(FindUserInterface $find, array $params);
 
     /**
      * @return bool

@@ -26,7 +26,7 @@ trait RolesBindingTrait
     private function rolesBindings()
     {
         $this->app->bind('mage.roles', function () {
-            return $this->app->make(RoleInterface::class);
+            return resolve(RoleInterface::class);
         });
 
         $this->app->bind(RoleInterface::class, Role::class);

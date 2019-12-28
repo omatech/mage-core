@@ -11,9 +11,6 @@ class TranslationUpdated
 
     /**
      * TranslationUpdated constructor.
-     *
-     * @param TranslationInterface $translation
-     * @param bool                 $wasUpdated
      */
     public function __construct(TranslationInterface $translation, bool $wasUpdated)
     {

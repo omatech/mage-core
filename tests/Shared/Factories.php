@@ -16,7 +16,7 @@ trait Factories
     {
         $name = $name ?? $this->faker->name;
 
-        $permission = $this->app->make(PermissionInterface::class);
+        $permission = resolve(PermissionInterface::class);
         $permission->setName($name);
         $permission->setGuardName('web');
 
@@ -35,7 +35,7 @@ trait Factories
     {
         $name = $name ?? $this->faker->name;
 
-        $role = $this->app->make(RoleInterface::class);
+        $role = resolve(RoleInterface::class);
         $role->setName($name);
         $role->setGuardName('web');
 
@@ -55,7 +55,7 @@ trait Factories
         $name = $name ?? $this->faker->name;
         $email = $email ?? $this->faker->unique()->safeEmail;
 
-        $user = $this->app->make(UserInterface::class);
+        $user = resolve(UserInterface::class);
         $user->setName($name);
         $user->setLanguage(app()->getLocale());
         $user->setEmail($email);
@@ -76,7 +76,7 @@ trait Factories
     {
         $key = $key ?? 'mage.'.strtolower(str_replace(' ', '', $this->faker->name));
 
-        $translation = $this->app->make(TranslationInterface::class);
+        $translation = resolve(TranslationInterface::class);
 
         $translation->setKey($key);
         $translation->setTranslations($values);

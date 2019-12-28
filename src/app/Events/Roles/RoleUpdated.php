@@ -11,9 +11,6 @@ class RoleUpdated
 
     /**
      * RoleUpdated constructor.
-     *
-     * @param RoleInterface $role
-     * @param bool          $wasUpdated
      */
     public function __construct(RoleInterface $role, bool $wasUpdated)
     {

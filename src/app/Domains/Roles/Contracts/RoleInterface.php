@@ -13,7 +13,6 @@ interface RoleInterface
 
     /**
      * @param int $id
-     * @return mixed
      */
     public function setId(int $id);
 
@@ -24,7 +23,6 @@ interface RoleInterface
 
     /**
      * @param string $name
-     * @return mixed
      */
     public function setName(string $name);
 
@@ -35,7 +33,6 @@ interface RoleInterface
 
     /**
      * @param string $string
-     * @return mixed
      */
     public function setGuardName(string $string);
 
@@ -46,7 +43,6 @@ interface RoleInterface
 
     /**
      * @param string $createdAt
-     * @return mixed
      */
     public function setCreatedAt(string $createdAt);
 
@@ -57,7 +53,6 @@ interface RoleInterface
 
     /**
      * @param string $updatedAt
-     * @return mixed
      */
     public function setUpdatedAt(string $updatedAt);
 
@@ -73,15 +68,14 @@ interface RoleInterface
 
     /**
      * @param AllRoleInterface $all
-     * @return mixed
      */
     public static function all(AllRoleInterface $all);
 
     /**
-     * @param int $id
-     * @return mixed
+     * @param FindRoleInterface $find
+     * @param array $params
      */
-    public static function find(int $id);
+    public static function find(FindRoleInterface $find, array $params);
 
     /**
      * @return bool
@@ -95,31 +89,26 @@ interface RoleInterface
 
     /**
      * @param PermissionInterface $permission
-     * @return mixed
      */
     public function assignPermission(PermissionInterface $permission);
 
     /**
      * @param array $permissions
-     * @return mixed
      */
     public function assignPermissions(array $permissions);
 
     /**
      * @param PermissionInterface $permission
-     * @return mixed
      */
     public function removePermission(PermissionInterface $permission);
 
     /**
      * @param array $permissions
-     * @return mixed
      */
     public function removePermissions(array $permissions);
 
     /**
      * @param array $array
-     * @return mixed
      */
     public static function fromArray(array $array);
 }

@@ -13,7 +13,6 @@ class ExporterToArrayFile implements ExportTranslationInterface
 {
     /**
      * @param $translations
-     *
      * @return string
      */
     public function export(array $translations): string
@@ -34,7 +33,6 @@ class ExporterToArrayFile implements ExportTranslationInterface
 
     /**
      * @param array $translations
-     *
      * @return array
      */
     private function groupTranslations(array $translations): array

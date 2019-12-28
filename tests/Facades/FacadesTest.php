@@ -3,6 +3,10 @@
 namespace Omatech\Mage\Core\Tests\Facades;
 
 use Exception;
+use Omatech\Mage\Core\Domains\Permissions\Permission;
+use Omatech\Mage\Core\Domains\Roles\Role;
+use Omatech\Mage\Core\Domains\Translations\Translation;
+use Omatech\Mage\Core\Domains\Users\User;
 use Omatech\Mage\Core\Mage;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
@@ -10,42 +14,30 @@ class FacadesTest extends BaseTestCase
 {
     public function testPermissionFacade()
     {
-        $permission = $this->createPermission();
         $permissionFacade = Mage::domain('Permissions');
 
-        $found = $permissionFacade::find($permission->getId());
-
-        $this->assertTrue($found->getId() == $permission->getId());
+        $this->assertTrue(Permission::class == get_class($permissionFacade));
     }
 
     public function testRoleFacade()
     {
-        $role = $this->createRole();
         $roleFacade = Mage::domain('Roles');
 
-        $found = $roleFacade::find($role->getId());
-
-        $this->assertTrue($found->getId() == $role->getId());
+        $this->assertTrue(Role::class == get_class($roleFacade));
     }
 
     public function testUserFacade()
     {
-        $user = $this->createUser();
         $userFacade = Mage::domain('Users');
 
-        $found = $userFacade::find($user->getId());
-
-        $this->assertTrue($found->getId() == $user->getId());
+        $this->assertTrue(User::class == get_class($userFacade));
     }
 
     public function testTranslationFacade()
     {
-        $translation = $this->createTranslation();
         $translationFacade = Mage::domain('Translations');
 
-        $found = $translationFacade::find($translation->getGroup().'.'.$translation->getKey());
-
-        $this->assertTrue($found->getId() == $translation->getId());
+        $this->assertTrue(Translation::class == get_class($translationFacade));
     }
 
     public function testNotFoundFacade()

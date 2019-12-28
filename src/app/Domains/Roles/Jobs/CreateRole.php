@@ -9,13 +9,10 @@ class CreateRole
 {
     /**
      * @param Role $role
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Role $role): bool
     {
-        return app()->make(CreateRoleInterface::class)->create($role);
+        return resolve(CreateRoleInterface::class)->create($role);
     }
 }

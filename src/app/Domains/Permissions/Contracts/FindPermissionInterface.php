@@ -5,8 +5,8 @@ namespace Omatech\Mage\Core\Domains\Permissions\Contracts;
 interface FindPermissionInterface
 {
     /**
-     * @param int $id
+     * @param array $params
      * @return mixed
      */
-    public function find(int $id);
+    public function find(array $params);
 }

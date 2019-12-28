@@ -27,11 +27,9 @@ class ExistsAndDeleteRole
 
     /**
      * @param Role $role
-     *
+     * @return bool
      * @throws RoleDoesNotExistsException
      * @throws RoleIsAttachedException
-     *
-     * @return bool
      */
     public function make(Role $role): bool
     {

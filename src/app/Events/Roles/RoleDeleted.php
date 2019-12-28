@@ -11,9 +11,6 @@ class RoleDeleted
 
     /**
      * RoleDeleted constructor.
-     *
-     * @param RoleInterface $role
-     * @param bool          $wasDelete
      */
     public function __construct(RoleInterface $role, bool $wasDelete)
     {

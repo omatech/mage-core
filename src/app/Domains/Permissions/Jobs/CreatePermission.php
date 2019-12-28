@@ -9,13 +9,10 @@ class CreatePermission
 {
     /**
      * @param Permission $permission
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Permission $permission): bool
     {
-        return app()->make(CreatePermissionInterface::class)->create($permission);
+        return resolve(CreatePermissionInterface::class)->create($permission);
     }
 }

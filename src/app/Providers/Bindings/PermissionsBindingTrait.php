@@ -26,7 +26,7 @@ trait PermissionsBindingTrait
     private function permissionBindings()
     {
         $this->app->bind('mage.permissions', function () {
-            return $this->app->make(PermissionInterface::class);
+            return resolve(PermissionInterface::class);
         });
 
         $this->app->bind(PermissionInterface::class, Permission::class);

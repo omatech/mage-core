@@ -8,10 +8,9 @@ use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
 class ExportTranslation
 {
     /**
-     * @param AllTranslationInterface    $allTranslationInterface
+     * @param AllTranslationInterface $allTranslationInterface
      * @param ExportTranslationInterface $exportTranslationInterface
      * @param $locales
-     *
      * @return string
      */
     public function make(

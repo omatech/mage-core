@@ -5,8 +5,8 @@ namespace Omatech\Mage\Core\Domains\Users\Contracts;
 interface FindUserInterface
 {
     /**
-     * @param int $id
+     * @param array $params
      * @return mixed
      */
-    public function find(int $id);
+    public function find(array $params);
 }

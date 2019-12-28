@@ -5,12 +5,12 @@ namespace Omatech\Mage\Core\Domains\Translations;
 use Omatech\Mage\Core\Domains\Shared\Traits\FromArray;
 use Omatech\Mage\Core\Domains\Translations\Contracts\AllTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\ExportTranslationInterface;
+use Omatech\Mage\Core\Domains\Translations\Contracts\FindTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\ImportTranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Features\ExistsAndDeleteTranslation;
 use Omatech\Mage\Core\Domains\Translations\Features\FindOrFailTranslation;
 use Omatech\Mage\Core\Domains\Translations\Features\UpdateOrCreateTranslation;
-use Omatech\Mage\Core\Domains\Translations\Jobs\AllTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\ExportTranslation;
 use Omatech\Mage\Core\Domains\Translations\Jobs\ImportTranslation;
 
@@ -36,7 +36,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param int $id
-     * @return $this|mixed
+     * @return $this
      */
     public function setId(int $id)
     {
@@ -63,7 +63,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param string $key
-     * @return $this|mixed
+     * @return $this
      */
     public function setKey(string $key)
     {
@@ -83,7 +83,7 @@ class Translation implements TranslationInterface
     /**
      * @param string $language
      * @param string $text
-     * @return $this|mixed
+     * @return $this
      */
     public function setTranslation(string $language, string $text)
     {
@@ -102,7 +102,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param array $translations
-     * @return $this|mixed
+     * @return $this
      */
     public function setTranslations(array $translations)
     {
@@ -131,7 +131,7 @@ class Translation implements TranslationInterface
     }
 
     /**
-     * @return void
+     *
      */
     private function setMissingTranslations(): void
     {
@@ -152,7 +152,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param string|null $syncAt
-     * @return $this|mixed
+     * @return $this
      */
     public function setSyncAt(?string $syncAt)
     {
@@ -171,7 +171,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param string $createdAt
-     * @return $this|mixed
+     * @return $this
      */
     public function setCreatedAt(string $createdAt)
     {
@@ -190,7 +190,7 @@ class Translation implements TranslationInterface
 
     /**
      * @param string $updatedAt
-     * @return $this|mixed
+     * @return $this
      */
     public function setUpdatedAt(string $updatedAt)
     {
@@ -205,18 +205,19 @@ class Translation implements TranslationInterface
      */
     public static function all(AllTranslationInterface $all)
     {
-        return (new AllTranslation)
-            ->make($all, static::getLocales());
+        return $all->get(static::getLocales());
     }
 
     /**
-     * @param string $key
-     * @return static
+     * @param FindTranslationInterface $find
+     * @param array $params
+     * @return $this
      */
-    public static function find(string $key): self
+    public static function find(FindTranslationInterface $find, array $params): self
     {
-        return (new FindOrFailTranslation)->make($key);
+        return (new FindOrFailTranslation())->make($find, $params);
     }
+
 
     /**
      * @return bool
@@ -228,47 +229,46 @@ class Translation implements TranslationInterface
     {
         $this->setMissingTranslations();
 
-        return (new UpdateOrCreateTranslation)->make($this);
+        return (new UpdateOrCreateTranslation())->make($this);
     }
 
     /**
-     * @return bool
      * @throws Exceptions\TranslationDoesNotExistsException
      */
     public function delete(): bool
     {
-        return (new ExistsAndDeleteTranslation)->make($this);
+        return (new ExistsAndDeleteTranslation())->make($this);
     }
 
     /**
-     * @param AllTranslationInterface $allTranslationInterface
-     * @param ExportTranslationInterface $exportTranslationInterface
+     * @param AllTranslationInterface $all
+     * @param ExportTranslationInterface $export
      * @param array|null $locales
      * @return string
      */
     public static function export(
-        AllTranslationInterface $allTranslationInterface,
-        ExportTranslationInterface $exportTranslationInterface,
+        AllTranslationInterface $all,
+        ExportTranslationInterface $export,
         array $locales = null
     ) {
         $locales = $locales ?? static::getLocales();
 
-        return (new ExportTranslation)
-            ->make($allTranslationInterface, $exportTranslationInterface, $locales);
+        return (new ExportTranslation())->make($all, $export, $locales);
     }
 
     /**
-     * @param ImportTranslationInterface $importTranslationInterface
+     * @param FindTranslationInterface $find
+     * @param ImportTranslationInterface $import
      * @param string $path
      * @param string $locale
      * @return bool
      */
     public static function import(
-        ImportTranslationInterface $importTranslationInterface,
+        FindTranslationInterface $find,
+        ImportTranslationInterface $import,
         string $path,
         string $locale = ''
     ) {
-        return (new ImportTranslation)
-            ->make($importTranslationInterface, $path, $locale);
+        return (new ImportTranslation())->make($find, $import, $path, $locale);
     }
 }

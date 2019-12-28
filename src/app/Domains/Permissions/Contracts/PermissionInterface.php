@@ -66,10 +66,11 @@ interface PermissionInterface
     public static function all(AllPermissionInterface $all);
 
     /**
-     * @param int $id
+     * @param FindPermissionInterface $find
+     * @param array $params
      * @return mixed
      */
-    public static function find(int $id);
+    public static function find(FindPermissionInterface $find, array $params);
 
     /**
      * @return bool

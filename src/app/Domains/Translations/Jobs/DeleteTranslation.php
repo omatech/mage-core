@@ -9,13 +9,10 @@ class DeleteTranslation
 {
     /**
      * @param Translation $translation
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Translation $translation): bool
     {
-        return app()->make(DeleteTranslationInterface::class)->delete($translation);
+        return resolve(DeleteTranslationInterface::class)->delete($translation);
     }
 }

@@ -9,13 +9,10 @@ class DeleteUser
 {
     /**
      * @param User $user
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(User $user): bool
     {
-        return app()->make(DeleteUserInterface::class)->delete($user);
+        return resolve(DeleteUserInterface::class)->delete($user);
     }
 }

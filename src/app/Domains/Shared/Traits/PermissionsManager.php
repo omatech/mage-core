@@ -3,18 +3,22 @@
 namespace Omatech\Mage\Core\Domains\Shared\Traits;
 
 use Omatech\Mage\Core\Domains\Permissions\Contracts\PermissionInterface;
+use Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException;
 use Omatech\Mage\Core\Domains\Permissions\PermissionModel;
 
 trait PermissionsManager
 {
     private $permissions = [];
 
+    /**
+     * @return mixed
+     */
     abstract public function getPermissions();
 
     /**
      * @param PermissionInterface $permission
-     * @return $this
-     * @throws \Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException
+     * @return self
+     * @throws PermissionIsNotSavedException
      */
     public function assignPermission(PermissionInterface $permission)
     {
@@ -26,8 +30,8 @@ trait PermissionsManager
 
     /**
      * @param array $permissions
-     * @return $this
-     * @throws \Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException
+     * @return self
+     * @throws PermissionIsNotSavedException
      */
     public function assignPermissions(array $permissions)
     {
@@ -39,8 +43,8 @@ trait PermissionsManager
 
     /**
      * @param PermissionInterface $permission
-     * @return $this
-     * @throws \Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException
+     * @return self
+     * @throws PermissionIsNotSavedException
      */
     public function removePermission(PermissionInterface $permission)
     {
@@ -52,8 +56,8 @@ trait PermissionsManager
 
     /**
      * @param array $permissions
-     * @return $this
-     * @throws \Omatech\Mage\Core\Domains\Permissions\Exceptions\PermissionIsNotSavedException
+     * @return self
+     * @throws PermissionIsNotSavedException
      */
     public function removePermissions(array $permissions)
     {

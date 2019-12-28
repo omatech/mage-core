@@ -2,16 +2,17 @@
 
 namespace Omatech\Mage\Core\Domains\Translations\Features;
 
-use Omatech\Mage\Core\Domains\Translations\Jobs\FindTranslation;
+use Omatech\Mage\Core\Domains\Translations\Contracts\FindTranslationInterface;
 
 class FindOrFailTranslation
 {
     /**
-     * @param string $key
+     * @param FindTranslationInterface $find
+     * @param array $params
      * @return mixed
      */
-    public function make(string $key)
+    public function make(FindTranslationInterface $find, array $params)
     {
-        return (new FindTranslation())->make($key);
+        return $find->find($params);
     }
 }

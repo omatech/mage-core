@@ -9,13 +9,10 @@ class ExistsRole
 {
     /**
      * @param Role $role
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     *
      * @return bool
      */
     public function make(Role $role): bool
     {
-        return app()->make(ExistsRoleInterface::class)->exists($role);
+        return resolve(ExistsRoleInterface::class)->exists($role);
     }
 }

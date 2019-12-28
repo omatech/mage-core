@@ -13,13 +13,14 @@ use Omatech\Mage\Core\Events\Permissions\PermissionCreated;
 use Omatech\Mage\Core\Events\Permissions\PermissionDeleted;
 use Omatech\Mage\Core\Events\Permissions\PermissionUpdated;
 use Omatech\Mage\Core\Repositories\Permissions\AllPermission;
+use Omatech\Mage\Core\Repositories\Permissions\FindPermission;
 use Omatech\Mage\Core\Tests\BaseTestCase;
 
 class PermissionsTest extends BaseTestCase
 {
     public function testPaginateToArrayPermission(): void
     {
-        $pagination = $this->app->make(PermissionInterface::class)::all(new AllPermission());
+        $pagination = resolve(PermissionInterface::class)::all(new AllPermission());
 
         $this->assertTrue(true === is_array($pagination));
     }
@@ -28,7 +29,9 @@ class PermissionsTest extends BaseTestCase
     {
         $permission = $this->createPermission();
 
-        $foundPermission = $this->app->make(PermissionInterface::class)::find($permission->getId());
+        $foundPermission = resolve(PermissionInterface::class)::find(new FindPermission(), [
+            'id' => $permission->getId(),
+        ]);
 
         $this->assertInstanceOf(PermissionInterface::class, $foundPermission);
         $this->assertSame($foundPermission->getId(), $permission->getId());
@@ -38,7 +41,9 @@ class PermissionsTest extends BaseTestCase
     {
         $this->expectException(PermissionDoesNotExistsException::class);
 
-        $this->app->make(PermissionInterface::class)::find(1);
+        resolve(PermissionInterface::class)::find(new FindPermission(), [
+            'id' => 1,
+        ]);
     }
 
     public function testCreatePermission(): void
@@ -159,7 +164,7 @@ class PermissionsTest extends BaseTestCase
     {
         $this->expectException(MethodDoesNotExistsException::class);
 
-        $this->app->make(Permission::class)::fromArray([
+        resolve(Permission::class)::fromArray([
             'noMethod' => 'noValue',
         ]);
     }
