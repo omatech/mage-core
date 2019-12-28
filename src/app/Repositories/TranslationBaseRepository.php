@@ -7,6 +7,9 @@ use Omatech\Mage\Core\Models\LanguageLine;
 
 class TranslationBaseRepository extends BaseRepository
 {
+    /**
+     * @return string
+     */
     public function model(): string
     {
         return LanguageLine::class;

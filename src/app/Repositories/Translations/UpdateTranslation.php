@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
 class UpdateTranslation extends TranslationBaseRepository implements UpdateTranslationInterface
 {
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function update(TranslationInterface $translation): bool
     {
         $updated = $this->query()->find($translation->getId());

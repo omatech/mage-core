@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
 class ExistsTranslation extends TranslationBaseRepository implements ExistsTranslationInterface
 {
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function exists(TranslationInterface $translation): bool
     {
         return $this->query()

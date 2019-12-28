@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\PermissionBaseRepository;
 
 class UniquePermission extends PermissionBaseRepository implements UniquePermissionInterface
 {
+    /**
+     * @param PermissionInterface $permission
+     * @return bool
+     */
     public function unique(PermissionInterface $permission): bool
     {
         return $this->query()

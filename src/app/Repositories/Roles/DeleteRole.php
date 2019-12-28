@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\RoleBaseRepository;
 
 class DeleteRole extends RoleBaseRepository implements DeleteRoleInterface
 {
+    /**
+     * @param RoleInterface $role
+     * @return bool
+     */
     public function delete(RoleInterface $role): bool
     {
         $isDeleted = $this->query()

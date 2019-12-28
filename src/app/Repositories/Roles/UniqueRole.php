@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\RoleBaseRepository;
 
 class UniqueRole extends RoleBaseRepository implements UniqueRoleInterface
 {
+    /**
+     * @param RoleInterface $role
+     * @return bool
+     */
     public function unique(RoleInterface $role): bool
     {
         return $this->query()

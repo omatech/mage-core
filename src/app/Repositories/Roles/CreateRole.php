@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\RoleBaseRepository;
 
 class CreateRole extends RoleBaseRepository implements CreateRoleInterface
 {
+    /**
+     * @param RoleInterface $role
+     * @return bool
+     */
     public function create(RoleInterface $role): bool
     {
         $created = $this->query()->create([

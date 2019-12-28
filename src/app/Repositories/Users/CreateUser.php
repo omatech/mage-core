@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\UserBaseRepository;
 
 class CreateUser extends UserBaseRepository implements CreateUserInterface
 {
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
     public function create(UserInterface $user): bool
     {
         $created = $this->query()->create([

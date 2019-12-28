@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\PermissionBaseRepository;
 
 class AttachedPermission extends PermissionBaseRepository implements AttachedPermissionInterface
 {
+    /**
+     * @param PermissionInterface $permission
+     * @return bool
+     */
     public function attached(PermissionInterface $permission): bool
     {
         $model = $this->query()->find($permission->getId());

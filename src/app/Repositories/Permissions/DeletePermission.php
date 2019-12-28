@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\PermissionBaseRepository;
 
 class DeletePermission extends PermissionBaseRepository implements DeletePermissionInterface
 {
+    /**
+     * @param PermissionInterface $permission
+     * @return bool
+     */
     public function delete(PermissionInterface $permission): bool
     {
         $isDeleted = $this->query()

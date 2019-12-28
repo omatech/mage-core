@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\RoleBaseRepository;
 
 class ExistsRole extends RoleBaseRepository implements ExistsRoleInterface
 {
+    /**
+     * @param RoleInterface $role
+     * @return bool
+     */
     public function exists(RoleInterface $role): bool
     {
         return $this->query()

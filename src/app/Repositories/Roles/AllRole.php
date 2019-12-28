@@ -7,6 +7,9 @@ use Omatech\Mage\Core\Repositories\RoleBaseRepository;
 
 class AllRole extends RoleBaseRepository implements AllRoleInterface
 {
+    /**
+     * @return mixed
+     */
     public function get()
     {
         return $this->query()

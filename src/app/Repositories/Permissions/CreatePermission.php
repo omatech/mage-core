@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\PermissionBaseRepository;
 
 class CreatePermission extends PermissionBaseRepository implements CreatePermissionInterface
 {
+    /**
+     * @param PermissionInterface $permission
+     * @return bool
+     */
     public function create(PermissionInterface $permission): bool
     {
         $created = $this->query()->create([

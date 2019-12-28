@@ -7,6 +7,10 @@ use Omatech\Mage\Core\Repositories\PermissionBaseRepository;
 
 class FindPermission extends PermissionBaseRepository implements FindPermissionInterface
 {
+    /**
+     * @param array $params
+     * @return mixed|void
+     */
     public function find(array $params)
     {
         $permission = $this->query()->find($params['id']);

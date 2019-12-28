@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
 class UniqueTranslation extends TranslationBaseRepository implements UniqueTranslationInterface
 {
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function unique(TranslationInterface $translation): bool
     {
         return $this->query()

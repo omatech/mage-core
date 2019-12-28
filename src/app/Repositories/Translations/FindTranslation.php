@@ -8,7 +8,11 @@ use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
 class FindTranslation extends TranslationBaseRepository implements FindTranslationInterface
 {
-    public function find($params)
+    /**
+     * @param array $params
+     * @return mixed
+     */
+    public function find(array $params)
     {
         $translation = $this->query()
             ->where(DB::raw("CONCAT(`group`, '.', `key`)"), $params['key'])

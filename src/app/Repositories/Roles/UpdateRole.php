@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\RoleBaseRepository;
 
 class UpdateRole extends RoleBaseRepository implements UpdateRoleInterface
 {
+    /**
+     * @param RoleInterface $role
+     * @return bool
+     */
     public function update(RoleInterface $role): bool
     {
         $updated = $this->query()->find($role->getId());

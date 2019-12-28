@@ -5,6 +5,7 @@ language: php
 php:
   - 7.2
   - 7.3
+  - 7.4
 
 services:
   - mysql
@@ -18,7 +19,6 @@ env:
     - DB_TEST_PASSWORD=""
 
   matrix:
-    - COMPOSER_FLAGS="--prefer-lowest"
     - COMPOSER_FLAGS="--prefer-stable"
 
 before_script:

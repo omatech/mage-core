@@ -10,6 +10,7 @@ class FindRole extends RoleBaseRepository implements FindRoleInterface
 {
     /**
      * @param array $params
+     * @return mixed|void
      */
     public function find(array $params)
     {

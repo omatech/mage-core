@@ -7,6 +7,9 @@ use Omatech\Mage\Core\Repositories\PermissionBaseRepository;
 
 class AllPermission extends PermissionBaseRepository implements AllPermissionInterface
 {
+    /**
+     * @return mixed
+     */
     public function get()
     {
         return $this->query()

@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\RoleBaseRepository;
 
 class AttachedRole extends RoleBaseRepository implements AttachedRoleInterface
 {
+    /**
+     * @param RoleInterface $role
+     * @return bool
+     */
     public function attached(RoleInterface $role): bool
     {
         $model = $this->query()->find($role->getId());

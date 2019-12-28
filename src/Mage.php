@@ -6,6 +6,11 @@ use Exception;
 
 class Mage
 {
+    /**
+     * @param string $domain
+     * @return mixed
+     * @throws Exception
+     */
     public static function domain(string $domain)
     {
         switch ($domain) {

@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
 class CreateTranslation extends TranslationBaseRepository implements CreateTranslationInterface
 {
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function create(TranslationInterface $translation): bool
     {
         $created = $this->query()->create([

@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\UserBaseRepository;
 
 class DeleteUser extends UserBaseRepository implements DeleteUserInterface
 {
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
     public function delete(UserInterface $user): bool
     {
         $isDeleted = $this->query()

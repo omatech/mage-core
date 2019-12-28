@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\UserBaseRepository;
 
 class UpdateUser extends UserBaseRepository implements UpdateUserInterface
 {
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
     public function update(UserInterface $user): bool
     {
         $updated = $this->query()->find($user->getId());

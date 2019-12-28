@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\PermissionBaseRepository;
 
 class UpdatePermission extends PermissionBaseRepository implements UpdatePermissionInterface
 {
+    /**
+     * @param PermissionInterface $permission
+     * @return bool
+     */
     public function update(PermissionInterface $permission): bool
     {
         $updated = $this->query()->find($permission->getId());

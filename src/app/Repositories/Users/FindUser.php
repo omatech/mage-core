@@ -10,11 +10,10 @@ use Omatech\Mage\Core\Repositories\UserBaseRepository;
 class FindUser extends UserBaseRepository implements FindUserInterface
 {
     /**
-     * @param int $id
-     *
-     * @return mixed|null
+     * @param array $params
+     * @return void
      */
-    public function find($params)
+    public function find(array $params)
     {
         $user = $this->query()->find($params['id']);
 

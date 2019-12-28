@@ -9,6 +9,10 @@ use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
 class DeleteTranslation extends TranslationBaseRepository implements DeleteTranslationInterface
 {
+    /**
+     * @param TranslationInterface $translation
+     * @return bool
+     */
     public function delete(TranslationInterface $translation): bool
     {
         $isDeleted = $this->query()

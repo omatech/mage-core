@@ -8,6 +8,10 @@ use Omatech\Mage\Core\Repositories\PermissionBaseRepository;
 
 class ExistsPermission extends PermissionBaseRepository implements ExistsPermissionInterface
 {
+    /**
+     * @param PermissionInterface $permission
+     * @return bool
+     */
     public function exists(PermissionInterface $permission): bool
     {
         return $this->query()

@@ -7,7 +7,11 @@ use Omatech\Mage\Core\Repositories\TranslationBaseRepository;
 
 class AllTranslation extends TranslationBaseRepository implements AllTranslationInterface
 {
-    public function get($locales)
+    /**
+     * @param array $locales
+     * @return mixed
+     */
+    public function get(array $locales)
     {
         $select = ['id', 'group', 'key'];
 
