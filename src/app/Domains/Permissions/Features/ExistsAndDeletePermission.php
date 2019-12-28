@@ -25,7 +25,6 @@ class ExistsAndDeletePermission
         $this->delete = new DeletePermission();
     }
 
-
     /**
      * @param Permission $permission
      * @return bool

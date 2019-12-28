@@ -131,7 +131,7 @@ class Translation implements TranslationInterface
     }
 
     /**
-     *
+     * @return void
      */
     private function setMissingTranslations(): void
     {
@@ -217,7 +217,6 @@ class Translation implements TranslationInterface
     {
         return (new FindOrFailTranslation())->make($find, $params);
     }
-
 
     /**
      * @return bool
