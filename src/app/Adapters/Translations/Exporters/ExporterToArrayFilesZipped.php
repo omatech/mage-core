@@ -57,7 +57,7 @@ class ExporterToArrayFilesZipped implements ExportTranslationInterface
             $file = "<?php\n\nreturn [\n\n";
             $file .= "    /*\n";
             $file .= "    |--------------------------------------------------------------------------\n";
-            $file .= "    | ".ucfirst($group)."\n";
+            $file .= '    | '.ucfirst($group)."\n";
             $file .= "    |--------------------------------------------------------------------------\n";
             $file .= "    */\n";
 

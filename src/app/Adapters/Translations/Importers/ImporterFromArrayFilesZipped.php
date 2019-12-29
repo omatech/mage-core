@@ -100,7 +100,7 @@ class ImporterFromArrayFilesZipped implements ImportTranslationInterface
         $translations = [];
 
         foreach ($parsedFile as $translation) {
-            $group = array_slice($translation, 1, sizeof($translation) -2);
+            $group = array_slice($translation, 1, count($translation) -2);
             $group = implode('.', $group);
             foreach ($translation[array_key_last($translation)] as $key => $value) {
                 $translations[$group.'.'.$key]['key'] = $group.'.'.$key;
@@ -120,11 +120,11 @@ class ImporterFromArrayFilesZipped implements ImportTranslationInterface
     {
         $files = scandir($dir);
 
-        foreach ($files as $key => $value) {
+        foreach ($files as $value) {
             $path = realpath($dir.DIRECTORY_SEPARATOR.$value);
-            if (!is_dir($path)) {
+            if (! is_dir($path)) {
                 $results[] = $path;
-            } elseif ($value != "." && $value != "..") {
+            } elseif ($value != '.' && $value != '..') {
                 $this->getDirContents($path, $results);
             }
         }
