@@ -9,7 +9,7 @@ use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ZipArchive;
 
-class ExporterToArrayFile implements ExportTranslationInterface
+class ExporterToArrayFilesZipped implements ExportTranslationInterface
 {
     /**
      * @param $translations
@@ -40,7 +40,8 @@ class ExporterToArrayFile implements ExportTranslationInterface
         $groupedTranslations = [];
 
         foreach ($translations as $translation) {
-            $groupedTranslations[$translation['group']][] = [$translation['key'] => $translation['value']];
+            $key = str_replace($translation['group'].'.', '', $translation['key']);
+            $groupedTranslations[$translation['group']][] = [$key => $translation['value']];
         }
 
         return $groupedTranslations;
@@ -56,7 +57,7 @@ class ExporterToArrayFile implements ExportTranslationInterface
             $file = "<?php\n\nreturn [\n\n";
             $file .= "    /*\n";
             $file .= "    |--------------------------------------------------------------------------\n";
-            $file .= "    | $group\n";
+            $file .= "    | ".ucfirst($group)."\n";
             $file .= "    |--------------------------------------------------------------------------\n";
             $file .= "    */\n";
 

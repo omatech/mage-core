@@ -2,9 +2,10 @@
 
 namespace Omatech\Mage\Core\Tests\Domains;
 
-use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToArrayFile;
+use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToArrayFilesZipped;
 use Omatech\Mage\Core\Adapters\Translations\Exporters\ExporterToExcel;
 use Omatech\Mage\Core\Adapters\Translations\GetAllTranslations;
+use Omatech\Mage\Core\Adapters\Translations\Importers\ImporterFromArrayFilesZipped;
 use Omatech\Mage\Core\Adapters\Translations\Importers\ImporterFromExcel;
 use Omatech\Mage\Core\Domains\Translations\Contracts\TranslationInterface;
 use Omatech\Mage\Core\Domains\Translations\Exceptions\TranslationAlreadyExistsException;
@@ -178,7 +179,7 @@ class TranslationsTest extends BaseTestCase
 
         $translation = resolve(TranslationInterface::class);
 
-        $path = $translation::export(new GetAllTranslations(), new ExporterToArrayFile());
+        $path = $translation::export(new GetAllTranslations(), new ExporterToArrayFilesZipped());
 
         $this->assertFileExists($path);
     }
@@ -219,6 +220,60 @@ class TranslationsTest extends BaseTestCase
             new ImporterFromExcel(),
             __DIR__.'/../stubs/stub.xlsx',
             'jp'
+        );
+
+        $this->assertFalse($result);
+    }
+
+    public function testImportLanguageFromArrayFilesZippedTranslations()
+    {
+        $translation = resolve(TranslationInterface::class);
+
+        $result = $translation::import(
+            new FindTranslation(),
+            new ImporterFromArrayFilesZipped(),
+            __DIR__.'/../stubs/stub.zip'
+        );
+
+        $this->assertTrue($result);
+    }
+
+    public function testImportSingleExistingLanguageFromArrayFilesZippedTranslations()
+    {
+        $translation = resolve(TranslationInterface::class);
+
+        $result = $translation::import(
+            new FindTranslation(),
+            new ImporterFromArrayFilesZipped(),
+            __DIR__.'/../stubs/stub.zip',
+            'es'
+        );
+
+        $this->assertTrue($result);
+    }
+
+    public function testImportSingleNotExistingLanguageFromArrayFilesZippedTranslations()
+    {
+        $translation = resolve(TranslationInterface::class);
+
+        $result = $translation::import(
+            new FindTranslation(),
+            new ImporterFromArrayFilesZipped(),
+            __DIR__.'/../stubs/stub.zip',
+            'jp'
+        );
+
+        $this->assertFalse($result);
+    }
+
+    public function testImportDefaultLaravelTranslations()
+    {
+        $translation = resolve(TranslationInterface::class);
+
+        $result = $translation::import(
+            new FindTranslation(),
+            new ImporterFromArrayFilesZipped(),
+            __DIR__.'/../stubs/laravel.zip'
         );
 
         $this->assertTrue($result);

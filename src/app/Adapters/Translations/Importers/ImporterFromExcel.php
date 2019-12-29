@@ -38,8 +38,10 @@ class ImporterFromExcel implements ImportTranslationInterface
             array_push($sheetNames, $sheet->getName());
         }
 
-        if ('' != $locale) {
+        if ('' != $locale && in_array($locale, $sheetNames)) {
             $sheetNames = [0 => $locale];
+        } elseif ('' != $locale && !in_array($locale, $sheetNames)) {
+            $sheetNames = [];
         }
 
         return $sheetNames;
@@ -73,15 +75,17 @@ class ImporterFromExcel implements ImportTranslationInterface
         $translations = [];
         $parsedKeys = [];
 
-        foreach ($sheets as $lang => $trans) {
-            $translations[$sheetNames[$lang]] = $trans;
-        }
+        if ($sheetNames) {
+            foreach ($sheets as $lang => $trans) {
+                $translations[$sheetNames[$lang]] = $trans;
+            }
 
-        foreach ($translations as $lang => $keys) {
-            foreach ($keys as $key) {
-                if ('' != $key['key2']) {
-                    $parsedKeys[$key['key2']]['key'] = $key['key2'];
-                    $parsedKeys[$key['key2']]['value'][$lang] = $key['value'];
+            foreach ($translations as $lang => $keys) {
+                foreach ($keys as $key) {
+                    if ('' != $key['key2']) {
+                        $parsedKeys[$key['key2']]['key'] = $key['key2'];
+                        $parsedKeys[$key['key2']]['value'][$lang] = $key['value'];
+                    }
                 }
             }
         }
