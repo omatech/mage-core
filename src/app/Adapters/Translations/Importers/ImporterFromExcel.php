@@ -40,7 +40,7 @@ class ImporterFromExcel implements ImportTranslationInterface
 
         if ('' != $locale && in_array($locale, $sheetNames)) {
             $sheetNames = [0 => $locale];
-        } elseif ('' != $locale && !in_array($locale, $sheetNames)) {
+        } elseif ('' != $locale && ! in_array($locale, $sheetNames)) {
             $sheetNames = [];
         }
 
