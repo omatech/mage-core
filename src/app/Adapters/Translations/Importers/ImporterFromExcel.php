@@ -19,6 +19,10 @@ class ImporterFromExcel implements ImportTranslationInterface
         $sheetNames = $this->getSheets($path, $locale);
         $sheets = $this->importSheets($path, $sheetNames);
 
+        if (count($sheetNames) <= 0) {
+            return [];
+        }
+
         return $this->parseTranslations($sheetNames, $sheets);
     }
 
@@ -75,17 +79,15 @@ class ImporterFromExcel implements ImportTranslationInterface
         $translations = [];
         $parsedKeys = [];
 
-        if (! empty($sheetNames)) {
-            foreach ($sheets as $lang => $trans) {
-                $translations[$sheetNames[$lang]] = $trans;
-            }
+        foreach ($sheets as $lang => $trans) {
+            $translations[$sheetNames[$lang]] = $trans;
+        }
 
-            foreach ($translations as $lang => $keys) {
-                foreach ($keys as $key) {
-                    if ('' != $key['key2']) {
-                        $parsedKeys[$key['key2']]['key'] = $key['key2'];
-                        $parsedKeys[$key['key2']]['value'][$lang] = $key['value'];
-                    }
+        foreach ($translations as $lang => $keys) {
+            foreach ($keys as $key) {
+                if ('' != $key['key2']) {
+                    $parsedKeys[$key['key2']]['key'] = $key['key2'];
+                    $parsedKeys[$key['key2']]['value'][$lang] = $key['value'];
                 }
             }
         }
