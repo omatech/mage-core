@@ -61,12 +61,10 @@ class ImporterFromExcel implements ImportTranslationInterface
         $sheets = (new FastExcel());
 
         if (count($sheetNames) > 1) {
-            $sheets = $sheets->importSheets($path)->toArray();
-        } else {
-            $sheets = [$sheets->sheet(key($sheetNames) + 1)->import($path)->toArray()];
+            return $sheets->importSheets($path)->toArray();
         }
 
-        return $sheets;
+        return [$sheets->sheet(key($sheetNames) + 1)->import($path)->toArray()];
     }
 
     /**
