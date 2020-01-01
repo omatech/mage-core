@@ -2,22 +2,14 @@
 
 namespace Omatech\Mage\Core\Tests;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Omatech\Mage\Core\MageServiceProvider;
-use Omatech\Mage\Core\Models\User;
-use Omatech\Mage\Core\Providers\Bindings\PermissionsBindingTrait;
-use Omatech\Mage\Core\Providers\Bindings\RolesBindingTrait;
-use Omatech\Mage\Core\Providers\Bindings\TranslationsBindingTrait;
-use Omatech\Mage\Core\Providers\Bindings\UsersBindingTrait;
-use Omatech\Mage\Core\Tests\Shared\Factories;
 use Orchestra\Testbench\TestCase;
+use Omatech\Mage\Core\Models\User;
+use Omatech\Mage\Core\MageServiceProvider;
+use Omatech\Mage\Core\Tests\Shared\Factories;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BaseTestCase extends TestCase
 {
-    use PermissionsBindingTrait;
-    use RolesBindingTrait;
-    use TranslationsBindingTrait;
-    use UsersBindingTrait;
     use Factories;
     use RefreshDatabase;
 
@@ -26,11 +18,6 @@ class BaseTestCase extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->rolesBindings();
-        $this->permissionBindings();
-        $this->translationBindings();
-        $this->userBindings();
 
         $this->artisan('vendor:publish --tag=mage-migrations')->run();
         $this->artisan('migrate')->run();
@@ -42,7 +29,7 @@ class BaseTestCase extends TestCase
     public function getPackageProviders($app): array
     {
         return [
-            MageServiceProvider::class,
+            MageServiceProvider::class
         ];
     }
 

@@ -215,6 +215,9 @@ class Translation implements TranslationInterface
      */
     public static function find(FindTranslationInterface $find, array $params): self
     {
+        if (isset($params['key'])) {
+            $params['key'] = strtolower(str_replace(' ', '.', $params['key']));
+        }
         return (new FindOrFailTranslation())->make($find, $params);
     }
 

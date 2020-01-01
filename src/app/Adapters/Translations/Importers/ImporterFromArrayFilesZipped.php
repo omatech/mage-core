@@ -58,7 +58,7 @@ class ImporterFromArrayFilesZipped implements ImportTranslationInterface
                 return;
             }
 
-            $parsedFile[] = include $file;
+            $parsedFile[] = require $file;
 
             return $parsedFile;
         }, $files);

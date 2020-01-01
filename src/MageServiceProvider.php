@@ -5,6 +5,8 @@ namespace Omatech\Mage\Core;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
 use Omatech\Mage\Core\Providers\BindingServiceProvider;
+use Omatech\Mage\Core\Providers\HelperServiceProvider;
+use Omatech\Mage\Core\Providers\TranslatorServiceProvider;
 
 class MageServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,8 @@ class MageServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        parent::register();
+
         $this->mergeConfigFrom(
             __DIR__.'/../config/config.php',
             'mage'
@@ -37,16 +41,13 @@ class MageServiceProvider extends ServiceProvider
         );
 
         $this->mergeConfigFrom(
-            __DIR__.'/../config/auth.guards.php',
-            'auth.guards'
-        );
-
-        $this->mergeConfigFrom(
             __DIR__.'/../config/translation-loader.php',
             'translation-loader'
         );
 
         $this->app->register(BindingServiceProvider::class);
+        $this->app->register(TranslatorServiceProvider::class);
+        $this->app->register(HelperServiceProvider::class);
     }
 
     public function migrations()

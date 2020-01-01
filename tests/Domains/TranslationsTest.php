@@ -158,6 +158,74 @@ class TranslationsTest extends BaseTestCase
         $permission->save();
     }
 
+    public function testCreateTranslationToDatabase()
+    {
+        $this->assertDatabaseMissing(config('translation-loader.table_name'), [
+            'group' => 'mage',
+            'key' => 'test.key'
+        ]);
+
+        $this->assertTrue(trans('mage.test.key') == 'mage.test.key');
+
+        $this->assertDatabaseHas(config('translation-loader.table_name'), [
+            'group' => 'mage',
+            'key' => 'test.key'
+        ]);
+    }
+
+    public function testTHelperWithoutKey()
+    {
+        $this->assertDatabaseMissing(config('translation-loader.table_name'), [
+            'group' => 'mage',
+            'key' => 'test.key',
+            'text' => json_encode([app()->getLocale() => 'Test Value'])
+        ]);
+
+        $this->assertTrue(t('Test Value') == 'Test Value');
+
+        $this->assertDatabaseMissing(config('translation-loader.table_name'), [
+            'group' => 'mage',
+            'key' => 'test.key',
+            'text' => json_encode([
+                app()->getLocale() => 'Test Value'
+            ])
+        ]);
+    }
+
+    public function testTHelperWithDefaultValue()
+    {
+        $this->assertDatabaseMissing(config('translation-loader.table_name'), [
+            'group' => 'mage',
+            'key' => 'test.key',
+            'text' => json_encode([app()->getLocale() => 'Test Value'])
+        ]);
+
+        $this->assertTrue(t('Test Value', 'mage.test.key') == 'Test Value');
+
+        $this->assertDatabaseHas(config('translation-loader.table_name'), [
+            'group' => 'mage',
+            'key' => 'test.key',
+            'text->'.app()->getLocale() => 'Test Value'
+        ]);
+    }
+
+    public function testTHelperWithDefaultValueAndParams()
+    {
+        $this->assertDatabaseMissing(config('translation-loader.table_name'), [
+            'group' => 'mage',
+            'key' => 'test.key',
+            'text' => json_encode([app()->getLocale() => 'Test Value'])
+        ]);
+
+        $this->assertTrue(t('Test Value :param', 'mage.test.key', ['param' => 'TestParam']) == 'Test Value TestParam');
+
+        $this->assertDatabaseHas(config('translation-loader.table_name'), [
+            'group' => 'mage',
+            'key' => 'test.key',
+            'text->'.app()->getLocale() => 'Test Value :param'
+        ]);
+    }
+
     public function testExportToExcelTranslation()
     {
         $this->createTranslation();
